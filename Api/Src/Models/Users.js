@@ -1,7 +1,5 @@
 const { Schema, model, models } = require('mongoose');
 
-const Cars = require("./Cars.js");
-
 
 const users = new Schema(
     {
@@ -30,8 +28,7 @@ const users = new Schema(
             unique: true
         },
         location:{
-            type: Schema.Types.ObjectId,
-            ref: "Location",
+            type: String,
             required: true,
         },
         telephone:{
