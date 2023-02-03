@@ -6,7 +6,6 @@ const billing = new Schema(
         status:{
             type: String,
             required: true
-
         },
         detail:{
             type: String,
