@@ -1,77 +1,101 @@
-const { Schema, model, models } = require('mongoose');
+const mongoose = require("mongoose");
 
-const TypeOfVehicle = require("./TypeOfVehicle");
-
-
-const cars = new Schema(
-        {
-        licensePlate:{
-            type: String,
-            required: true,
-            unique: true,
-            minLength: 6,
-            maxLength: 8
-        },
-        brands:{
-            type: String,
-            required: true,
-            unique: true,
-            minLength: 3,
-            maxLength: 15
-        },
-        image:{
-            type: [String],
-            required: true
-        },
-        typeOfVehicle:{
-            type: Schema.Types.ObjectId,
-            ref:"TypeOfVehicle",
-            required: true,
-        },
-        status:{
-            type: Boolean,
-            default: true
-        },
-        price:{
-            type: Number,
-            required: true,
-        },
-        description:{
-            type: String,
-            required: true,
-            minLength: 5,
-            maxLength: 2500
-        },
-        fuelConsumption:{
-            type: String,
-            required: true
-        },
-        location:{
-            type: String,
-            required: true
-        },
-        colour:{
-            type: String,
-            required: true
-        },
-        discount:{
-            type: Number,
-            required: false
-        },
-        doors:{
-            type: String,
-            required: true
-        },
-        active:{
-            type: Boolean,
-            default: true,
-            required: true
-        },
-    },
+const carSchema = mongoose.Schema({
+  licensePlate: {
+    type: String,
+    required: true,
+    minLength: 3,
+    maxLength: 10,
+  },
+  brand: {
+    type: String,
+    required: true,
+    minLength: 3,
+    maxLength: 15,
+  },
+  image: {
+    type: String,
+    required: true,
+    default:
+      "https://bateriasparacarrosbogota.com/wp-content/uploads/2017/10/baterias-para-carro-spark.png",
+  },
+  status: {
+    type: String,
+    enum: ["valid", "invalid"],
+    default: "valid",
+  },
+  active: {
+    type: String,
+    enum: ["valid", "invalid"],
+    default: "valid",
+  },
+  preci: {
+    type: Number,
+    required: true,
+    minLength: 1,
+  },
+  description: {
+    type: String,
+    required: true,
+    minLength: 30,
+    maxLength: 500,
+  },
+  fuelConsumption: {
+    type: String,
+    required: true,
+    minLength: 3,
+    maxLength: 15,
+  },
+  location: {
+    type: String,
+    required: true,
+    minLength: 10,
+    maxLength: 200,
+  },
+  colour: [
     {
-        timestamps: true
-    })
-
-
-    
-module.exports = models["Cars"] || model("Cars", cars);
+      type: String,
+      required: true,
+      minLength: 3,
+      maxLength: 15,
+    },
+  ],
+  discount: {
+    type: Number,
+    default: 0,
+    maxLength: 99,
+  },
+  doors: {
+    type: Number,
+    required: true,
+  },
+  line: {
+    type: String,
+    required: true,
+    minLength: 3,
+    maxLength: 50,
+  },
+  category: {
+    type: String,
+    required: true,
+    minLength: 3,
+    maxLength: 15,
+  },
+  fuelType: {
+    type: String,
+    enum: ["gasoline", "electric", "gas", "hybrid"],
+    default: "gasoline",
+  },
+  typeOfBox: {
+    type: String,
+    enum: ["automatic", "Handbook", "semiautomatic"],
+    default: "Handbook",
+  },
+  review: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "Review",
+    },
+  ],
+});
+module.exports = mongoose.model("Cars", carSchema);

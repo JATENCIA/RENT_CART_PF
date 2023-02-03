@@ -1,56 +1,57 @@
 const express = require("express");
-const userSchema = require("../Models/Users");
+const accessoriesSchema = require("../Models/Accessories");
 const router = express.Router();
 
-// Create user
-
+/* This is a post request that is saving the data to the database. */
 router.post("/", (req, res) => {
-  const user = userSchema(req.body);
-  user
+  const accessories = accessoriesSchema(req.body);
+  accessories
     .save()
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
 
-// get all users
+/* This is a get request that is getting the data from the database. */
 router.get("/", (req, res) => {
-  userSchema
+  accessoriesSchema
     .find()
-    .populate("review", { description: 1, rate: 1, car: 1 })
+    .populate("review", { description: 1, rate: 1 })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
 
-// get a user
+/* This is a get request that is getting the data from the database. */
 router.get("/:id", (req, res) => {
   const { id } = req.params;
-  userSchema
+  accessoriesSchema
+
     .findById(id)
-    .populate("review", { description: 1, rate: 1, car: 1 })
+    .populate("review", { description: 1, rate: 1 })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
 
-// update a user
+/* This is a put request that is updating the data from the database. */
 router.put("/:id", (req, res) => {
   const { id } = req.params;
-  const { name, lastName, kindOfPerson, eMail, location, telephone } = req.body;
-  userSchema
+  const { name, preci, description, image, discount } = req.body;
+  accessoriesSchema
+
     .updateOne(
       { _id: id },
-      { $set: { name, lastName, kindOfPerson, eMail, location, telephone } }
+      { $set: { name, preci, description, image, discount } }
     )
     .populate("review", { description: 1, rate: 1 })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
 
-// update a user
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
-  const { active } = req.body;
-  userSchema
-    .updateOne({ _id: id }, { $set: { active } })
+  const { status } = req.body;
+  accessoriesSchema
+
+    .updateOne({ _id: id }, { $set: { status } })
     .populate("review", { description: 1, rate: 1 })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));

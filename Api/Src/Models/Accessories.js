@@ -1,45 +1,46 @@
-const { Schema, model, models } = require('mongoose');
+const mongoose = require("mongoose");
 
-
-const accessories = new Schema(
-        {
-        name:{
-            type: String,
-            required: true
-        },
-        price:{
-            type: Number,
-            required: true
-        },
-        image:{
-            type: [String],
-            required: true
-        },
-        description:{
-            type: String,
-            required: true,
-            minLength: 5,
-            maxLength:2500,
-        },
-        status:{
-            type: String,
-            required: true,
-            default: true
-        },
-        discount:{
-            type: Number,
-            required: false,
-        },
-        active:{
-            type: Boolean,
-            default: true,
-            required: true
-        },
-    },
+const accessoriesSchema = mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    unique: true,
+    minLength: 3,
+    maxLength: 50,
+  },
+  preci: {
+    type: Number,
+    required: true,
+    minLength: 1,
+  },
+  description: {
+    type: String,
+    required: true,
+    minLength: 30,
+    maxLength: 500,
+  },
+  image: {
+    type: String,
+    required: true,
+    default:
+      "https://actionaudiostore.com/images/accessories/car-accessories-png-5.png",
+  },
+  status: {
+    type: String,
+    enum: ["valid", "invalid"],
+    default: "valid",
+  },
+  discount: {
+    type: Number,
+    default: 0,
+    maxLength: 99,
+  },
+  review: [
     {
-        timestamps: true
-    })
+      type: mongoose.Types.ObjectId,
+      ref: "ReviewAccessories",
+    },
+  ],
+});
 
-
-    
-module.exports = models["Accessories"] || model("Accessories", accessories);
+module.exports = mongoose.model("Accesories", accessoriesSchema);
