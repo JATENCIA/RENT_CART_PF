@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 const Card = ({car}) => {
   return (
-    <Link to={`/detail/${car.id_license_plare}`} className = 'link'>
+    <Link to={`/detail/${car.id_license_plare}`} state={car} className = 'link'>
 		<div className='card'>
       <div className='texts'>		      
         <div className='text'>{car.name}</div>
