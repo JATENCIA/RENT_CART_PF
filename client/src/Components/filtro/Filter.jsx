@@ -3,7 +3,7 @@ import './Filter.css';
 // Con archivo de excluidos
 export function Filter({cars,filterInHome,paginate,xclude}) {  
 	const [filter, setFilter] = useState(1);
-	let image = "https://uploads-ssl.webflow.com/62167102782a877db7cb5371/6228085b47f25a5082e1af42_vc-kia-picanto-manual.png"
+	let image = "https://content.r9cdn.net/rimg/carimages/generic/02_economy_red.png?height=116"
 	const filterCar = cars, brand =[],brandTT =[], discount =[],discountTT =[], category =[],categoryTT =[], typeOfBox =[],typeOfBoxTT =[], fuelType =[],fuelTypeTT =[], doors =[],doorsTT =[];
 	function fnFilter(event) {
 		event.preventDefault();
@@ -68,8 +68,8 @@ export function Filter({cars,filterInHome,paginate,xclude}) {
 								<div className='filtercard' onClick={(e) => (selectfilter (e, obj),filterInHome (e, obj,0),paginate(e,1))}>
 								{
 								xclude[0].includes(obj)?
-									<div><img id = {obj} className='filtimgF' src="https://content.r9cdn.net/rimg/carimages/generic/02_economy_red.png?height=116" alt={"No"} /></div>:
-									<div><img id = {obj} className='filtimg' src="https://content.r9cdn.net/rimg/carimages/generic/02_economy_red.png?height=116" alt={"No"} /></div>}
+									<div><img id = {obj} className='filtimgF' src={image} alt={"No"} /></div>:
+									<div><img id = {obj} className='filtimg' src={image} alt={"No"} /></div>}
 									<div>{obj} ({brandTT[ind]})</div>	
 								</div>	
 							))
@@ -84,8 +84,8 @@ export function Filter({cars,filterInHome,paginate,xclude}) {
 								<div className='filtercard' onClick={(e) => (selectfilter (e, obj),filterInHome (e, obj,1),paginate(e,1))}>
 								{
 								xclude[1].includes(obj)?
-									<div><img id = {obj} className='filtimgF' src="https://content.r9cdn.net/rimg/carimages/generic/02_economy_red.png?height=116" alt={"No"} /></div>:
-									<div><img id = {obj} className='filtimg' src="https://content.r9cdn.net/rimg/carimages/generic/02_economy_red.png?height=116" alt={"No"} /></div>}
+									<div><img id = {obj} className='filtimgF' src={image} alt={"No"} /></div>:
+									<div><img id = {obj} className='filtimg' src={image} alt={"No"} /></div>}
 									<div>{obj} ({categoryTT[ind]})</div>	
 								</div>					
 							))
@@ -100,8 +100,8 @@ export function Filter({cars,filterInHome,paginate,xclude}) {
 								<div className='filtercard' onClick={(e) => (selectfilter (e, obj),filterInHome (e, obj,2),paginate(e,1))}>
 								{
 								xclude[2].includes(obj)?
-									<div><img id = {obj} className='filtimgF' src="https://content.r9cdn.net/rimg/carimages/generic/02_economy_red.png?height=116" alt={"No"} /></div>:
-									<div><img id = {obj} className='filtimg' src="https://content.r9cdn.net/rimg/carimages/generic/02_economy_red.png?height=116" alt={"No"} /></div>}
+									<div><img id = {obj} className='filtimgF' src={image} alt={"No"} /></div>:
+									<div><img id = {obj} className='filtimg' src={image} alt={"No"} /></div>}
 									<div>{obj} ({typeOfBoxTT[ind]})</div>	
 								</div>					
 							))
@@ -116,8 +116,8 @@ export function Filter({cars,filterInHome,paginate,xclude}) {
 								<div className='filtercard' onClick={(e) => (selectfilter (e, obj),filterInHome (e, obj,3),paginate(e,1))}>
 								{
 								xclude[3].includes(obj)?
-									<div><img id = {obj} className='filtimgF' src="https://content.r9cdn.net/rimg/carimages/generic/02_economy_red.png?height=116" alt={"No"} /></div>:
-									<div><img id = {obj} className='filtimg' src="https://content.r9cdn.net/rimg/carimages/generic/02_economy_red.png?height=116" alt={"No"} /></div>}
+									<div><img id = {obj} className='filtimgF' src={image} alt={"No"} /></div>:
+									<div><img id = {obj} className='filtimg' src={image} alt={"No"} /></div>}
 									<div>{obj} ({fuelTypeTT[ind]})</div>	
 								</div>	
 							))
@@ -133,8 +133,8 @@ export function Filter({cars,filterInHome,paginate,xclude}) {
 								<div className='filtercard' onClick={(e) => (selectfilter (e, obj),filterInHome (e, obj,4),paginate(e,1))}>
 								{
 								xclude[4].includes(obj)?
-									<div><img id = {obj} className='filtimgF' src="https://content.r9cdn.net/rimg/carimages/generic/02_economy_red.png?height=116" alt={"No"} /></div>:
-									<div><img id = {obj} className='filtimg' src="https://content.r9cdn.net/rimg/carimages/generic/02_economy_red.png?height=116" alt={"No"} /></div>}
+									<div><img id = {obj} className='filtimgF' src={image} alt={"No"} /></div>:
+									<div><img id = {obj} className='filtimg' src={image} alt={"No"} /></div>}
 									<div>{obj} ({discountTT[ind]})</div>	
 								</div>						
 							))
