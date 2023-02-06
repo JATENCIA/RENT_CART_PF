@@ -12,25 +12,35 @@
 .text1{
 	font-weight: bold;
 }
+.conText{
+    display: grid;
+    grid-template-rows: 23% 23% 23% 23%;
+}
 .text3{
 	font-weight: bold;
-    font-size: 120%;
+    font-size: 140%;
 }
-.text1, .text2, .text3  {
+.text1, .text2, .text3, .text4  {
 	font-family: 'RocknRoll One', sans-serif;
 	height: 18px;
     color: #354f52cc;
     margin: 10px;
 }
+.text4{
+    margin: 120%;
+    font-size: 91%;
+    line-height: 98%;
+}
 .texts{
-    margin: 0px;
+    display: grid;
+    grid-template-rows: 13% 47% 18% 10%;
 }
 .texts div{
     margin: 2px;
 }
 .img {
-	height: 140px;
-	width: 180px;
+	height: 125px;
+	width: 160px;
 	border-radius: 20px;
       
 }

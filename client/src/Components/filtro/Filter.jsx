@@ -59,6 +59,8 @@ export function Filter({cars,filterInHome,paginate,xclude}) {
 		<>
         <div>Filtered out</div>
 		<div className='filt'>
+			
+			
 			<div className='filtT' >
 				<div id='1' className='item' onClick={(event)=>{fnFilter(event)}}> - By brand </div>
 				{filter === "1"? 
@@ -135,7 +137,7 @@ export function Filter({cars,filterInHome,paginate,xclude}) {
 								xclude[4].includes(obj)?
 									<div><img id = {obj} className='filtimgF' src={image} alt={"No"} /></div>:
 									<div><img id = {obj} className='filtimg' src={image} alt={"No"} /></div>}
-									<div>{obj} ({discountTT[ind]})</div>	
+									<div> {obj}% Discount ({discountTT[ind]})</div>	
 								</div>						
 							))
 						}		

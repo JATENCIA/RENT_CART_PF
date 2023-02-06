@@ -14,11 +14,14 @@ const Card = ({car}) => {
   
       <div className='texts'>		      
         <div className='text1'>{car.brand}-{car.line}</div>
-        <div className='text2'>Category: {car.category} </div>	
-        <div className='text2'>Transmision: {car.typeOfBox} </div>	
-        <div className='text2'>doors: {car.doors}  </div>	
-        <div className='text2'>Fuel Type: {car.fuelType}  </div>	
-        <div className='text3'>US$ {car.preci}</div>	
+        <div className='conText'>
+          <div className='text2'>Category: {car.category} </div>	
+          <div className='text2'>Transmision: {car.typeOfBox} </div>	
+          <div className='text2'>Doors: {car.doors}  </div>	
+          <div className='text2'>Fuel Type: {car.fuelType}  </div>	
+        </div>
+        <div className='text3'>US$ {car.price}</div>	        
+        <div className='text4'>{car.location}  </div>	
       </div>
 
       <div className='cardPart3'>

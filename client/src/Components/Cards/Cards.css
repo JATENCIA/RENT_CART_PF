@@ -11,3 +11,9 @@
     margin: 10px;
     color: #003566;
 }
+
+.titleCar{
+    display: grid;
+	grid-template-columns: 20% 80%;
+
+}

@@ -6,7 +6,7 @@ function NavBar() {
   return (
     <>
       <ContainerStyled>
-        <a href="/home">RENT CAR</a>
+        <ListStyled to="/home">RENT CAR</ListStyled>
         <NavStyled>
           <ListStyled to="/home">HOME</ListStyled>
           <ListStyled to="/about">ABOUT US</ListStyled>
