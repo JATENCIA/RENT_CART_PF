@@ -10,7 +10,7 @@ const userSchema = mongoose.Schema({
   },
   image: {
     type: String,
-    required: true,
+    required: false,
     default: "http://cdn.onlinewebfonts.com/svg/img_141364.png",
   },
   lastName: {
@@ -21,14 +21,14 @@ const userSchema = mongoose.Schema({
   },
   dni: {
     type: Number,
-    require: true,
+    require: false,
     unique: true,
     minLength: 7,
     maxLength: 10,
   },
   kindOfPerson: {
     type: String,
-    required: true,
+    required: false,
     minLength: 5,
     maxLength: 15,
   },
@@ -40,11 +40,11 @@ const userSchema = mongoose.Schema({
   location: {
     type: String,
     ref: "Location",
-    required: true,
+    required: false,
   },
   telephone: {
     type: String,
-    required: true,
+    required: false,
     unique: true,
     minLength: 9,
   },

@@ -11,16 +11,16 @@ export const RESERVED = "RESERVED"
 
 
 
-export function getAllAccsessories () {
-  try {    
-      return function (dispatch) {
-        return fetch(`http://localhost:3001/accessories`)
-          .then(response => response.json())
-          .then(json => {
-            console.log(json, "esteeee");
-            dispatch({ type: "GET_ALL_ACCESSORIES", payload: json });
-          });
-      };
+export function getAllAccsessories() {
+  try {
+    return function (dispatch) {
+      return fetch(`http://localhost:3001/accessories`)
+        .then(response => response.json())
+        .then(json => {
+          console.log(json, "esteeee");
+          dispatch({ type: "GET_ALL_ACCESSORIES", payload: json });
+        });
+    };
   } catch (e) {
     console.log(e)
   }
@@ -28,19 +28,19 @@ export function getAllAccsessories () {
 
 export const getAllCars = () => async (dispatch) => {
   try {
-    const result = await axios.get("http://localhost:3001/cars")
+    const { data } = await axios.get("http://localhost:3001/cars")
     dispatch({
       type: "GET_ALL_CARS",
-      payload: result.data
+      payload: data
     })
   } catch (e) {
     console.log(e)
   }
 }
 
-export const getCarById = (id) => async (dispatch) => {
+export const getCarById = (licensePlate) => async (dispatch) => {
   try {
-    const { data } = await axios.get(`http://localhost:3001/cars/${id}`)
+    const { data } = await axios.get(`http://localhost:3001/cars/${licensePlate}`)
     dispatch({
       type: "GET_CAR_BY_ID",
       payload: data
