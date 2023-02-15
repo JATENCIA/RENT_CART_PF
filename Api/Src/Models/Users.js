@@ -10,7 +10,6 @@ const userSchema = mongoose.Schema({
   },
   image: {
     type: String,
-    required: false,
     default: "http://cdn.onlinewebfonts.com/svg/img_141364.png",
   },
   lastName: {
@@ -28,7 +27,7 @@ const userSchema = mongoose.Schema({
   },
   kindOfPerson: {
     type: String,
-    required: false,
+
     minLength: 5,
     maxLength: 15,
   },
@@ -40,21 +39,16 @@ const userSchema = mongoose.Schema({
   location: {
     type: String,
     ref: "Location",
-    required: false,
   },
   telephone: {
     type: String,
-    required: false,
+
     unique: true,
     minLength: 9,
   },
   roll: {
     type: String,
-
     enum: ["admin", "user", "superAdmin"],
-
-    enum: ["user", "admin", "superAdmin"],
-
     default: "user",
   },
   active: {
@@ -86,7 +80,7 @@ const userSchema = mongoose.Schema({
     required: true,
   },
 
-  favorite: {
+  favorites: {
     type: Array,
   },
 
@@ -98,9 +92,3 @@ const userSchema = mongoose.Schema({
 });
 
 module.exports = mongoose.model("Users", userSchema);
-
-//admin nombre apellido email password
-// incriptar password
-// password para user
-// hacer el pdf mero capricho
-// mercado pago
