@@ -8,6 +8,11 @@ const userSchema = mongoose.Schema({
     minLength: 3,
     maxLength: 50,
   },
+  image: {
+    type: String,
+    required: true,
+    default: "http://cdn.onlinewebfonts.com/svg/img_141364.png",
+  },
   lastName: {
     type: String,
     required: true,
@@ -19,7 +24,7 @@ const userSchema = mongoose.Schema({
     require: true,
     unique: true,
     minLength: 7,
-    maxLength:10
+    maxLength: 10,
   },
   kindOfPerson: {
     type: String,
@@ -41,29 +46,26 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    minLength: 10,
+    minLength: 9,
   },
   roll: {
     type: String,
-    enum: ["admin", "user"],
+
+    enum: ["admin", "user", "superAdmin"],
+
+    enum: ["user", "admin", "superAdmin"],
+
     default: "user",
-  },
-  dni: {
-    type: Number,
-    require: true,
-    unique: true,
-    minLength: 7,
-    maxLength: 10,
   },
   active: {
     type: String,
     enum: ["valid", "invalid"],
     default: "valid",
   },
-  review: [
+  billing: [
     {
       type: mongoose.Types.ObjectId,
-      ref: "Review",
+      ref: "Billings",
     },
   ],
   reviewAccesories: [
@@ -72,6 +74,33 @@ const userSchema = mongoose.Schema({
       ref: "ReviewAccessories",
     },
   ],
+
+  review: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "Review",
+    },
+  ],
+  password: {
+    type: String,
+    required: true,
+  },
+
+  favorite: {
+    type: Array,
+  },
+
+  loading: {
+    type: String,
+    enum: ["valid", "invalid"],
+    default: "invalid",
+  },
 });
 
 module.exports = mongoose.model("Users", userSchema);
+
+//admin nombre apellido email password
+// incriptar password
+// password para user
+// hacer el pdf mero capricho
+// mercado pago

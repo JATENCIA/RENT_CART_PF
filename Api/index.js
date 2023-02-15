@@ -1,16 +1,20 @@
 const express = require("express");
+const app = express();
+const path = require("path");
+const morgan = require("morgan");
 const { MONGODB } = require("./db");
-const userRoutes = require("./Src/Routes/Users");
-const reviewRoutes = require("./Src/Routes/Review");
 const router = require("./Src/Routes/Index");
+const cookieParser = require("cookie-parser");
+
+const port = process.env.PORT || 3001;
 require("dotenv").config();
 
-const app = express();
-const port = process.env.PORT || 3001;
-
 app.use(express.json());
-
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: false }));
+
 app.use((_req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Credentials", "true");
@@ -21,10 +25,10 @@ app.use((_req, res, next) => {
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   next();
 });
-
+app.use(morgan("dev"));
 app.use("/", router);
 app.get("/", (req, res) => {
-  res.send("Welcome to PF API");
+  res.status(200).send("Welcome to PF API");
 });
 
 MONGODB();

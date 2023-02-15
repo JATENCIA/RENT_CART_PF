@@ -12,7 +12,7 @@ function NotFound() {
           <p>404 ERROR</p>
         </ErrorStyled>
 
-        <p>¡OOPS! PAGE NOT FOUND</p>
+        <TitleStyled>¡OOPS! PAGE NOT FOUND</TitleStyled>
         <Link to="/home">
           <button>BACK TO HOME</button>
         </Link>
@@ -25,7 +25,8 @@ function NotFound() {
 export const ContainerStyled = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 90px;
+  margin-top: 200px;
+  margin-bottom: 200px;
   font-size: 40px;
   align-items: center;
   justify-content: center;
@@ -35,6 +36,11 @@ export const ContainerStyled = styled.div`
 
 export const ErrorStyled = styled.div`
   font-size: 70px;
+  margin-bottom: 50px;
+`;
+
+export const TitleStyled = styled.div`
+  margin-bottom: 50px;
 `;
 
 export default NotFound;

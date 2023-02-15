@@ -7,6 +7,29 @@ import LandingPage from "../Components/LandingPage/LandingPage";
 import Contact from "../pages/Contact/Contact";
 import FaqSection from "../pages/FaqSection/FaqSection";
 import Details from "../Components/Details/Details";
+import Shopping from "../Components/Shopping/shoping";
+//Dashboard perfil de usuario
+import LayoutProfile from "../LayoutProfile/LayoutProfile";
+import MyDates from "../LayoutProfile/pages/MyDates";
+import Bookings from "../LayoutProfile/pages/Bookings";
+import Favorites from "../LayoutProfile/pages/Favorites";
+import Reviews from "../LayoutProfile/pages/Reviews";
+// Login
+import Login from "../Components/Auth/Login/Login";
+import Register from "../Components/Auth/Register/Register";
+import ForgetPassword from "../Components/Auth/ForgetPassword/ForgetPassword";
+// Dashboard Admin
+import LayoutAdmin from "../LayoutAdmin/LayoutAdmin";
+import HomeAdmin from "../LayoutAdmin/pages/HomeAdmin";
+import UsersAdmin from "../LayoutAdmin/pages/UsersAdmin";
+import { FormCar } from "../LayoutAdmin/pages/Forms/FormCar";
+import { FormAccessory } from "../LayoutAdmin/pages/Forms/FormAccessory";
+import CarsAdmin from "../LayoutAdmin/pages/CarsAdmin";
+import BookingsAdmin from "../LayoutAdmin/pages/BookingsAdmin";
+import AccessoriesAdmin from "../LayoutAdmin/pages/AccessoriesAdmin";
+import LayoutAuth from "../LayoutAdmin/Auth/LayoutAuth";
+import LoginAdmin from "../LayoutAdmin/Auth/LoginAdmin";
+import ForgetPasswordAdmin from "../LayoutAdmin/Auth/ForgetPasswordAdmin";
 
 function RouteApp() {
   return (
@@ -18,7 +41,37 @@ function RouteApp() {
         <Route exact path="contact" element={<Contact />} />
         <Route exact path="faq" element={<FaqSection />} />
         <Route exact path="detail/:id" element={<Details />} />
+        <Route exact path="shopping" element={<Shopping />} />
+        {/* Configuración de rutas iniciar sesion */}
+        <Route exact path="login" element={<Login />} />
+        <Route exact path="register" element={<Register />} />
+        <Route exact path="recover-password" element={<ForgetPassword />} />
+        {/* Configuración de rutas del perfil de usuario*/}
+        <Route path="/profile" element={<LayoutProfile />}>
+          {/* <Route index element={<MyDates />} /> */}
+          <Route path="my-dates" element={<MyDates />} />
+          <Route path="bookings" element={<Bookings />} />
+          <Route path="favorites" element={<Favorites />} />
+          <Route path="reviews" element={<Reviews />} />
+        </Route>
+        {/* Configuración de rutas del Dashboard */}
+        <Route path="/auth" element={<LayoutAuth />}>
+          <Route index element={<LoginAdmin />} />
+          <Route path="recover-password" element={<ForgetPasswordAdmin />} />
+        </Route>
+        <Route path="/auth-admin" element={<LayoutAdmin />}>
+          <Route index element={<HomeAdmin />} />
+          <Route path="users" element={<UsersAdmin />} />
+          <Route path="cars" element={<CarsAdmin />} />
+          <Route path="accessories" element={<AccessoriesAdmin />} />
+          <Route path="bookings" element={<BookingsAdmin />} />
+        </Route>
 
+        <Route path="/create" element={<LayoutAdmin />}>
+          <Route path="car" element={<FormCar />} />
+          <Route path="accessory" element={<FormAccessory />} />
+        </Route>
+        {/* Configuración de ruta 404 error */}
         <Route exact path="*" element={<NotFound />} />
       </Routes>
     </>

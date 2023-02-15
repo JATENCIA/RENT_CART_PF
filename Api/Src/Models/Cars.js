@@ -65,7 +65,7 @@ const carSchema = mongoose.Schema({
     type: Number,
     default: 0,
     minLength: 0,
-    maxLength: 99,
+    maxLength: 3,
   },
   doors: {
     type: Number,
@@ -86,17 +86,25 @@ const carSchema = mongoose.Schema({
   fuelType: {
     type: String,
     enum: ["gasoline", "electric", "gas", "hybrid"],
+    required: true,
     default: "gasoline",
   },
   typeOfBox: {
     type: String,
     enum: ["automatic", "Handbook", "semiautomatic"],
+    required: true,
     default: "Handbook",
   },
   review: [
     {
       type: mongoose.Types.ObjectId,
       ref: "Review",
+    },
+  ],
+  billing: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "Billings",
     },
   ],
 });

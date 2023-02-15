@@ -24,6 +24,7 @@ export const ContainerStyled = styled.div`
   flex-direction: column;
   color: black;
   margin-top: 100px;
+  margin-bottom: 300px;
   justify-content: center;
   align-items: center;
   align-content: center;

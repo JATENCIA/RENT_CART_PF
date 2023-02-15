@@ -34,6 +34,7 @@ export const ContainerStyled = styled.div`
   align-content: center;
   padding-left: 50px;
   padding-right: 50px;
+  margin-bottom:200px;
 `;
 
 export const TitleStyled = styled.h1`

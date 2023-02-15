@@ -1,25 +1,29 @@
 .homen{
     position: absolute;
-    top: 100px;
+    top: 140px;
     left: 24%;
-    width: 70%;
+    width: auto;
+    height:auto;
+
+    
+    
 }
 .Filteredout{
 
     position: absolute;
-    top: 130px;
+    top: 150px;
     left: 3%;
-    color: #fb8500;
+    color: #5e768d;
     font-weight: bold;
     font-size: 150%;
 }
 
 .ordenado{
-    width: 84%;
+    width: 90%;
     display: grid;
 	grid-template-columns: 70% 7% 10%  7% 9%;
     position: absolute;
-    top: 150px;
+    top: 180px;
 }
 
 .DeaZ2 { 

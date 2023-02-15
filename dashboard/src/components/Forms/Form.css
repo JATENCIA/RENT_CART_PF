@@ -1,0 +1,35 @@
+.form_accessory, .form_car {
+    padding: 30px;
+    background-color: rgb(252, 252, 252);
+    margin: auto;
+    border-radius: 5px;
+    width: 650px;
+    display:block;
+    align-items: center;
+    border: 3px solid  rgb(176, 189, 236);
+    box-shadow: 3px 3px 3px rgba(90, 102, 218, 0.808);
+  }
+  .form_title {
+    color: black;
+    margin-left: 170px; 
+    font-size: large;
+    font-weight: 200;
+  }
+  fieldset {
+    border: 1px solid  rgb(179, 179, 185);
+    border-radius: 3px;
+    text-align: center;
+    font-size:small;
+    height: 60px;
+    margin: 10px;
+    color: rgb(33, 33, 37);
+  }
+  legend {
+    color: rgb(100, 100, 102);
+  }
+  .uploadcare--widget__button.uploadcare--widget__button_type_open {
+    background-color: #362674;
+    color: #e7e7f0;
+    padding: 8px;
+    width: 150px;
+  }
