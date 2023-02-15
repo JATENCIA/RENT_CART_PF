@@ -20,7 +20,7 @@
   padding: 5px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding-left: 15px;
-  padding-top:40px
+  padding-top: 40px;
 }
 
 .container2 {
@@ -31,79 +31,76 @@
 .brand {
   margin-bottom: 40px;
   font-size: 30px;
-  color:#FB8500;
-  font-weight:900;
+  color: #fb8500;
+  font-weight: 900;
 }
 
 .feature {
   display: block;
   margin-right: 10px;
   margin-bottom: 20px;
-  margin-left:20px;
-  
+  margin-left: 20px;
 }
 
 .title {
   display: inline;
   font-family: "RocknRoll One", sans-serif;
   font-size: 20px;
-  color:#131517;
-  font-weight:bold;
-  
+  color: #131517;
+  font-weight: bold;
 }
 
 .description {
   font-family: "RocknRoll One", sans-serif;
   display: inline;
 }
-.container1a{
+.container1a {
   margin: 5%;
   margin-top: 0px;
 }
-.row1{
+.row1 {
   height: 320px;
   display: grid;
   grid-template-columns: 55% 40% 10%;
 }
-.row1colum2{
+.row1colum2 {
   display: grid;
-  grid-template-rows: 30% 70% ;
+  grid-template-rows: 30% 70%;
 }
-.row1colum21{
+.row1colum21 {
   display: grid;
-  grid-template-columns: 50% 50% ;
+  grid-template-columns: 50% 50%;
 }
-.row1colum211{
+.row1colum211 {
   display: grid;
-  grid-template-rows: 13% 13% 13% 13% ;
+  grid-template-rows: 13% 13% 13% 13%;
 }
-.row1colum212{
+.row1colum212 {
   display: grid;
-  grid-template-rows: 26% 13% 13% 13% ;
+  grid-template-rows: 26% 13% 13% 13%;
 }
-.row2{
+.row2 {
   display: grid;
-  grid-template-columns:6% 22% 32% 8% 8% 8%  8% 8%;
+  grid-template-columns: 6% 22% 32% 8% 8% 8% 8% 8%;
   border: 1px solid #858585cc;
-  border-top: 0px solid #858585cc;    
+  border-top: 0px solid #858585cc;
   border-left: 0px solid #858585cc;
   border-right: 0px solid #858585cc;
   align-items: center;
-  margin-bottom:15px;
-  
+  margin-bottom: 15px;
 }
-.row2 img{
+.row2 img {
   width: 60px;
   height: 50px;
 }
-#acceTittle{
-  color: #FF923C;  
+#acceTittle {
+  color: #ff923c;
   border: 0px solid #858585cc;
 }
 .row2 div {
   margin-right: 15px;
 }
-.butondetail{
+.butondetail {
   display: flex;
   justify-content: center;
 }
@@ -111,33 +108,29 @@
   display: flex;
   justify-content: center;
 }
-#descri{
+#descri {
   font-weight: normal;
   display: flex;
   align-items: flex-end;
-  
 }
-#separa{
+#separa {
   width: 50%;
 }
 #black {
   color: green;
   text-align: center;
 }
-#gray{
+#gray {
   color: #003566;
-  font-size:18px;
-  font-weight:bold;
-  
+  font-size: 18px;
+  font-weight: bold;
 }
-#gray,#black{  
+#gray,
+#black {
   text-align: center;
   border-radius: 4px;
-  
 }
-#gray2,#black2{  
+#gray2,
+#black2 {
   cursor: pointer;
-  
-  
 }
-

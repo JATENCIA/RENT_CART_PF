@@ -1,21 +1,37 @@
 const axios = require("axios");
 
 class PaymentService {
-  async createPayment() {
+  async createPayment(req, res) {
     const url = "https://api.mercadopago.com/checkout/preferences";
-
+    const shoppingcart = req.body;
     const body = {
-      payer_email: "test_user_1306430100@testuser.com",
+      payer_email: shoppingcart.eMail,
+      payer_identification: {
+        type: "DNI",
+        number: shoppingcart.dni,
+      },
       items: [
         {
-          title: "Dummy Title",
-          description: "Dummy description",
-          picture_url: "http://www.myapp.com/myimage.jpg",
-          category_id: "category123",
-          quantity: 1,
-          unit_price: 10,
+          title: shoppingcart.line,
+          description: "RENT CAR PF",
+          picture_url: shoppingcart.image,
+          currency_id: "USD",
+          quantity: shoppingcart.quantity,
+          unit_price:
+            shoppingcart.discount !== 0
+              ? shoppingcart.price - shoppingcart.discount
+              : shoppingcart.price,
+          discount: shoppingcart.discount,
         },
       ],
+      payment_methods: {
+        excluded_payment_types: [
+          {
+            id: "atm",
+          },
+        ],
+        installments: 1,
+      },
       back_urls: {
         failure: "/failure",
         pending: "/pending",
@@ -30,7 +46,7 @@ class PaymentService {
       },
     });
 
-    return payment.data.init_point;
+    return { url: payment.data.init_point, id: payment.data.id };
   }
 }
 
