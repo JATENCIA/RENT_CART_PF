@@ -10,6 +10,11 @@ import ForgetPassword from "./pages/auth/ForgetPassword";
 import Home from "./pages/admin/Home";
 import Users from "./pages/admin/Users";
 import Error404 from "./pages/Error404";
+// components forms
+import { FormCar } from "./components/Forms/FormCar";
+import { FormAccessory } from "./components/Forms/FormAccessory";
+import Cars from "./pages/admin/Cars";
+import Accessories from "./pages/admin/Accessories";
 
 function App() {
   return (
@@ -20,9 +25,14 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="forget-password" element={<ForgetPassword />} />
         </Route>
+        <Route path="/create" element={<LayoutAdmin />}>
+          <Route path="car" element={<FormCar />} />
+          <Route path="accessory" element={<FormAccessory />} />
+        </Route>
         <Route path="/" element={<LayoutAdmin />}>
           <Route index element={<Home />} />
-          <Route path="users" element={<Users />} />
+          <Route path="accessories" element={<Accessories />} />
+          <Route path="cars" element={<Cars  />} />
         </Route>
         <Route path="*" element={<Error404 />} />
       </Routes>

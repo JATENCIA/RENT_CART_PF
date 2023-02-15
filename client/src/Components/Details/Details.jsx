@@ -68,7 +68,7 @@ export default function Details() {
 
   return (
     <>
-      <NavBar></NavBar>
+      <NavBar />
       <div className="container1">
         <div className="container1a">
           <div className="row1">
@@ -178,7 +178,7 @@ export default function Details() {
         </div>
         <br />
       </div>
-      <Footer></Footer>
+      <Footer />
     </>
   );
 }

@@ -29,10 +29,10 @@ function Register() {
               Sign up with google
             </button>
             <div className="relative mb-4">
-              <RiUserLine className="absolute top-1/2 -translate-y-1/2 left-2 text-primary" />
+              <RiUserLine className="absolute top-1/2 -translate-y-1/2 left-2 focus:border text-primary" />
               <input
                 type="text"
-                className="py-3 pl-8 pr-4 bg-secondary-900 w-full outline-none rounded-lg"
+                className="py-3 pl-8 pr-4 bg-secondary-900 w-full outline-none rounded-lg focus:border focus:border-primary"
                 placeholder="First Name"
               />
             </div>
@@ -40,7 +40,7 @@ function Register() {
               <RiUserLine className="absolute top-1/2 -translate-y-1/2 left-2 text-primary" />
               <input
                 type="text"
-                className="py-3 pl-8 pr-4 bg-secondary-900 w-full outline-none rounded-lg"
+                className="py-3 pl-8 pr-4 bg-secondary-900 w-full outline-none rounded-lg focus:border focus:border-primary"
                 placeholder="Last Name"
               />
             </div>
@@ -48,7 +48,7 @@ function Register() {
               <RiMailLine className="absolute top-1/2 -translate-y-1/2 left-2 text-primary" />
               <input
                 type="email"
-                className="py-3 pl-8 pr-4 bg-secondary-900 w-full outline-none rounded-lg"
+                className="py-3 pl-8 pr-4 bg-secondary-900 w-full outline-none rounded-lg focus:border focus:border-primary"
                 placeholder="Email Address"
               />
             </div>
@@ -56,7 +56,7 @@ function Register() {
               <RiLockLine className="absolute top-1/2 -translate-y-1/2 left-2  text-primary" />
               <input
                 type="password"
-                className="py-3 pl-8 pr-4 bg-secondary-900 w-full outline-none rounded-lg"
+                className="py-3 pl-8 pr-4 bg-secondary-900 w-full outline-none rounded-lg focus:border focus:border-primary"
                 placeholder="Password"
               />
               {showPassword ? (

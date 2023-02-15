@@ -39,7 +39,7 @@ function Sidebar() {
 
             <li>
               <Link
-                to="/"
+                to="/cars"
                 className="flex text-2xl items-center gap-4  py-2 px-4 rounded-lg hover:bg-secondary-900 w-full"
               >
                 <RiCarFill className="text-primary" />
@@ -48,7 +48,7 @@ function Sidebar() {
             </li>
             <li>
               <Link
-                to="/"
+                to="/accessories"
                 className="flex text-2xl items-center gap-4  py-2 px-4 rounded-lg hover:bg-secondary-900 w-full"
               >
                 <GiCarSeat className="text-primary" />
