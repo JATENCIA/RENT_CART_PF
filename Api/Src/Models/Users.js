@@ -27,7 +27,6 @@ const userSchema = mongoose.Schema({
   },
   kindOfPerson: {
     type: String,
-
     minLength: 5,
     maxLength: 15,
   },
@@ -42,9 +41,9 @@ const userSchema = mongoose.Schema({
   },
   telephone: {
     type: String,
-
     unique: true,
     minLength: 9,
+    required: true,
   },
   roll: {
     type: String,
