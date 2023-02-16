@@ -32,7 +32,7 @@ export function MPButton() {
 
         mp.checkout({
           preference: {
-            id: data.global,
+            id: data.id,
           },
           render: {
             container: ".cho-container",
