@@ -1,10 +1,16 @@
 import React, {useState} from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./shoping.css";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
+import { useSelector,useDispatch} from 'react-redux';
+import {acceso} from '../../redux/actions/actions'
 
 export default function Details() {
+  
+const dispatch = useDispatch();
+const acc = useSelector((state) => state.acceso);
 
 var str = localStorage.getItem('nombre');
 
@@ -20,8 +26,6 @@ const [ref, setref] = useState(0)
 arr.map((data)=>{
   data !== ""? shoping.push (data.split('|')):null; 
 })
-
-
 function deleteReserved (e){
   e.preventDefault();
   let arrTemp = [];
@@ -35,9 +39,9 @@ function deleteReserved (e){
     )
   })  
   setref(ref+1)
-  aLocalS(arrTemp)
+  aLocalS(arrTemp)  
+  dispatch(acceso(dataMP));
 }
-
 function trueReserved (e){
   e.preventDefault();
   let arrTemp = [];
@@ -51,9 +55,9 @@ function trueReserved (e){
     )
   })  
   setref(ref+1)
-  aLocalS(arrTemp)
+  aLocalS(arrTemp)  
+  dispatch(acceso(dataMP));
 }
-
 function aLocalS (array){
   let str ="";
   array.map((dato)=>{
@@ -61,14 +65,48 @@ function aLocalS (array){
   })
   localStorage.setItem ('nombre',str)
 }
+function mercadoP(e) {
+  e.preventDefault();
+  dataMP.price !== 0?confirm(): Swal.fire({
+    title: 'Select at least one vehicle or accessory',                
+    icon: 'warning',
+    confirmButtonColor: '#e38e15'})
+}
+function confirm (){  
+  Swal.fire({
+      title: 'Continue with payment?',                
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#e38e15',
+      confirmButtonColor: '#e38e15',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+  }).then((result) => {
+    if (result.isConfirmed) { 
+      window.open(acc.data.url);
+      localStorage.setItem ('nombre',"")
+      //window.location.href = acc.data.url; 
+      } 
+  })
+}
+
 let concat ="",total =0;
 shoping.map((art)=>{
   art[3] === "tru"? (
     concat += art[0]+", ",
     total += parseInt(art[1])
   ):null
-})
-
+}) 
+const dataMP ={
+  eMail:"test_user_1309324893@testuser.com",
+  dni:"1231212",
+  Image: "http://mydogger.com/wp-content/uploads/2019/06/logo-mercado-pago-png-7-1024x312.png",
+  quantity:4,
+  price:total,
+  discount:0,
+  line:[concat]
+      }
+dispatch(acceso(dataMP));
   return (
     <>
       <NavBar></NavBar>
@@ -137,9 +175,7 @@ shoping.map((art)=>{
               <button> Go back </button>
             </Link>
             <div id="csepara"></div>
-            <Link to={`/shopping`} className="clink">
-              <button> Pay bill  </button>
-            </Link>
+            <button onClick={(e)=>mercadoP(e)}> Pay bill  </button>
         </div><br />
       </div>
       <Footer></Footer>
