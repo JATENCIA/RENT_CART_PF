@@ -86,6 +86,23 @@ export default function Home() {
   function ordenate2(e) {
     setindexo(e.target.value);
   }
+  function cleanFilters (e){
+    e.preventDefault();
+    Swal.fire({
+      title: 'you want to clean the filters?',                
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#e38e15',
+      confirmButtonColor: '#e38e15',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+  }).then((result) => {
+    if (result.isConfirmed) { 
+      
+      } 
+  })
+
+  }
 
   //---------------ordenate-------------------------------
 
@@ -186,7 +203,7 @@ export default function Home() {
         xclude={xclude}
       />
 
-      <div className="Filteredout">Filtered out</div>
+      <div className="Filteredout"> <div>Filtered out</div> <div id="linpFilter" on onClick={(e)=>cleanFilters(e)}>🗑️</div>  </div>
       <NavBar />
       <div className="homen">
         <Cards cars={carPag} ttFilt={arCar.length} />

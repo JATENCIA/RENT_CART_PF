@@ -26,6 +26,13 @@ export default function Details() {
     let arrayAux = [];
 
     if (arrayLeno.includes(obj)) {
+      Swal.fire({
+        title: 'The article was excluded!',                
+        icon: 'warning',
+        confirmButtonColor: '#e38e15',
+        confirmButtonText: 'Exit',
+      })
+
       arrayAux = arrayLeno.filter((dato) => dato != obj);
       setselection([]);
       setselection(arrayAux);

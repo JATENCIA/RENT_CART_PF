@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./shoping.css";
 import NavBar from "../NavBar/NavBar";
@@ -12,7 +11,11 @@ export default function Details() {
 const dispatch = useDispatch();
 const acc = useSelector((state) => state.acceso);
 
+var [Validate,setvalidate]= useState(0);
+
 var str = localStorage.getItem('nombre');
+
+
 
 var today = new Date();
 var day = today.getDate();
@@ -27,6 +30,12 @@ arr.map((data)=>{
   data !== ""? shoping.push (data.split('|')):null; 
 })
 function deleteReserved (e){
+  Swal.fire({
+    title: 'The article was excluded!',                
+    icon: 'warning',
+    confirmButtonColor: '#e38e15',
+    confirmButtonText: 'Exit',
+  })
   e.preventDefault();
   let arrTemp = [];
   shoping.map((inf)=>{
@@ -40,9 +49,14 @@ function deleteReserved (e){
   })  
   setref(ref+1)
   aLocalS(arrTemp)  
-  dispatch(acceso(dataMP));
 }
 function trueReserved (e){
+  Swal.fire({
+    title: 'The article was included!',                
+    icon: 'warning',
+    confirmButtonColor: '#e38e15',
+    confirmButtonText: 'Exit',
+  })
   e.preventDefault();
   let arrTemp = [];
   shoping.map((inf)=>{
@@ -56,7 +70,6 @@ function trueReserved (e){
   })  
   setref(ref+1)
   aLocalS(arrTemp)  
-  dispatch(acceso(dataMP));
 }
 function aLocalS (array){
   let str ="";
@@ -67,33 +80,41 @@ function aLocalS (array){
 }
 function mercadoP(e) {
   e.preventDefault();
-  dataMP.price !== 0?confirm(): Swal.fire({
-    title: 'Select at least one vehicle or accessory',                
-    icon: 'warning',
-    confirmButtonColor: '#e38e15'})
-}
-function confirm (){  
-  Swal.fire({
-      title: 'Continue with payment?',                
+  if (Validate===0){
+    dataMP.price !== 0? (
+      dispatch(acceso(dataMP)),     
+      document.getElementById("confir").innerText = "Pay bill",
+      document.getElementById("Aprov").innerText = "✔️",
+      setvalidate(1),
+      window.open(acc.data.url)
+      ): 
+      Swal.fire({
+      title: 'Select at least one vehicle or accessory',                
       icon: 'warning',
-      showCancelButton: true,
-      cancelButtonColor: '#e38e15',
-      confirmButtonColor: '#e38e15',
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'No'
-  }).then((result) => {
-    if (result.isConfirmed) { 
-      window.open(acc.data.url);
-      localStorage.setItem ('nombre',"")
-      //window.location.href = acc.data.url; 
-      } 
-  })
+      confirmButtonColor: '#e38e15'}) 
+
+  }
+  else {
+    dataMP.price !== 0? (
+      dispatch(acceso(dataMP)),
+      window.open(acc.data.url),localStorage.setItem ('nombre',""),
+      document.getElementById("Aprov").innerText = "",
+      document.getElementById("confir").innerText = "Validate",
+      setvalidate(0)
+      ): 
+      Swal.fire({
+      title: 'Select at least one vehicle or accessory',                
+      icon: 'warning',
+      confirmButtonColor: '#e38e15'}) 
+
+  }
+  
 }
 
-let concat ="",total =0;
+let concat =[],total =0;
 shoping.map((art)=>{
   art[3] === "tru"? (
-    concat += art[0]+", ",
+    concat.push (art[0]),
     total += parseInt(art[1])
   ):null
 }) 
@@ -106,7 +127,6 @@ const dataMP ={
   discount:0,
   line:[concat]
       }
-dispatch(acceso(dataMP));
   return (
     <>
       <NavBar></NavBar>
@@ -175,7 +195,7 @@ dispatch(acceso(dataMP));
               <button> Go back </button>
             </Link>
             <div id="csepara"></div>
-            <button onClick={(e)=>mercadoP(e)}> Pay bill  </button>
+            <button id="confir" onClick={(e)=>mercadoP(e)}>Validate </button> <div id="Aprov"></div>
         </div><br />
       </div>
       <Footer></Footer>
