@@ -1,5 +1,5 @@
 import { Formik, Field, Form, useFormik, ErrorMessage } from "formik";
-import React, { useState } from "react";
+import React from "react";
 import { Widget } from "@uploadcare/react-widget";
 import * as Yup from "yup";
 import "./Form.css";
@@ -12,59 +12,50 @@ import {
 } from "@mui/material";
 
 export const FormAccessory = () => {
-  const submitForm = (values) => {};
-  const onChange = (info) => {
-    setValues.image = info.originalUrl
-    console.log(info.originalUrl)
-    console.log(values.image);
-  };
   const onFileSelect = (file) => {
     console.log("File changed: ", file);
     if (file) {
       file.done((info) => console.log("File uploaded: ", info));
     }
   };
-  const bla = (file) => {
-    if(!file){
-      console.log("File removed from widget")
-    }
-    file.done((fileInfo)=> {
-      setValues.image(fileInfo.originalUrl)
-      console.log("done")
-    })
-    }
-
-  const { errors, touched, getFieldProps, values,setValues, handleChange, handleSubmit } =
-    useFormik({
-      initialValues: {
-        name: "",
-        price: 0,
-        description: "",
-        image: "",
-        status: "valid",
-        discount: 0,
-      },
-      validationSchema: Yup.object({
-        name: Yup.string("Enter the accessory")
-          .min(3, "Min. 3 characters")
-          .max(50, "Max. 50 characters")
-          .required("Required"),
-        price: Yup.number()
-          .positive("Price must be greater than zero")
-          .required("Required"),
-        description: Yup.string()
-          .min(10, "Min. 10 characters")
-          .max(300, "Max. 300 characters")
-          .required("Required"),
-        // image: Yup.string().required("Required"),
-        status: Yup.string(),
-        discount: Yup.number(),
-      }),
-      onSubmit: (values) => {
-        console.log(values);
-        alert(JSON.stringify(values, null, 2));
-      },
-    });
+  const {
+    errors,
+    touched,
+    getFieldProps,
+    values,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues: {
+      name: "",
+      price: 0,
+      description: "",
+      image: "",
+      status: "valid",
+      discount: 0,
+    },
+    validationSchema: Yup.object({
+      name: Yup.string("Enter the accessory")
+        .min(3, "Min. 3 characters")
+        .max(50, "Max. 50 characters")
+        .required("Required"),
+      price: Yup.number()
+        .positive("Price must be greater than zero")
+        .required("Required"),
+      description: Yup.string()
+        .min(10, "Min. 10 characters")
+        .max(300, "Max. 300 characters")
+        .required("Required"),
+      // image: Yup.string().required("Required"),
+      status: Yup.string(),
+      discount: Yup.number(),
+    }),
+    onSubmit: (values) => {
+      console.log(values);
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
   return (
     <div className="form_accessory">
       <label className="form_title">CREATE NEW ACCESSORY</label>
@@ -130,10 +121,9 @@ export const FormAccessory = () => {
             crop
             previewStep
             margin="normal"
-            onChange={onChange}
+            onChange={(e) => setFieldValue("image", e.originalUrl)}
             onFileSelect={onFileSelect}
           />
-          {/* {console.log("holis",values.image)} */}
         </fieldset>
         <fieldset>
           <legend>Status </legend>
@@ -176,7 +166,7 @@ export const FormAccessory = () => {
           }
         />
         <Button
-          onClick={() => console.log("image",values.image)}
+          onClick={() => console.log("image", values.image)}
           color="primary"
           variant="contained"
           fullWidth

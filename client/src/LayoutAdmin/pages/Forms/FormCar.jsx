@@ -1,31 +1,24 @@
 import { Formik, Field, Form, useFormik } from "formik";
-
-import React, { useState } from "react";
+import { useDispatch } from 'react-redux'
+import React from "react";
 import { Widget } from "@uploadcare/react-widget";
 import * as Yup from "yup";
 import {
   Button,
-  FormControl,
   FormControlLabel,
   MenuItem,
   Radio,
   RadioGroup,
   TextField,
 } from "@mui/material";
+import { postCar } from "../../../redux/actions/actions";
 
 export const FormCar = () => {
-  const submitForm = (values) => {};
-  const uploadFileChange = (info) => {
-    console.log(info);
-    // setUpdateList(false);
-    // if (info) {
-    //   setUpdateList(true);
-    // }
-  };
+  const dispatch = useDispatch();
   const uploadFileSelect = (file) => {
     console.log(`changed ${file}`);
   };
-  const { handleSubmit, errors, touched, getFieldProps, handleChange, values } =
+  const { handleSubmit, errors, touched, getFieldProps, handleChange, values, setFieldValue } =
     useFormik({
       initialValues: {
         licensePlate: "",
@@ -95,6 +88,8 @@ export const FormCar = () => {
       }),
       onSubmit: (values) => {
         console.log(values);
+        dispatch(postCar(values))
+        alert('car created successfully')
       },
     });
   return (
@@ -147,7 +142,7 @@ export const FormCar = () => {
               previewStep
               clearable
               crop
-              onChange={(info) => uploadFileChange(info)}
+              onChange={(e) => setFieldValue('image',e.originalUrl)}
               onFileSelect={(file) => uploadFileSelect(file)}
             />
           </fieldset>

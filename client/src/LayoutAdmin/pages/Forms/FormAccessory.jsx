@@ -1,5 +1,6 @@
 import { Formik, Field, Form, useFormik, ErrorMessage } from "formik";
-import React, { useState } from "react";
+import React from "react";
+import {useDispatch} from 'react-redux';
 import { Widget } from "@uploadcare/react-widget";
 import * as Yup from "yup";
 import "./Form.css";
@@ -10,14 +11,10 @@ import {
   TextField,
   Button,
 } from "@mui/material";
+import { postAccessories } from "../../../redux/actions/actions";
 
 export const FormAccessory = () => {
-  const submitForm = (values) => {};
-  const onChange = (info) => {
-    setValues.image = info.originalUrl
-    console.log(info.originalUrl)
-    console.log(values.image);
-  };
+  const dispatch = useDispatch();
   const onFileSelect = (file) => {
     console.log("File changed: ", file);
     if (file) {
@@ -34,7 +31,7 @@ export const FormAccessory = () => {
     })
     }
 
-  const { errors, touched, getFieldProps, values,setValues, handleChange, handleSubmit } =
+  const { errors, touched, getFieldProps, values,setValues, handleChange, handleSubmit, setFieldValue } =
     useFormik({
       initialValues: {
         name: "",
@@ -62,7 +59,8 @@ export const FormAccessory = () => {
       }),
       onSubmit: (values) => {
         console.log(values);
-        alert(JSON.stringify(values, null, 2));
+        dispatch(postAccessories(values));
+        alert("accessory created successfully")
       },
     });
   return (
@@ -130,10 +128,9 @@ export const FormAccessory = () => {
             crop
             previewStep
             margin="normal"
-            onChange={onChange}
+            onChange={(e)=> setFieldValue('image',e.originalUrl) }
             onFileSelect={onFileSelect}
           />
-          {/* {console.log("holis",values.image)} */}
         </fieldset>
         <fieldset>
           <legend>Status </legend>

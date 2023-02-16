@@ -1,11 +1,10 @@
 import { Formik, Field, Form, useFormik } from "formik";
 
-import React, { useState } from "react";
+import React from "react";
 import { Widget } from "@uploadcare/react-widget";
 import * as Yup from "yup";
 import {
   Button,
-  FormControl,
   FormControlLabel,
   MenuItem,
   Radio,
@@ -14,18 +13,10 @@ import {
 } from "@mui/material";
 
 export const FormCar = () => {
-  const submitForm = (values) => {};
-  const uploadFileChange = (info) => {
-    console.log(info);
-    // setUpdateList(false);
-    // if (info) {
-    //   setUpdateList(true);
-    // }
-  };
   const uploadFileSelect = (file) => {
     console.log(`changed ${file}`);
   };
-  const { handleSubmit, errors, touched, getFieldProps, handleChange, values } =
+  const { handleSubmit, errors, touched, getFieldProps, handleChange, values, setFieldValue } =
     useFormik({
       initialValues: {
         licensePlate: "",
@@ -147,9 +138,11 @@ export const FormCar = () => {
               previewStep
               clearable
               crop
-              onChange={(info) => uploadFileChange(info)}
+              imagesOnly
+              onChange={(e) => setFieldValue("image",e.originalUrl)}
               onFileSelect={(file) => uploadFileSelect(file)}
             />
+            {console.log(values)}
           </fieldset>
           <fieldset>
             <legend>Status </legend>
@@ -330,8 +323,8 @@ export const FormCar = () => {
             helperText={
               touched.line && errors.line ? <span>{errors.line} </span> : false
             }
-            {...getFieldProps("line")}
-            className={`${touched.line && errors.line}`}
+            // {...getFieldProps("line")}
+            // className={`${touched.line && errors.line}`}
           />
           <TextField
             fullWidth
