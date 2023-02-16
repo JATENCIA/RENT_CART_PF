@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Edit, Delete } from "@mui/icons-material";
+import loading from "../../assets/loading.gif";
 import axios from "axios";
 import {
   Table,
@@ -10,6 +11,7 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  TablePagination,
 } from "@mui/material";
 
 const API_URL = `http://localhost:3001/cars`;
@@ -31,9 +33,6 @@ function CarsAdmin() {
 
   return (
     <div className="flex font-bold text-3xl">
-      <h1>
-        <span className="text-primary">Cars!</span>
-      </h1>
       <Link to="/create/car">
         <button
           type="button"
@@ -42,10 +41,10 @@ function CarsAdmin() {
           Create new car
         </button>
       </Link>
-      <div className="bg-blue-900">
+      <div className="bg-white mt-20">
         <TableContainer>
-          <Table>
-            <TableHead>
+          <Table className="text-2xl">
+            <TableHead className="bg-purple-200">
               <TableRow>
                 {/* <TableCell>Id</TableCell> */}
                 <TableCell>LicensePlate</TableCell>
@@ -53,34 +52,44 @@ function CarsAdmin() {
                 <TableCell>Line</TableCell>
                 <TableCell>Category</TableCell>
                 <TableCell>Location</TableCell>
-                <TableCell>Review</TableCell>
+                {/* <TableCell>Review</TableCell> */}
                 <TableCell>Status</TableCell>
                 <TableCell>Active</TableCell>
                 <TableCell>Accions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {cars.map((c) => (
-                <TableRow key={c.id}>
-                  {/* <TableCell>{c._id}</TableCell> */}
-                  <TableCell>{c.licensePlate}</TableCell>
-                  <TableCell>{c.brand}</TableCell>
-                  <TableCell>{c.line}</TableCell>
-                  <TableCell>{c.category}</TableCell>
-                  <TableCell>{c.location}</TableCell>
-                  {/* <TableCell>{c.review}</TableCell> */}
-                  <TableCell>{c.status}</TableCell>
-                  <TableCell>{c.active}</TableCell>
-                  <TableCell>
-                    <Edit />
-                    &nbsp;&nbsp;&nbsp;
-                    <Delete />
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              {cars.length !== 0 ? (
+                cars.map((c) => {
+                  return (
+                    <TableRow key={c.id}>
+                      {/* <TableCell>{c._id}</TableCell> */}
+                      <TableCell>{c.licensePlate}</TableCell>
+                      <TableCell>{c.brand}</TableCell>
+                      <TableCell>{c.line}</TableCell>
+                      <TableCell>{c.category}</TableCell>
+                      <TableCell>{c.location}</TableCell>
+                      {/* <TableCell>{c.review}</TableCell> */}
+                      <TableCell>{c.status}</TableCell>
+                      <TableCell>{c.active}</TableCell>
+                      <TableCell>
+                        <Edit />
+                        &nbsp;&nbsp;&nbsp;
+                        <Delete />
+                      </TableCell>
+                    </TableRow>
+                  );
+                })
+              ) : (
+                <div className="flex">
+                  <img className="items-center" src={loading} alt="loading" />
+                </div>
+              )}
+              
+            </TableBody>            
+          </Table>         
         </TableContainer>
+        <TablePagination rowsPerPageOptions={[5, 10]} />
       </div>
     </div>
   );

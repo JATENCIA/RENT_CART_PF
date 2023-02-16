@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Edit, Delete } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
+import loading from "../../assets/loading.gif";
 import {
   Table,
   TableContainer,
@@ -10,6 +11,7 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  TablePagination
 } from "@mui/material";
 
 const API_URL = `http://localhost:3001/accessories`;
@@ -31,51 +33,60 @@ function AccessoriesAdmin() {
   }, [dispatch]);
 
   return (
-    <div className="flex font-bold text-3xl">
-      <h1>
-        <span className="text-primary">Accessories!</span>
-      </h1>
-      <div className="bg-blue-900">
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Id</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Price</TableCell>
-                <TableCell>Quantity</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Accions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {accesories.map((a) => (
-                <TableRow key={a.id}>
-                  <TableCell>{a._id}</TableCell>
-                  <TableCell>{a.name}</TableCell>
-                  <TableCell>{a.price}</TableCell>
-                  <TableCell>{a.quantity}</TableCell>
-                  <TableCell>{a.status}</TableCell>
-                  <TableCell>
-                    <Edit />
-                    &nbsp;&nbsp;&nbsp;
-                    <Delete />
-                  </TableCell>
+    <>
+      <div className="flex font-bold text-3xl">
+        <h1>
+          <span className="text-primary">Accessories!</span>
+        </h1>
+        <div className="bg-white mt-20">
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Id</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Price</TableCell>
+                  <TableCell>Quantity</TableCell>
+                  <TableCell>Status</TableCell>
+                  <TableCell>Accions</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {accesories.length !== 0 ? (
+                  accesories.map((a) => {
+                    return (
+                      <TableRow key={a.id}>
+                        <TableCell>{a._id}</TableCell>
+                        <TableCell>{a.name}</TableCell>
+                        <TableCell>{a.price}</TableCell>
+                        <TableCell>{a.quantity}</TableCell>
+                        <TableCell>{a.status}</TableCell>
+                        <TableCell>
+                          <Edit />
+                          &nbsp;&nbsp;&nbsp;
+                          <Delete />
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })
+                ) : (
+                  <img className="items-center" src={loading} alt="loading" />
+                )}
+              </TableBody>
+              <TablePagination rowsPerPageOptions={[10,40]}/>
+            </Table>
+          </TableContainer>
+        </div>
+        <Link to="/create/accessory">
+          <button
+            type="button"
+            className="absolute top-25 right-4 flex px-6 py-2.5 text-[#023047] font-bold bg-primary text-xs leading-tight uppercase rounded shadow-md hover:bg-[#219EBC] hover:shadow-lg focus:bg-[#219EBC] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#219EBC] active:shadow-lg  duration-150 ease-in-out"
+          >
+            Create new accessory
+          </button>
+        </Link>
       </div>
-      <Link to="/create/accessory">
-        <button
-          type="button"
-          className="absolute top-25 right-4 flex px-6 py-2.5 text-[#023047] font-bold bg-primary text-xs leading-tight uppercase rounded shadow-md hover:bg-[#219EBC] hover:shadow-lg focus:bg-[#219EBC] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#219EBC] active:shadow-lg  duration-150 ease-in-out"
-        >
-          Create new accessory
-        </button>
-      </Link>
-    </div>
+    </>
   );
 }
 
