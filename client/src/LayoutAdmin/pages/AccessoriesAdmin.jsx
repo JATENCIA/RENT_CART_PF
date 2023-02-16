@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {Table,TableContainer,TableHead,TableRow,TableCell, TableBody} from "@material-ui/core"
 
 function AccessoriesAdmin() {
   return (
@@ -7,6 +8,27 @@ function AccessoriesAdmin() {
       <h1>
         <span className="text-primary">Accessories!</span>
       </h1>
+      <div>
+<TableContainer>
+  <Table>
+    <TableHead>
+      <TableRow>
+        <TableCell>Id</TableCell>
+      <TableCell>Name</TableCell>
+      <TableCell>Precie</TableCell>
+      <TableCell>Status</TableCell>
+      <TableCell>Edit</TableCell>
+      <TableCell>Delete</TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      
+    </TableBody>
+  </Table>
+</TableContainer>
+
+
+      </div>
       <Link to="/create/accessory">
         <button
           type="button"

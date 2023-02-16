@@ -34,7 +34,7 @@ function Login() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    
+
     navigate("/home");
   }
   return (

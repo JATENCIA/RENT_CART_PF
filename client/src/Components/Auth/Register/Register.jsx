@@ -5,6 +5,7 @@ import Footer from "../../../Components/Footer/Footer";
 import { useDispatch } from "react-redux";
 import { postUser } from "../../../redux/actions/actions";
 import validate from "./validate";
+import { FaPhone } from "react-icons/fa";
 import { HiOutlineIdentification } from "react-icons/hi";
 import {
   RiMailLine,
@@ -20,6 +21,7 @@ function Register() {
     name: "",
     lastName: "",
     dni: "",
+    telephone: "",
     eMail: "",
     password: "",
   };
@@ -33,6 +35,7 @@ function Register() {
       ...input,
       [e.target.name]: e.target.value,
     });
+    console.log(e.target.value);
   }
   function handleOnBlur(e) {
     let objErrors = validate(input);
@@ -44,13 +47,14 @@ function Register() {
       name: input.name,
       lastName: input.lastName,
       dni: input.dni,
+      telephone: input.telephone,
       eMail: input.eMail,
       password: input.password,
     };
     e.preventDefault();
     dispatch(postUser(newUser));
-    
-    alert("Tu usuario a sido credo");
+
+    alert("Tu usuario a sido creado");
     setInput(initialState);
   }
 
@@ -118,6 +122,23 @@ function Register() {
             </div>
             {errors.dni && (
               <p className="text-red-700 font-bold text-center">{errors.dni}</p>
+            )}
+            <div className="relative mb-4">
+              <FaPhone className="absolute top-1/2 -translate-y-1/2 left-2 text-primary" />
+              <input
+                type="text"
+                name="telephone"
+                value={input.telephone}
+                className="py-3 pl-8 pr-4 bg-secondary-900 w-full outline-none rounded-lg focus:border focus:border-primary"
+                placeholder="Telephone"
+                onChange={(e) => handleChange(e)}
+                onBlur={(e) => handleOnBlur(e)}
+              />
+            </div>
+            {errors.telephone && (
+              <p className="text-red-700 font-bold text-center">
+                {errors.telephone}
+              </p>
             )}
             <div className="relative mb-4">
               <RiMailLine className="absolute top-1/2 -translate-y-1/2 left-2 text-primary" />
