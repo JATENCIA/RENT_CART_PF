@@ -42,7 +42,6 @@ const userSchema = mongoose.Schema({
   },
   telephone: {
     type: String,
-
     unique: true,
     minLength: 9,
   },

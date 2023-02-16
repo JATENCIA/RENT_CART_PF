@@ -77,7 +77,7 @@ export const postAccessories = (payload) => async (dispatch) => {
 
 export const postUser = (payload) => async (dispatch) => {
   try {
-    const userCreated = await axios.post("http://localhost:3001/users", payload)
+    const userCreated = await axios.post(`http://localhost:3001/users`, payload)
     return dispatch({
       type: "POST_USER",
       payload: userCreated

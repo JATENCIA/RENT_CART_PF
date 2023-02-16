@@ -49,6 +49,7 @@ function Register() {
     };
     e.preventDefault();
     dispatch(postUser(newUser));
+    
     alert("Tu usuario a sido credo");
     setInput(initialState);
   }
