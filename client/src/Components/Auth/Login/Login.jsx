@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
 import NavBar from "../../../Components/NavBar/NavBar";
 import Footer from "../../../Components/Footer/Footer";
+import { LoginButton } from "../LoginButton";
+import validate from "./validate";
+// import {loginUser} from "../../../redux/actions/actions"
 
 import {
   RiMailLine,
@@ -13,8 +15,29 @@ import {
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
-  const { loginWithPopup } = useAuth0();
+  const initialState = {
+    email: "",
+    password: "",
+    loading: "valid",
+  };
+  const [login, setLogin] = useState(initialState);
+  const [errors, setErrors] = useState({});
+  // const [navigate] = useLocation();
 
+  function handleChange(e) {
+    setLogin({ ...login, [e.target.name]: e.target.value });
+    console.log(e.target.value);
+  }
+
+  function handleOnBlur(e) {
+    let objError = validate(login);
+    setErrors(objError);
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    // dispatch(loginUser())
+    // navigate("/home");
+  }
   return (
     <React.Fragment>
       <NavBar />
@@ -23,32 +46,37 @@ function Login() {
           <h1 className="text-center text-3xl uppercase font-bold tracking-[5px] text-white mb-8">
             Sign <span className="text-primary">in</span>
           </h1>
-          <form className="mb-8">
-            <button
-              onClick={() => loginWithPopup()}
-              className="flex items-center py-3 px-4 gap-4 bg-secondary-900 w-full justify-center rounded-full mb-8 text-gray-100"
-            >
-              <img
-                src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png"
-                className="w-4 h4"
-              />
-              Log in with google
-            </button>
+          <form onSubmit={(e) => handleSubmit(e)} className="mb-8">
+            <LoginButton />
             <div className="relative mb-4">
               <RiMailLine className="absolute top-1/2 -translate-y-1/2 left-2 text-primary" />
               <input
-                type="email"
                 className="py-3 pl-8 pr-4 bg-secondary-900 w-full outline-none rounded-lg focus:border focus:border-primary"
+                type="text"
+                name="email"
+                value={login.email}
                 placeholder="Email Address"
+                onChange={(e) => handleChange(e)}
+                onBlur={(e) => handleOnBlur(e)}
               />
             </div>
+            {errors.email && (
+              <p className="text-red-700 font-bold text-center">
+                {errors.email}
+              </p>
+            )}
             <div className="relative mb-8">
               <RiLockLine className="absolute top-1/2 -translate-y-1/2 left-2  text-primary" />
               <input
-                type="password"
                 className="py-3 pl-8 pr-4 bg-secondary-900 w-full outline-none rounded-lg focus:border focus:border-primary"
+                type="password"
+                name="password"
+                value={login.password}
                 placeholder="Password"
+                onChange={(e) => handleChange(e)}
+                onBlur={(e) => handleOnBlur(e)}
               />
+
               {showPassword ? (
                 <RiEyeOffLine
                   onClick={() => setShowPassword(!showPassword)}
@@ -61,6 +89,11 @@ function Login() {
                 />
               )}
             </div>
+            {errors.password && (
+              <p className="text-red-700 font-bold text-center">
+                {errors.password}
+              </p>
+            )}
             <div>
               <button
                 type="submit"
