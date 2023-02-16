@@ -1,33 +1,70 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {Table,TableContainer,TableHead,TableRow,TableCell, TableBody} from "@material-ui/core"
+import { Edit, Delete } from "@mui/icons-material";
+import {
+  Table,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from "@mui/material";
 
+const API_URL = `http://localhost:3001/accessories`;
 function AccessoriesAdmin() {
+  const [data, setData] = useState([]);
+  console.log(data);
+
+  const API_URL = `http://localhost:3001/accessories`;
+
+  const dataAccessories = async () => {
+    try {
+      const accessories = await axios.get(API_URL);
+      setData(accessories);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    dispatch(dataAccessories());
+  }, [dispatch]);
+
   return (
     <div className="flex font-bold text-3xl">
       <h1>
         <span className="text-primary">Accessories!</span>
       </h1>
       <div>
-<TableContainer>
-  <Table>
-    <TableHead>
-      <TableRow>
-        <TableCell>Id</TableCell>
-      <TableCell>Name</TableCell>
-      <TableCell>Precie</TableCell>
-      <TableCell>Status</TableCell>
-      <TableCell>Edit</TableCell>
-      <TableCell>Delete</TableCell>
-      </TableRow>
-    </TableHead>
-    <TableBody>
-      
-    </TableBody>
-  </Table>
-</TableContainer>
-
-
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Id</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Price</TableCell>
+                <TableCell>Quantity</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Accions</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.map((a) => (
+                <TableRow key={a.id}>
+                  <TableCell>{a.id}</TableCell>
+                  <TableCell>{a.name}</TableCell>
+                  <TableCell>{a.price}</TableCell>
+                  <TableCell>{a.quantity}</TableCell>
+                  <TableCell>{a.status}</TableCell>
+                  <TableCell>
+                    <Edit />
+                    &nbsp;&nbsP;&nbsp;
+                    <Delete />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
       <Link to="/create/accessory">
         <button
