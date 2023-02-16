@@ -33,6 +33,12 @@ const validateCreate = [
     .not()
     .isString(),
 
+  check("telephone")
+    .exists()
+    .withMessage("You must enter a telephone")
+    .not()
+    .isString(),
+
   (req, res, next) => {
     validateResult(req, res, next);
   },
