@@ -45,11 +45,12 @@ const routerPostUser = async (req, res) => {
     const user = userSchema(req.body);
     let passwordHash = await bcryptjs.hash(user.password, 8);
     const newUser = await new Users({
-      name: user.name,
-      lastName: user.lastName,
-      eMail: user.eMail,
       dni: user.dni,
+      name: user.name,
+      eMail: user.eMail,
       password: passwordHash,
+      lastName: user.lastName,
+      telephone: user.telephone,
     });
 
     const saveUser = await newUser.save();
