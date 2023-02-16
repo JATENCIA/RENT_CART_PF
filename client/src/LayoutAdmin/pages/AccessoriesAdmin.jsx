@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { Edit, Delete } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
 import {
   Table,
   TableContainer,
@@ -11,22 +13,21 @@ import {
 } from "@mui/material";
 
 const API_URL = `http://localhost:3001/accessories`;
+
 function AccessoriesAdmin() {
-  const [data, setData] = useState([]);
-  console.log(data);
+  const dispatch = useDispatch();
+  const [accesories, setAccessories] = useState([]);
 
-  const API_URL = `http://localhost:3001/accessories`;
-
-  const dataAccessories = async () => {
+  const dataInfo = async () => {
     try {
-      const accessories = await axios.get(API_URL);
-      setData(accessories);
+      const { data } = await axios.get(API_URL);
+      setAccessories(data);
     } catch (e) {
       console.log(e);
     }
   };
   useEffect(() => {
-    dispatch(dataAccessories());
+    dispatch(dataInfo);
   }, [dispatch]);
 
   return (
@@ -34,7 +35,7 @@ function AccessoriesAdmin() {
       <h1>
         <span className="text-primary">Accessories!</span>
       </h1>
-      <div>
+      <div className="bg-blue-900">
         <TableContainer>
           <Table>
             <TableHead>
@@ -48,16 +49,16 @@ function AccessoriesAdmin() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((a) => (
+              {accesories.map((a) => (
                 <TableRow key={a.id}>
-                  <TableCell>{a.id}</TableCell>
+                  <TableCell>{a._id}</TableCell>
                   <TableCell>{a.name}</TableCell>
                   <TableCell>{a.price}</TableCell>
                   <TableCell>{a.quantity}</TableCell>
                   <TableCell>{a.status}</TableCell>
                   <TableCell>
                     <Edit />
-                    &nbsp;&nbsP;&nbsp;
+                    &nbsp;&nbsp;&nbsp;
                     <Delete />
                   </TableCell>
                 </TableRow>

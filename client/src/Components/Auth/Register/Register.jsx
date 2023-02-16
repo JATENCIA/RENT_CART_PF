@@ -53,11 +53,9 @@ function Register() {
     };
     e.preventDefault();
     dispatch(postUser(newUser));
-
     alert("Tu usuario a sido creado");
     setInput(initialState);
   }
-
   return (
     <React.Fragment>
       <NavBar />

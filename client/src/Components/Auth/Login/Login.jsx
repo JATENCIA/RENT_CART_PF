@@ -4,6 +4,7 @@ import NavBar from "../../../Components/NavBar/NavBar";
 import Footer from "../../../Components/Footer/Footer";
 import { LoginButton } from "../LoginButton";
 import validate from "./validate";
+// import {loginUser} from "../../../redux/actions/actions"
 
 import {
   RiMailLine,
@@ -34,8 +35,8 @@ function Login() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-
-    navigate("/home");
+    // dispatch(loginUser())
+    // navigate("/home");
   }
   return (
     <React.Fragment>

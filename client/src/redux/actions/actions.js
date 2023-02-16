@@ -85,8 +85,18 @@ export const postUser = (payload) => async (dispatch) => {
   } catch (e) {
     console.log(e)
   }
-
 }
+// export const postUserLogin = (payload) => async (dispatch) => {
+//   try {
+//     const loginUser = await axios.post(`http://localhost:3001/users/loading`, payload)
+//     return dispatch({
+//       type: "POST_USER_LOGIN",
+//       payload: loginUser
+//     })
+//   } catch (e) {
+//     console.log(e)
+//   }
+// }
 
 export const setSearch = (payload) => {
   return {
