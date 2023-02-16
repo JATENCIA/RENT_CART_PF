@@ -18,6 +18,7 @@ export default function Home() {
   useEffect(() => {
     dispatch(getAllCars());
   }, [dispatch]);
+  
 
   // const API_URL = `http://localhost:3001/cars`;
 
@@ -35,9 +36,25 @@ export default function Home() {
   let [ordeno, setordeno] = useState("Ascending");
   let [indexo, setindexo] = useState("Brand");
   let [arCar, setarCar] = useState(cars);
-  let [pag, setPag] = useState(1);
   let [xclude] = useState([[], [], [], [], []]);
   let ordenado = [];
+  
+  let [pag, setPag] = useState(1);
+  const[carsPerPege]=useState(6);
+  
+  var until = pag * carsPerPege;
+  var since = until - carsPerPege;
+
+  let carPag = arCar.slice(since, until);
+
+  const paginado=pageNumber => {
+    setPag(pageNumber)
+  }
+  useEffect(() => {
+    paginado(1);
+  }, [cars]);
+
+
   //functions-------------------------------------
   function paginate(e, num) {
     e.preventDefault();
@@ -172,10 +189,19 @@ export default function Home() {
   }
 
   //----------------------------------------------
-  var until = pag * 6;
-  var since = until - 6;
+  // var until = pag * 6;
+  // var since = until - 6;
 
-  let carPag = arCar.slice(since, until);
+  // let carPag = arCar.slice(since, until);
+
+  // const paginado=pageNumber => {
+  //   setPag(pageNumber)
+  // }
+  // useEffect(() => {
+  //   paginado(1);
+  // }, [cars]);
+
+
   return (
     <React.Fragment>
       <Search />
@@ -189,6 +215,9 @@ export default function Home() {
       <div className="Filteredout">Filtered out</div>
       <NavBar />
       <div className="homen">
+        {/* {
+          carPag?.map((e) => {})
+        } */}
         <Cards cars={carPag} ttFilt={arCar.length} />
         <Pagination total={arCar.length} paginate={paginate} />
       </div>

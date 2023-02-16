@@ -1,38 +1,44 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { setSearch } from "../../redux/actions/actions";
+import { setSearch } from "../../redux/actions/actions.js";
 
-function Search() {
-  const dispatch = useDispatch();
-  const [location, setLocation] = useState("");
+export default function Search (){
+  const dispatch= useDispatch();
+  const [location, setLocation]= useState('');
 
-  function handleLocation(e) {
+  function handleInputChange (e){
     e.preventDefault();
     setLocation(e.target.value);
-    console.log(e.target.value);
+    console.log(location)
   }
-  function handleSubmit(e) {
+  function handleSubmit(e){
     e.preventDefault();
-    dispatch(setSearch(location));
-    setLocation("");
+    if(location){
+      
+      dispatch(setSearch(location))
+      setLocation("");
+  }
+  else{
+      alert('No se encontro localidad');
+  }
+    // dispatch(setSearch(location));
+    // setLocation("");
   }
 
   return (
-    <React.Fragment>
       <ContainerStyled>
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <InputStyled
-            type="search"
-            value={location}
-            placeholder="Where do you need your car?"
-            onChange={(e) => handleLocation(e)}
-          />
-
-          <ButtonStyled type="submit">SEARCH</ButtonStyled>
-        </form>
+        <div>
+        <input
+        type= "text"
+        placeholder= "Search location... "
+        onChange= {(e) => handleInputChange(e)}
+        />
+          <ButtonStyled type='submit' onClick={e => handleSubmit(e)}>SEARCH</ButtonStyled>
+          </div>
       </ContainerStyled>
-    </React.Fragment>
+    
   );
 }
 
@@ -67,4 +73,3 @@ export const ButtonStyled = styled.button`
     color: #fff;
   }
 `;
-export default Search;

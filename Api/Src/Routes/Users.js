@@ -4,6 +4,7 @@ const bcryptjs = require("bcryptjs");
 const Users = require("../Models/Users");
 const userSchema = require("../Models/Users");
 const { validateCreate } = require("../Validators/Users.js");
+const { mandarEmail }= require("../Nodemailer/Mailer.js");
 
 // Create user
 
@@ -19,19 +20,21 @@ const { validateCreate } = require("../Validators/Users.js");
 router.post("/", async (req, res) => {
   try {
     validateCreate;
-    const user = userSchema(req.body);
-    let passwordHash = await bcryptjs.hash(user.password, 8);
-    const newUser = await new Users({
-      name: user.name,
-      lastName: user.lastName,
-      kindOfPerson: user.kindOfPerson,
-      eMail: user.eMail,
-      location: user.location,
-      telephone: user.telephone,
-      dni: user.dni,
-      password: passwordHash,
-    });
-
+      const user = userSchema(req.body);
+      let passwordHash = await bcryptjs.hash(user.password, 8);
+      const newUser = await new Users({
+        name: user.name,
+        lastName: user.lastName,
+        kindOfPerson: user.kindOfPerson,
+        eMail: user.eMail,
+        location: user.location,
+        telephone: user.telephone,
+        dni: user.dni,
+        password: passwordHash,
+        
+      });
+      mandarEmail(user.eMail)
+    
     const saveUser = await newUser.save();
     res.status(200).json(saveUser);
   } catch (error) {
