@@ -17,10 +17,11 @@ export const ContainerStyled = styled.div`
   display: flex;
   flex-direction: column;
   color: #023047;
-  margin-top: 100px;
+  margin-top: 400px;
   justify-content: center;
   align-items: center;
   align-content: center;
+  margin-bottom: 200px;
 `;
 
 export default FaqSection;

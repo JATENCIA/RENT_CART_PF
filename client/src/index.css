@@ -6,7 +6,7 @@
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
-
+  
   color-scheme: light dark;
   color: #FB8500;
   
@@ -34,7 +34,8 @@ button {
 
 button:hover {
   background-color: #219EBC;
-  color:#fff
+  color:#fff;
+  text-shadow: 0 0 5px #fff; 
   }
 
 a {

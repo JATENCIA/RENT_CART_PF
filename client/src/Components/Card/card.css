@@ -4,7 +4,7 @@
     border-left: 0px solid #858585cc;
     border-right: 0px solid #858585cc;
     width: 550px;
-    height: 160px;
+    height: 210px;
     display: grid;
     grid-template-columns: 2% 36% 45% 15% 2%;
     margin-top: 70px;
@@ -58,10 +58,11 @@
 }
 .heart{
     color: #354f52cc;
-    font-size: 180%;
+    font-size: 150%;    
     text-align:right;
-    cursor: pointer;
+    cursor: pointer;    
 }
+
 .Desc{
     color: #fb8500;
 }

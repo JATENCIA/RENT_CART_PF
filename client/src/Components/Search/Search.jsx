@@ -39,7 +39,7 @@ function Search() {
 export const ContainerStyled = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 70px;
+  margin-top: 100px;
 `;
 
 export const InputStyled = styled.input`

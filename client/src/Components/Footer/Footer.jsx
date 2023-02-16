@@ -51,7 +51,7 @@ export const ContainerStyled = styled.div`
   color: #023047;
   position: absolute;
   width: 100%;
-  botton: 0;
+  top: 1200px;
   padding-top: 20px;
   font-size: 20px;
 `;

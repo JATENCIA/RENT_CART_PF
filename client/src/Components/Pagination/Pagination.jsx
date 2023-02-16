@@ -13,7 +13,7 @@ function Pagination({ total, paginate }) {
   
 	return (	
 		<nav className="pagination">
-      <div className='pagine'>Pagine</div>
+      {/* <div className='pagine'>Pagine</div> */}
         {pageNumbers.map((num) => (
           <div key={num} className="item">
             <button onClick={(e) => paginate(e, num)}>

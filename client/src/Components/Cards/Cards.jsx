@@ -11,7 +11,9 @@ function Cards({ cars, ttFilt }) {
         {cars.length > 0 ? (
           cars.map((car) => <Card car={car} />)
         ) : (
-          <img src={loading} alt="loading" />
+          <div className="loading">
+            <img src={loading} alt="loading" />
+          </div>
         )}
       </div>
     </div>

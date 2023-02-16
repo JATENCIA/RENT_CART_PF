@@ -111,12 +111,12 @@ shoping.map((art)=>{
                   <div>
 
                     <div className="shoppingGroup">
-                      <h1 >Rental Detail</h1>
+                      <h1 className="titleText" >Rental Detail</h1>
                       <p className="shoppingText">{date} ref. #788852100004</p>
                     </div>
 
                     <div className="shoppingGroup">
-                      <h1 className="shoppingTittle">products for rent: </h1>
+                      <h1 className="shoppingTittle">Products for rent: </h1>
                       <p id="justi" className="shoppingText">{concat} </p>
                     </div>
                     <div className="shoppingGroup">
@@ -124,7 +124,7 @@ shoping.map((art)=>{
                       <p className="shoppingText">${total} </p>
                     </div>
                     <div className="shoppingGroup">
-                      <h1 className="shoppingTittle">way to pay: </h1>
+                      <h1 className="shoppingTittle">Way to pay: </h1>
                       <p className="shoppingText"> Mercado Pago </p>
                     </div>
                   </div>

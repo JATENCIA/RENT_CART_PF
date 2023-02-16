@@ -10,26 +10,25 @@
     text-shadow: 7px 4px 5px #feffff;
     color: #023047;
     font-size: 47px;
+    margin-bottom:20px;
 }
 
 .button {
     background-color: #FFB703;
-    border: none;
-    color: white;
+    border: none;   
     padding: 6px 20px;
+    margin-bottom:15px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 20px;
     border-radius: 10px;
     cursor: pointer;
     font-family: 'Noto Sans', sans-serif;
 }
 
-.button:hover {
-    background-color: #023047;
-    border-color: #023047;
-    color: #FFB703;
+.button:hover {    
+    border-color: #023047;    
     transition: 0,6s;
 }
 

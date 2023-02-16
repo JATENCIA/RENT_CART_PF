@@ -1,6 +1,7 @@
 import React from "react";
 import "./card.css";
 import { Link } from "react-router-dom";
+import { MdFavoriteBorder } from "react-icons/md";
 
 const Card = ({ car }) => {
   return (
@@ -36,7 +37,9 @@ const Card = ({ car }) => {
         <div></div>
       </div>
       <div>
-        <div className="heart">♡</div>
+        <div className="heart">
+          <MdFavoriteBorder />
+        </div>
       </div>
     </div>
   );
