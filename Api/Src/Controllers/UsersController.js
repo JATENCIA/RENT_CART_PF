@@ -3,7 +3,11 @@ const Cars = require("../Models/Cars");
 const Users = require("../Models/Users");
 const userSchema = require("../Models/Users");
 const { validateCreate } = require("../Validators/Users.js");
+<<<<<<< HEAD
 const { eMail1 } = require("../Nodemailer/Mailer.js");
+=======
+const { validateUser } = require("../Assistant/usersAssistant");
+>>>>>>> b964b14a48dd196d61925dc1567aec7ff352699b
 
 /**
  * It takes the licensePlate of a car and the eMail of a user, then it checks if the user has the car
@@ -43,6 +47,7 @@ const routerGetFavorite = async (req, res) => {
 const routerPostUser = async (req, res) => {
   try {
     validateCreate;
+    validateUser(req, res);
     const user = userSchema(req.body);
     let passwordHash = await bcryptjs.hash(user.password, 8);
     const newUser = await new Users({

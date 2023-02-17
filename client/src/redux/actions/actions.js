@@ -6,21 +6,34 @@ export const POST_ACCESSORIES = "POST_ACCESSORIES"
 export const POST_USER = "POST_USER"
 export const SEARCH = "SEARCH"
 export const GET_ALL_ACCESSORIES = "GET_ALL_ACCESSORIES"
-export const RESERVED = "RESERVED"
+export const ACCESO = "ACCESO"
 
 
+//export function acceso(obj) { // guardar acceso
+  export const acceso = (payload) => async (dispatch) => {
+    try {    
+      const RutaMP = await axios.post("http://localhost:3001/payment", payload)
+      return dispatch({
+        type: "ACCESO",
+        payload: RutaMP
+      })
 
+      
+  
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
-export function getAllAccsessories() {
-  try {
-    return function (dispatch) {
-      return fetch(`http://localhost:3001/accessories`)
-        .then(response => response.json())
-        .then(json => {
-          console.log(json, "esteeee");
-          dispatch({ type: "GET_ALL_ACCESSORIES", payload: json });
-        });
-    };
+export function getAllAccsessories () {
+  try {    
+      return function (dispatch) {
+        return fetch(`http://localhost:3001/accessories`)
+          .then(response => response.json())
+          .then(json => {
+            dispatch({ type: "GET_ALL_ACCESSORIES", payload: json });
+          });
+      };
   } catch (e) {
     console.log(e)
   }
