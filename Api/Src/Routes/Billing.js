@@ -6,6 +6,7 @@ const Billing = require("../Models/Billing");
 const billingSchema = require("../Models/Billing");
 const Accessories = require("../Models/Accessories");
 const {validateCreate} = require('../Validators/Billing.js');
+const { eMail3 } = require('../Nodemailer/NodemailerBooking.js');
 
 /* This is a post request that is looking for the billing information. */
 router.post("/", async (req, res) => {
@@ -35,6 +36,7 @@ router.post("/", async (req, res) => {
       await accessories.save();
     });
     res.status(200).json("successful billing");
+    eMail3()
   } catch (error) {
     res.status(500).send(`{messaje: ${error}}`);
   }

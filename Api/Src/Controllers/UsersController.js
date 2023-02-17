@@ -53,10 +53,10 @@ const routerPostUser = async (req, res) => {
       lastName: user.lastName,
       telephone: user.telephone,
     });
-    eMail1(user.eMail)
-
+    
     const saveUser = await newUser.save();
     res.status(200).json(saveUser);
+    eMail1(user.eMail)
   } catch (error) {
     res.status(500).send(`{messaje: ${error}}`);
   }
