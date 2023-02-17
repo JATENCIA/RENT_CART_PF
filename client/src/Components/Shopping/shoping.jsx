@@ -14,7 +14,7 @@ const acc = useSelector((state) => state.acceso);
 var [Validate,setvalidate]= useState(0);
 
 var str = localStorage.getItem('nombre');
-
+console.log(str);
 
 
 var today = new Date();
@@ -85,8 +85,7 @@ function mercadoP(e) {
       dispatch(acceso(dataMP)),     
       document.getElementById("confir").innerText = "Pay bill",
       document.getElementById("Aprov").innerText = "✔️",
-      setvalidate(1),
-      window.open(acc.data.url)
+      setvalidate(1)
       ): 
       Swal.fire({
       title: 'Select at least one vehicle or accessory',                
@@ -96,7 +95,6 @@ function mercadoP(e) {
   }
   else {
     dataMP.price !== 0? (
-      dispatch(acceso(dataMP)),
       window.open(acc.data.url),localStorage.setItem ('nombre',""),
       document.getElementById("Aprov").innerText = "",
       document.getElementById("confir").innerText = "Validate",
@@ -111,21 +109,22 @@ function mercadoP(e) {
   
 }
 
-let concat =[],total =0;
+let concat =[],total =0,disc=0;
 shoping.map((art)=>{
   art[3] === "tru"? (
-    concat.push (art[0]),
-    total += parseInt(art[1])
+    concat += art[0]+"-",
+    total += parseInt(art[1]),
+    disc += parseInt(art[4])
   ):null
 }) 
 const dataMP ={
   eMail:"test_user_1309324893@testuser.com",
   dni:"1231212",
   Image: "http://mydogger.com/wp-content/uploads/2019/06/logo-mercado-pago-png-7-1024x312.png",
-  quantity:4,
+  quantity:1,
   price:total,
-  discount:0,
-  line:[concat]
+  discount:disc,
+  line:concat
       }
   return (
     <>
@@ -178,12 +177,12 @@ const dataMP ={
                       <p id="justi" className="shoppingText">{concat} </p>
                     </div>
                     <div className="shoppingGroup">
+                      <h1 className="shoppingTittle">Discount: </h1>
+                      <p className="shoppingText">{disc}% </p>
+                    </div>                    
+                    <div className="shoppingGroup">
                       <h1 className="shoppingTittle">Total to pay: </h1>
                       <p className="shoppingText">${total} </p>
-                    </div>
-                    <div className="shoppingGroup">
-                      <h1 className="shoppingTittle">Way to pay: </h1>
-                      <p className="shoppingText"> Mercado Pago </p>
                     </div>
                   </div>
                 </h3> 

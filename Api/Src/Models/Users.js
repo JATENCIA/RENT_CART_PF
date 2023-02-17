@@ -4,7 +4,6 @@ const userSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
-    unique: true,
     minLength: 3,
     maxLength: 50,
   },
@@ -14,13 +13,12 @@ const userSchema = mongoose.Schema({
   },
   lastName: {
     type: String,
-    required: true,
     minLength: 3,
     maxLength: 50,
   },
   dni: {
     type: Number,
-    require: true,
+    require: false,
     unique: true,
     minLength: 7,
     maxLength: 10,
