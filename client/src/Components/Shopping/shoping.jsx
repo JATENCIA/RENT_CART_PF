@@ -3,10 +3,19 @@ import { Link } from "react-router-dom";
 import "./shoping.css";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
+import { useSelector,useDispatch} from 'react-redux';
+import {acceso} from '../../redux/actions/actions'
 
 export default function Details() {
+  
+const dispatch = useDispatch();
+const acc = useSelector((state) => state.acceso);
+
+var [Validate,setvalidate]= useState(0);
 
 var str = localStorage.getItem('nombre');
+console.log(str);
+
 
 var today = new Date();
 var day = today.getDate();
@@ -20,9 +29,13 @@ const [ref, setref] = useState(0)
 arr.map((data)=>{
   data !== ""? shoping.push (data.split('|')):null; 
 })
-
-
 function deleteReserved (e){
+  Swal.fire({
+    title: 'The article was excluded!',                
+    icon: 'warning',
+    confirmButtonColor: '#e38e15',
+    confirmButtonText: 'Exit',
+  })
   e.preventDefault();
   let arrTemp = [];
   shoping.map((inf)=>{
@@ -35,10 +48,15 @@ function deleteReserved (e){
     )
   })  
   setref(ref+1)
-  aLocalS(arrTemp)
+  aLocalS(arrTemp)  
 }
-
 function trueReserved (e){
+  Swal.fire({
+    title: 'The article was included!',                
+    icon: 'warning',
+    confirmButtonColor: '#e38e15',
+    confirmButtonText: 'Exit',
+  })
   e.preventDefault();
   let arrTemp = [];
   shoping.map((inf)=>{
@@ -51,9 +69,8 @@ function trueReserved (e){
     )
   })  
   setref(ref+1)
-  aLocalS(arrTemp)
+  aLocalS(arrTemp)  
 }
-
 function aLocalS (array){
   let str ="";
   array.map((dato)=>{
@@ -61,14 +78,54 @@ function aLocalS (array){
   })
   localStorage.setItem ('nombre',str)
 }
-let concat ="",total =0;
+function mercadoP(e) {
+  e.preventDefault();
+  if (Validate===0){
+    dataMP.price !== 0? (
+      dispatch(acceso(dataMP)),     
+      document.getElementById("confir").innerText = "Pay bill",
+      document.getElementById("Aprov").innerText = "✔️",
+      setvalidate(1)
+      ): 
+      Swal.fire({
+      title: 'Select at least one vehicle or accessory',                
+      icon: 'warning',
+      confirmButtonColor: '#e38e15'}) 
+
+  }
+  else {
+    dataMP.price !== 0? (
+      window.open(acc.data.url),localStorage.setItem ('nombre',""),
+      document.getElementById("Aprov").innerText = "",
+      document.getElementById("confir").innerText = "Validate",
+      setvalidate(0)
+      ): 
+      Swal.fire({
+      title: 'Select at least one vehicle or accessory',                
+      icon: 'warning',
+      confirmButtonColor: '#e38e15'}) 
+
+  }
+  
+}
+
+let concat =[],total =0,disc=0;
 shoping.map((art)=>{
   art[3] === "tru"? (
-    concat += art[0]+", ",
-    total += parseInt(art[1])
+    concat += art[0]+"-",
+    total += parseInt(art[1]),
+    disc += parseInt(art[4])
   ):null
-})
-
+}) 
+const dataMP ={
+  eMail:"test_user_1309324893@testuser.com",
+  dni:"1231212",
+  Image: "http://mydogger.com/wp-content/uploads/2019/06/logo-mercado-pago-png-7-1024x312.png",
+  quantity:1,
+  price:total,
+  discount:disc,
+  line:concat
+      }
   return (
     <>
       <NavBar></NavBar>
@@ -120,12 +177,12 @@ shoping.map((art)=>{
                       <p id="justi" className="shoppingText">{concat} </p>
                     </div>
                     <div className="shoppingGroup">
+                      <h1 className="shoppingTittle">Discount: </h1>
+                      <p className="shoppingText">{disc}% </p>
+                    </div>                    
+                    <div className="shoppingGroup">
                       <h1 className="shoppingTittle">Total to pay: </h1>
                       <p className="shoppingText">${total} </p>
-                    </div>
-                    <div className="shoppingGroup">
-                      <h1 className="shoppingTittle">Way to pay: </h1>
-                      <p className="shoppingText"> Mercado Pago </p>
                     </div>
                   </div>
                 </h3> 
@@ -137,9 +194,7 @@ shoping.map((art)=>{
               <button> Go back </button>
             </Link>
             <div id="csepara"></div>
-            <Link to={`/shopping`} className="clink">
-              <button> Pay bill  </button>
-            </Link>
+            <button id="confir" onClick={(e)=>mercadoP(e)}>Validate </button> <div id="Aprov"></div>
         </div><br />
       </div>
       <Footer></Footer>
