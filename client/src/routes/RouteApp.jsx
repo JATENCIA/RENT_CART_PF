@@ -65,12 +65,10 @@ function RouteApp() {
           <Route path="cars" element={<CarsAdmin />} />
           <Route path="accessories" element={<AccessoriesAdmin />} />
           <Route path="bookings" element={<BookingsAdmin />} />
+          <Route path="create-car" element={<FormCar />} />
+          <Route path="create-accessory" element={<FormAccessory />} />
         </Route>
 
-        <Route path="/create" element={<LayoutAdmin />}>
-          <Route path="car" element={<FormCar />} />
-          <Route path="accessory" element={<FormAccessory />} />
-        </Route>
         {/* Configuración de ruta 404 error */}
         <Route exact path="*" element={<NotFound />} />
       </Routes>
