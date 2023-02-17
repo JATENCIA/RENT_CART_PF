@@ -1,44 +1,38 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { setSearch } from "../../redux/actions/actions.js";
+import { setSearch } from "../../redux/actions/actions";
 
-export default function Search (){
-  const dispatch= useDispatch();
-  const [location, setLocation]= useState('');
+function Search() {
+  const dispatch = useDispatch();
+  const [location, setLocation] = useState("");
 
-  function handleInputChange (e){
+  function handleLocation(e) {
     e.preventDefault();
     setLocation(e.target.value);
-    console.log(location)
+    console.log(e.target.value);
   }
-  function handleSubmit(e){
+  function handleSubmit(e) {
     e.preventDefault();
-    if(location){
-      
-      dispatch(setSearch(location))
-      setLocation("");
-  }
-  else{
-      alert('No se encontro localidad');
-  }
-    // dispatch(setSearch(location));
-    // setLocation("");
+    dispatch(setSearch(location));
+    setLocation("");
   }
 
   return (
+    <React.Fragment>
       <ContainerStyled>
-        <div>
-        <input
-        type= "text"
-        placeholder= "Search location... "
-        onChange= {(e) => handleInputChange(e)}
-        />
-          <ButtonStyled type='submit' onClick={e => handleSubmit(e)}>SEARCH</ButtonStyled>
-          </div>
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <InputStyled
+            type="search"
+            value={location}
+            placeholder="Where do you need your car?"
+            onChange={(e) => handleLocation(e)}
+          />
+
+          <ButtonStyled type="submit">SEARCH</ButtonStyled>
+        </form>
       </ContainerStyled>
-    
+    </React.Fragment>
   );
 }
 
@@ -67,9 +61,9 @@ export const ButtonStyled = styled.button`
   color: #023047;
   font-weight: bold;
   cursor: pointer;
-
   &:hover {
     background-color: #219ebc;
     color: #fff;
   }
 `;
+export default Search;

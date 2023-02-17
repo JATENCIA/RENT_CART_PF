@@ -3,7 +3,7 @@ const Cars = require("../Models/Cars");
 const Users = require("../Models/Users");
 const userSchema = require("../Models/Users");
 const { validateCreate } = require("../Validators/Users.js");
-const { mandarEmail } = require("../Nodemailer/Mailer.js");
+const { eMail1 } = require("../Nodemailer/Mailer.js");
 
 /**
  * It takes the licensePlate of a car and the eMail of a user, then it checks if the user has the car
@@ -53,7 +53,7 @@ const routerPostUser = async (req, res) => {
       lastName: user.lastName,
       telephone: user.telephone,
     });
-    mandarEmail(user.eMail)
+    eMail1(user.eMail)
 
     const saveUser = await newUser.save();
     res.status(200).json(saveUser);

@@ -12,6 +12,9 @@ import {
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
+
+
+
   return (
     <React.Fragment>
       <NavBar />

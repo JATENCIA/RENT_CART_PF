@@ -1,8 +1,5 @@
-const { Types } = require("mongoose");
-const User = require("../Models/Users.js");
 const nodemailer= require('nodemailer');
-// const createSale= require('../Routes/');
-// const product = require("../models/product.js");
+
 require("dotenv").config()
 const {
     USER, PASS
@@ -24,7 +21,7 @@ let transporter = nodemailer.createTransport({
 
 
 
-const mandarEmail= async (email) => {
+const eMail02= async (email) => {
     
     let mensaHTM= `
     <!DOCTYPE html>
@@ -104,4 +101,4 @@ const mandarEmail= async (email) => {
         console.log(info);
 
 }
-  module.exports = {mandarEmail}
+  module.exports = {eMail02}
