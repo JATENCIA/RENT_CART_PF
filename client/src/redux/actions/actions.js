@@ -6,10 +6,24 @@ export const POST_ACCESSORIES = "POST_ACCESSORIES"
 export const POST_USER = "POST_USER"
 export const SEARCH = "SEARCH"
 export const GET_ALL_ACCESSORIES = "GET_ALL_ACCESSORIES"
-export const RESERVED = "RESERVED"
+export const ACCESO = "ACCESO"
 
 
+//export function acceso(obj) { // guardar acceso
+  export const acceso = (payload) => async (dispatch) => {
+    try {    
+      const RutaMP = await axios.post("http://localhost:3001/payment", payload)
+      return dispatch({
+        type: "ACCESO",
+        payload: RutaMP
+      })
 
+      
+  
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
 export function getAllAccsessories () {
   try {    
@@ -17,7 +31,6 @@ export function getAllAccsessories () {
         return fetch(`http://localhost:3001/accessories`)
           .then(response => response.json())
           .then(json => {
-            console.log(json, "esteeee");
             dispatch({ type: "GET_ALL_ACCESSORIES", payload: json });
           });
       };
@@ -28,19 +41,19 @@ export function getAllAccsessories () {
 
 export const getAllCars = () => async (dispatch) => {
   try {
-    const result = await axios.get("http://localhost:3001/cars")
+    const { data } = await axios.get("http://localhost:3001/cars")
     dispatch({
       type: "GET_ALL_CARS",
-      payload: result.data
+      payload: data
     })
   } catch (e) {
     console.log(e)
   }
 }
 
-export const getCarById = (id) => async (dispatch) => {
+export const getCarById = (licensePlate) => async (dispatch) => {
   try {
-    const { data } = await axios.get(`http://localhost:3001/cars/${id}`)
+    const { data } = await axios.get(`http://localhost:3001/cars/${licensePlate}`)
     dispatch({
       type: "GET_CAR_BY_ID",
       payload: data
@@ -77,7 +90,7 @@ export const postAccessories = (payload) => async (dispatch) => {
 
 export const postUser = (payload) => async (dispatch) => {
   try {
-    const userCreated = await axios.post("http://localhost:3001/users", payload)
+    const userCreated = await axios.post(`http://localhost:3001/users`, payload)
     return dispatch({
       type: "POST_USER",
       payload: userCreated
@@ -85,8 +98,18 @@ export const postUser = (payload) => async (dispatch) => {
   } catch (e) {
     console.log(e)
   }
-
 }
+// export const postUserLogin = (payload) => async (dispatch) => {
+//   try {
+//     const loginUser = await axios.post(`http://localhost:3001/users/loading`, payload)
+//     return dispatch({
+//       type: "POST_USER_LOGIN",
+//       payload: loginUser
+//     })
+//   } catch (e) {
+//     console.log(e)
+//   }
+// }
 
 export const setSearch = (payload) => {
   return {

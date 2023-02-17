@@ -1,7 +1,10 @@
 import { Formik, Field, Form, useFormik, ErrorMessage } from "formik";
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { Widget } from "@uploadcare/react-widget";
 import * as Yup from "yup";
+import Swal from "sweetalert2";
+import { createTheme } from '@mui/material/styles';
 import "./Form.css";
 import {
   FormControlLabel,
@@ -10,61 +13,77 @@ import {
   TextField,
   Button,
 } from "@mui/material";
+import { postAccessories } from "../../../redux/actions/actions";
 
 export const FormAccessory = () => {
-  const submitForm = (values) => {};
-  const onChange = (info) => {
-    setValues.image = info.originalUrl
-    console.log(info.originalUrl)
-    console.log(values.image);
-  };
+  const dispatch = useDispatch();
   const onFileSelect = (file) => {
     console.log("File changed: ", file);
     if (file) {
       file.done((info) => console.log("File uploaded: ", info));
     }
   };
-  const bla = (file) => {
-    if(!file){
-      console.log("File removed from widget")
+  const uploadFileSelect= (file) => {
+    if (!file) {
+      console.log("File removed from widget");
     }
-    file.done((fileInfo)=> {
-      setValues.image(fileInfo.originalUrl)
-      console.log("done")
-    })
-    }
-
-  const { errors, touched, getFieldProps, values,setValues, handleChange, handleSubmit } =
-    useFormik({
-      initialValues: {
-        name: "",
-        price: 0,
-        description: "",
-        image: "",
-        status: "valid",
-        discount: 0,
-      },
-      validationSchema: Yup.object({
-        name: Yup.string("Enter the accessory")
-          .min(3, "Min. 3 characters")
-          .max(50, "Max. 50 characters")
-          .required("Required"),
-        price: Yup.number()
-          .positive("Price must be greater than zero")
-          .required("Required"),
-        description: Yup.string()
-          .min(10, "Min. 10 characters")
-          .max(300, "Max. 300 characters")
-          .required("Required"),
-        // image: Yup.string().required("Required"),
-        status: Yup.string(),
-        discount: Yup.number(),
-      }),
-      onSubmit: (values) => {
-        console.log(values);
-        alert(JSON.stringify(values, null, 2));
-      },
+    file.done((fileInfo) => {
+      setValues.image(fileInfo.originalUrl);
+      console.log("done");
     });
+  };
+
+  const {
+    errors,
+    touched,
+    getFieldProps,
+    values,
+    setValues,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+    resetForm
+  } = useFormik({
+    initialValues: {
+      name: "",
+      price: 0,
+      description: "",
+      image: "",
+      status: "valid",
+      discount: 0,
+      quantity: 1,
+    },
+    validationSchema: Yup.object({
+      name: Yup.string("Enter the accessory")
+        .min(3, "Min. 3 characters")
+        .max(50, "Max. 50 characters")
+        .required("Name is required"),
+      price: Yup.number()
+        .positive("Price must be greater than zero")
+        .required("Price is required"),
+      description: Yup.string()
+        .min(10, "Min. 10 characters")
+        .max(300, "Max. 300 characters")
+        .required("Description is required"),
+      image: Yup.string().required("Image is required"),
+      status: Yup.string(),
+      discount: Yup.number().moreThan(-1,"Discount must be greater or equal to zero"),
+      quantity: Yup.number()
+        .moreThan(0,"Quantity must be greater than zero")
+        .required("Quantity is required"),
+    }),
+    onSubmit: (values) => {
+      console.log(values);
+      dispatch(postAccessories(values));
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'New accessesory has been created successfully',
+        showConfirmButton:true,   
+      })
+      resetForm({values:''})
+    },
+  });
   return (
     <div className="form_accessory">
       <label className="form_title">CREATE NEW ACCESSORY</label>
@@ -78,11 +97,13 @@ export const FormAccessory = () => {
           label="Name"
           margin="normal"
           onChange={handleChange}
-          error={errors.name && touched.name ? true : false}
+          error={touched.name && errors.name  ? true : false}
           helperText={
-            errors.name && touched.name ? <span>{errors.name} </span> : false
+            touched.name && errors.name  ? <span>{errors.name} </span> : false
           }
-        />
+          {...getFieldProps("name")}
+          />
+          
         <TextField
           fullWidth
           name="price"
@@ -99,6 +120,7 @@ export const FormAccessory = () => {
           helperText={
             errors.price && touched.price ? <span>{errors.price} </span> : false
           }
+          {...getFieldProps("price")}
         />
         <TextField
           fullWidth
@@ -107,7 +129,6 @@ export const FormAccessory = () => {
           multiline
           maxRows={10}
           margin="normal"
-          style={{ backgroundColor: "whitesmoke" }}
           label="Description"
           onChange={handleChange}
           error={errors.description && touched.description ? true : false}
@@ -118,22 +139,24 @@ export const FormAccessory = () => {
               false
             )
           }
+          {...getFieldProps("description")}
         />
         <fieldset>
           <legend>Image</legend>
           <Widget
-            className="uploader"
+            // className="uploader"
             publicKey={"31565ad8e1a6027b4914"}
             name="image"
             value={values.image}
+            previewStep
             clearable
             crop
-            previewStep
             margin="normal"
-            onChange={onChange}
+            onChange={(e) => setFieldValue("image", e.originalUrl)}
             onFileSelect={onFileSelect}
-          />
-          {/* {console.log("holis",values.image)} */}
+            // {...getFieldProps('image')}
+        />
+        {(touched.image && errors.image) && <span className="error">{errors.image}</span>}
         </fieldset>
         <fieldset>
           <legend>Status </legend>
@@ -141,7 +164,7 @@ export const FormAccessory = () => {
             row
             name="status"
             value={values.status}
-            style={{ marginLeft: "220px" }}
+            style={{ marginLeft: "200px" }}
             onChange={handleChange}
           >
             <FormControlLabel
@@ -166,18 +189,39 @@ export const FormAccessory = () => {
           label="Discount"
           margin="normal"
           onChange={handleChange}
-          error={errors.discount && touched.discount ? true : false}
+          error={ touched.discount && errors.discount ? true : false}
           helperText={
-            errors.discount && touched.discount ? (
+            touched.discount && errors.discount ? (
               <span>{errors.discount} </span>
             ) : (
               false
             )
           }
         />
+        <TextField
+          fullWidth
+          name="quantity"
+          value={values.quantity}
+          type="number"
+          min="0"
+          max="100"
+          label="Quantity"
+          margin="normal"
+          onChange={handleChange}
+          error={errors.quantity && touched.quantity ? true : false}
+          helperText={
+            touched.quantity && errors.quantity ? (
+              <span>{errors.quantity} </span>
+            ) : (
+              false
+            )
+          }
+          {...getFieldProps("quantity")}
+        />
         <Button
-          onClick={() => console.log("image",values.image)}
+          onClick={() => console.log("image", values.image)}
           color="primary"
+          sx={{ backgroundColor: '#2F3E46' }}
           variant="contained"
           fullWidth
           type="submit"

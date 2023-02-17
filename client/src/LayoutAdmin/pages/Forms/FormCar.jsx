@@ -1,31 +1,28 @@
 import { Formik, Field, Form, useFormik } from "formik";
-
-import React, { useState } from "react";
+import { useDispatch } from 'react-redux'
+import React from "react";
 import { Widget } from "@uploadcare/react-widget";
 import * as Yup from "yup";
+import Swal from "sweetalert2";
 import {
   Button,
-  FormControl,
   FormControlLabel,
   MenuItem,
   Radio,
   RadioGroup,
   TextField,
 } from "@mui/material";
+import { postCar } from "../../../redux/actions/actions";
 
 export const FormCar = () => {
-  const submitForm = (values) => {};
-  const uploadFileChange = (info) => {
-    console.log(info);
-    // setUpdateList(false);
-    // if (info) {
-    //   setUpdateList(true);
-    // }
+  const dispatch = useDispatch();
+  const onFileSelect = (file) => {
+    console.log("File changed: ", file);
+    if (file) {
+      file.done((info) => console.log("File uploaded: ", info));
+    }
   };
-  const uploadFileSelect = (file) => {
-    console.log(`changed ${file}`);
-  };
-  const { handleSubmit, errors, touched, getFieldProps, handleChange, values } =
+  const { handleSubmit, errors, touched, getFieldProps, handleChange, values, setFieldValue } =
     useFormik({
       initialValues: {
         licensePlate: "",
@@ -49,52 +46,60 @@ export const FormCar = () => {
         licensePlate: Yup.string()
           .min(3, "Min. 3 characters")
           .max(10, "Max. 10 characters")
-          .required("Required"),
+          .required("License plate is required"),
         brand: Yup.string()
           .min(3, "Min. 3 characters")
           .max(15, "Max. 15 characters")
-          .required("Required"),
-        // image: Yup.string(),
+          .required("Brand is required"),
+        image: Yup.string().required("Image is required"),
         status: Yup.string(),
         active: Yup.string(),
         price: Yup.number()
           .positive("Price must be greater than zero")
-          .required("Required"),
+          .required("Price is required"),
         description: Yup.string()
           .min(30, "Min. 30 characters")
           .max(500, "Max. 500 characters")
-          .required("Required"),
+          .required("Description is required"),
         fuelConsumption: Yup.string()
           .min(3, "Min. 3 characters")
           .max(15, "Max. 15 characters")
-          .required("Required"),
+          .required("Fuel consumption is required"),
         location: Yup.string()
           .min(10, "Min. 10 characters")
           .max(200, "Max. 200 characters")
-          .required("Required"),
+          .required("Location is required"),
         colour: Yup.string()
           .min(3, "Min. 3 characters")
           .max(18, "Max. 18 characters")
-          .required("Required"),
+          .required("Colour is required"),
         discount: Yup.number()
           .min(0, "Min. 3 characters")
-          .max(3, "Max. 15 characters"),
+          .max(100, "Max. 15 characters"),
         doors: Yup.number()
           .positive("Doors must be greater than zero")
-          .required("Required"),
+          .required("Doors is required"),
         line: Yup.string()
           .min(2, "Min. 3 characters")
           .max(50, "Max. 15 characters")
-          .required("Required"),
+          .required("Line is required"),
         category: Yup.string()
           .min(3, "Min. 3 characters")
           .max(15, "Max. 15 characters")
-          .required("Required"),
+          .required("Category is required"),
         fuelType: Yup.string(),
         typeOfBox: Yup.string(),
       }),
       onSubmit: (values) => {
         console.log(values);
+        dispatch(postCar(values))
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'New car has been created successfully',
+          showConfirmButton: true,
+        })
+        resetForm({values:''})
       },
     });
   return (
@@ -118,6 +123,7 @@ export const FormCar = () => {
                 false
               )
             }
+            {...getFieldProps("licensePlate")}
           />
           <TextField
             fullWidth
@@ -135,29 +141,32 @@ export const FormCar = () => {
                 false
               )
             }
-            // {...getFieldProps("brand")}
-            // className={`${touched.brand && errors.brand}`}
+            {...getFieldProps("brand")}   
           />
           <fieldset>
             <legend>Image</legend>
             <Widget
+              // className="uploader"
               publicKey={"365750c83b2c5c083491"}
               name="image"
               value={values.image}
               previewStep
               clearable
               crop
-              onChange={(info) => uploadFileChange(info)}
-              onFileSelect={(file) => uploadFileSelect(file)}
+              margin="normal"
+              onChange={(e) => setFieldValue('image',e.originalUrl)}
+              onFileSelect={onFileSelect}
+              // {...getFieldProps("image")}
             />
+            {(touched.image && errors.image) && <span className="error">{errors.image}</span>}
           </fieldset>
           <fieldset>
-            <legend>Status </legend>
+            <legend>Status</legend>
             <RadioGroup
               row
               name="status"
               value={values.status}
-              style={{ marginLeft: "220px" }}
+              style={{ marginLeft: "190px" }}
               onChange={handleChange}
             >
               <FormControlLabel
@@ -178,7 +187,7 @@ export const FormCar = () => {
               row
               name="active"
               value={values.active}
-              style={{ marginLeft: "220px" }}
+              style={{ marginLeft: "190px" }}
               onChange={handleChange}
             >
               <FormControlLabel
@@ -212,6 +221,7 @@ export const FormCar = () => {
                 false
               )
             }
+            {...getFieldProps("price")}
           />
           <TextField
             fullWidth
@@ -229,6 +239,7 @@ export const FormCar = () => {
                 false
               )
             }
+            {...getFieldProps("description")}
           />
           <TextField
             fullWidth
@@ -248,6 +259,7 @@ export const FormCar = () => {
                 false
               )
             }
+            {...getFieldProps("fuelConsumption")}
           />
           <TextField
             fullWidth
@@ -265,6 +277,7 @@ export const FormCar = () => {
                 false
               )
             }
+            {...getFieldProps("location")}
           />
           <TextField
             fullWidth
@@ -282,6 +295,7 @@ export const FormCar = () => {
                 false
               )
             }
+            {...getFieldProps("colour")}
           />
           <TextField
             fullWidth
@@ -318,6 +332,7 @@ export const FormCar = () => {
                 false
               )
             }
+            {...getFieldProps("doors")}
           />
           <TextField
             fullWidth
@@ -331,7 +346,6 @@ export const FormCar = () => {
               touched.line && errors.line ? <span>{errors.line} </span> : false
             }
             {...getFieldProps("line")}
-            className={`${touched.line && errors.line}`}
           />
           <TextField
             fullWidth
@@ -348,6 +362,7 @@ export const FormCar = () => {
                 false
               )
             }
+            {...getFieldProps("category")}
           />
           <TextField
             fullWidth
@@ -365,6 +380,7 @@ export const FormCar = () => {
                 false
               )
             }
+            {...getFieldProps("fuelType")}
           >
             <MenuItem value="gasoline">Gasoline</MenuItem>
             <MenuItem value="gas">Gas</MenuItem>
@@ -386,12 +402,13 @@ export const FormCar = () => {
                 false
               )
             }
+            {...getFieldProps("typeOfBox")}
           >
             <MenuItem value="automatic">Automatic</MenuItem>
             <MenuItem value="handBook">HandBook</MenuItem>
             <MenuItem value="semiautomatic">Semiautomatic</MenuItem>
           </TextField>
-          <Button color="primary" variant="contained" fullWidth type="submit">
+          <Button sx={{ backgroundColor: '#2F3E46' }} variant="contained" fullWidth type="submit">
             CREATE CAR
           </Button>
         </form>
