@@ -17,11 +17,6 @@ import {
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
-<<<<<<< HEAD
-
-
-
-=======
   const initialState = {
     name: "",
     lastName: "",
@@ -61,7 +56,6 @@ function Register() {
     alert("Tu usuario a sido creado");
     setInput(initialState);
   }
->>>>>>> 76a10ba4a7a94835b3100eedf043f61acff66835
   return (
     <React.Fragment>
       <NavBar />
