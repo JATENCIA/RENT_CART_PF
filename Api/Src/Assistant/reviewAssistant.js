@@ -1,6 +1,11 @@
 const Users = require("../Models/Users");
 const Cars = require("../Models/Cars");
 
+/**
+ * It checks if a user has already made a review on a car
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 const validateReview = async (req, res) => {
   const review = reviewSchema(req.body);
   const user = await Users.findById(review.user);

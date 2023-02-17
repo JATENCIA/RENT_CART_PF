@@ -1,6 +1,12 @@
 const Users = require("../Models/Users");
 const userSchema = require("../Models/Users");
 
+/**
+ * It validates if the user already exists in the database
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns a promise.
+ */
 const validateUser = async (req, res) => {
   const userDb = await Users.find({});
   const user = userSchema(req.body);
