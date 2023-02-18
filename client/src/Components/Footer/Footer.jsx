@@ -30,10 +30,10 @@ function Footer() {
         <TitleStyled>
           <h3>CONTACT</h3>
           <p>
-            <FaPhone /> +52 998 492 1643
+            <FaPhone /> +549 11 4586709
           </p>
           <p>
-            <MdEmail /> contact@rentcar.com.ar
+            <MdEmail /> info.grupo.rentcar@gmail.com
           </p>
           <p>
             <FaMapMarkerAlt /> Buenos Aires, Argentina
