@@ -32,8 +32,8 @@ const billingSchema = mongoose.Schema({
   discount: {
     type: Number,
     default: 0,
-    minLength: 0,
-    maxLength: 99,
+    minLength: 1,
+    maxLength: 3,
   },
 
   active: {
