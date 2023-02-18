@@ -36,8 +36,8 @@ router.post("/", async (req, res) => {
       await accessories.save();
     });
     res.status(200).json("successful billing");
-    eMail3(//pasar datos de  donde viaja el email del usuario, arriba no encuentro de que este.)
-  } catch (error) {
+      eMail3 //(pasar datos de  donde viaja el email del usuario, arriba no encuentro de que este)
+    } catch (error) {
     res.status(500).send(`{messaje: ${error}}`);
   }
 });
