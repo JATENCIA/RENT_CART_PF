@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Edit, Delete } from "@mui/icons-material";
 import axios from "axios";
 import loading from "../../assets/loading.gif";
+
 import {
   Table,
   TableContainer,
@@ -10,6 +11,7 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  TablePagination
 } from "@mui/material";
 const API_URL = `http://localhost:3001/billing`;
 
@@ -64,6 +66,7 @@ function BookingsAdmin() {
             )}
           </TableBody>
         </Table>
+        <TablePagination rowsPerPageOptions={[5, 8]} />
       </TableContainer>
     </div>
   );

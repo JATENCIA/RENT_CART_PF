@@ -49,11 +49,14 @@ function Footer() {
 export const ContainerStyled = styled.div`
   background-color: #56859a;
   color: #023047;
-  position: absolute;
-  width: 100%;
-  top: 1200px;
+  left: 0;
+  right: 0;
+  bottom: 0%;
   padding-top: 20px;
   font-size: 20px;
+  // position: absolute;
+  // width: 100%;
+  // top: 1200px;
 `;
 
 export const FooterStyled = styled.div`

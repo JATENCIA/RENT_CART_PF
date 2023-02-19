@@ -10,9 +10,10 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  TablePagination,
 } from "@mui/material";
 
-const API_URL = `http://localhost:3001/accessories`;
+const API_URL = `http://localhost:3001/users`;
 
 function Users() {
   const dispatch = useDispatch();
@@ -59,7 +60,7 @@ function Users() {
                     <TableCell>{u.active}</TableCell>
                     <TableCell>
                       <Edit />
-                      &nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp; 
                       <Delete />
                     </TableCell>
                   </TableRow>
@@ -72,6 +73,7 @@ function Users() {
             )}
           </TableBody>
         </Table>
+        <TablePagination rowsPerPageOptions={[5, 8]} />
       </TableContainer>
     </div>
   );
