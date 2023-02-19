@@ -9,13 +9,16 @@
     
 }
 .Filteredout{
-
+    width: 300px;
     position: absolute;
     top: 150px;
     left: 3%;
     color: #5e768d;
     font-weight: bold;
     font-size: 150%;
+    display: grid;
+    grid-template-columns: 90% 10%;
+
 }
 
 .ordenado{
@@ -44,4 +47,9 @@
 
 #inorder{
   text-align: right;
+}
+#linpFilter{
+    font-size: 70%;
+    color: #5e768d7c;
+    cursor: pointer;
 }

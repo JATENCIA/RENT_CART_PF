@@ -26,6 +26,13 @@ export default function Details() {
     let arrayAux = [];
 
     if (arrayLeno.includes(obj)) {
+      Swal.fire({
+        title: 'The article was excluded!',                
+        icon: 'warning',
+        confirmButtonColor: '#e38e15',
+        confirmButtonText: 'Exit',
+      })
+
       arrayAux = arrayLeno.filter((dato) => dato != obj);
       setselection([]);
       setselection(arrayAux);
@@ -37,15 +44,14 @@ export default function Details() {
     var data = "";
     selection.map((name) => {
       Accessories.map((accesor) => {
+        
         accesor.name === name
           ? (data +=
-              accesor.name +
-              "|" +
-              accesor.price +
-              "|" +
-              accesor._id +
-              "|" +
-              "tru" +
+              accesor.name + "|" +
+              accesor.price + "|" +
+              accesor._id + "|" +
+              "tru" + "|" +
+              accesor.discount + "|" +
               "¬")
           : null;
       });
@@ -61,8 +67,11 @@ export default function Details() {
       state._id +
       "|" +
       "tru" +
+      "|" +
+      state.discount +
       "¬" +
       data;
+
     localStorage.setItem("nombre", info);
   }
 
