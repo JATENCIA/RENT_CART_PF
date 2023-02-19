@@ -5,13 +5,15 @@ import { Edit, Delete } from "@mui/icons-material";
 import loading from "../../assets/loading.gif";
 import axios from "axios";
 import {
+  FormControlLabel,
+  Radio,
+  RadioGroup,
   Table,
   TableContainer,
   TableHead,
   TableRow,
   TableCell,
   TableBody,
-  TablePagination,
   Modal,
   Button,
   TextField,
@@ -59,16 +61,17 @@ function CarsAdmin() {
 
   function handleChange(e) {
     setCarSelected({ ...carSelected, [e.target.name]: e.target.value });
+    console.log(e.target.value);
   }
 
   const openCloseModalEdit = () => {
     setModalEdit(!modalEdit);
   };
 
-  function selectCar(c, caso) {
-    setCarSelected(c);
-    caso === "Edit" && setModalEdit(true);
-  }
+  // function selectCar(car, caso) {
+  //   setCarSelected(car);
+  //   caso === "Edit" && setModalEdit(true);
+  // }
 
   const peticionPut = async () => {
     await axios.put(API_URL + carSelected.id, carSelected).then((response) => {
@@ -98,12 +101,13 @@ function CarsAdmin() {
   };
 
   const bodyEdit = (
-    <div>
-      <h3 className="text-center">Edit Cars</h3>
+    <div className="bg-white  pl-2 pr-2">
+      <h3 className="text-center pt-2 font-bold text-2xl">EDIT CARS</h3>
       <br />
       <TextField
         name="licensePlate"
-        className="w-full "
+        margin="normal"
+        fullWidth
         label="licensePlate"
         onChange={handleChange}
         value={carSelected && carSelected.licensePlate}
@@ -111,15 +115,17 @@ function CarsAdmin() {
       <br />
       <TextField
         name="brand"
-        className="w-full"
+        margin="normal"
+        fullWidth
         label="brand"
         onChange={handleChange}
         value={carSelected && carSelected.brand}
       />
       <br />
-      {/* <TextField
+      <TextField
         name="line"
-        className="w-full"
+        margin="normal"
+        fullWidth
         label="line"
         onChange={handleChange}
         value={carSelected && carSelected.line}
@@ -127,7 +133,8 @@ function CarsAdmin() {
       <br />
       <TextField
         name="price"
-        className="w-full"
+        margin="normal"
+        fullWidth
         label="price"
         onChange={handleChange}
         value={carSelected && carSelected.price}
@@ -135,7 +142,8 @@ function CarsAdmin() {
       <br />
       <TextField
         name="description"
-        className="w-full"
+        margin="normal"
+        fullWidth
         label="description"
         onChange={handleChange}
         value={carSelected && carSelected.description}
@@ -143,14 +151,16 @@ function CarsAdmin() {
       <br />
       <TextField
         name="category"
-        className="w-full"
+        margin="normal"
+        fullWidth
         label="category"
         onChange={handleChange}
         value={carSelected && carSelected.category}
       />
       <TextField
         name="location"
-        className="w-full"
+        margin="normal"
+        fullWidth
         label="location"
         onChange={handleChange}
         value={carSelected && carSelected.location}
@@ -158,7 +168,8 @@ function CarsAdmin() {
       <br />
       <TextField
         name="fuelConsumption"
-        className="w-full"
+        margin="normal"
+        fullWidth
         label="fuelConsumption"
         onChange={handleChange}
         value={carSelected && carSelected.fuelConsumption}
@@ -166,7 +177,8 @@ function CarsAdmin() {
       <br />
       <TextField
         name="doors"
-        className="w-full"
+        margin="normal"
+        fullWidth
         label="doors"
         onChange={handleChange}
         value={carSelected && carSelected.doors}
@@ -174,7 +186,8 @@ function CarsAdmin() {
       <br />
       <TextField
         name="colour"
-        className="w-full"
+        margin="normal"
+        fullWidth
         label="colour"
         onChange={handleChange}
         value={carSelected && carSelected.colour}
@@ -182,15 +195,17 @@ function CarsAdmin() {
       <br />
       <TextField
         name="discount"
-        className="w-full"
+        margin="normal"
+        fullWidth
         label="discount"
         onChange={handleChange}
         value={carSelected && carSelected.discount}
       />
-      <br /> */}
+      <br />
       <TextField
         name="fuelType"
-        className="w-full"
+        margin="normal"
+        fullWidth
         label="fuelType"
         onChange={handleChange}
         value={carSelected && carSelected.fuelType}
@@ -198,55 +213,83 @@ function CarsAdmin() {
       <br />
       <TextField
         name="typeOfBox"
-        className="w-full"
+        margin="normal"
+        fullWidth
         label="typeOfBox"
         onChange={handleChange}
         value={carSelected && carSelected.typeOfBox}
       />
       <br />
-      <TextField
-        name="status"
-        className="w-full"
-        label="status"
-        onChange={handleChange}
-        value={carSelected && carSelected.status}
-      />
+      <fieldset>
+        <legend>Status</legend>
+        <RadioGroup
+          row
+          name="status"
+          value={carSelected && carSelected.status}
+          style={{ marginLeft: "100px" }}
+          onChange={handleChange}
+        >
+          <FormControlLabel
+            value={"valid"}
+            control={<Radio size="small" />}
+            label="Valid"
+          />
+          <FormControlLabel
+            value={"invalid"}
+            control={<Radio size="small" />}
+            label="Invalid"
+          />
+        </RadioGroup>
+      </fieldset>
       <br />
-      <TextField
-        name="active"
-        className="w-full"
-        label="active"
-        onChange={handleChange}
-        value={carSelected && carSelected.active}
-      />
 
-      <br />
+      <fieldset>
+        <legend>Active</legend>
+        <RadioGroup
+          row
+          name="active"
+          value={carSelected && carSelected.active}
+          style={{ marginLeft: "100px" }}
+          onChange={handleChange}
+        >
+          <FormControlLabel
+            value={"valid"}
+            control={<Radio size="small" />}
+            label="Valid"
+          />
+          <FormControlLabel
+            value={"invalid"}
+            control={<Radio size="small" />}
+            label="Invalid"
+          />
+        </RadioGroup>
+      </fieldset>
+
       <br />
       <div align="rigth"></div>
 
-      <Button className="text-primary" onClick={peticionPut}>
-        Edit
-      </Button>
-      <Button className="text-primary" onClick={openCloseModalEdit}>
-        Cancel
-      </Button>
+      <Button onClick={peticionPut}>Edit</Button>
+      <Button onClick={openCloseModalEdit}>Cancel</Button>
     </div>
   );
 
   return (
-    <div className="flex font-bold text-3xl">
-      <Link to="/create/car">
-        <button
-          type="button"
-          className="absolute top-20 right-4 flex px-6 py-2.5 bg-primary text-[#023047] font-bold  text-xs leading-tight uppercase rounded shadow-md hover:bg-[#219EBC] hover:shadow-lg focus:bg-[#219EBC] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg  duration-150 ease-in-out"
-        >
-          Create new car
-        </button>
-      </Link>
+    <>
+      <div className="flex font-bold text-3xl">
+        <Link to="/create/car">
+          <button
+            type="button"
+            className="absolute top-20 right-4 flex px-6 py-2.5 bg-primary text-[#023047] font-bold  text-xs leading-tight uppercase rounded shadow-md hover:bg-[#219EBC] hover:shadow-lg focus:bg-[#219EBC] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg  duration-150 ease-in-out"
+          >
+            Create new car
+          </button>
+        </Link>
+      </div>
+
       <div className="bg-white mt-[40px]">
         <TableContainer>
-          <Table className="text-2xl">
-            <TableHead className="bg-purple-200">
+          <Table>
+            <TableHead>
               <TableRow>
                 {/* <TableCell>Id</TableCell> */}
                 <TableCell>LicensePlate</TableCell>
@@ -292,23 +335,21 @@ function CarsAdmin() {
                   );
                 })
               ) : (
-                <div className="flex">
-                  <img className="items-center" src={loading} alt="loading" />
-                </div>
+                <img className="items-center" src={loading} alt="loading" />
               )}
             </TableBody>
           </Table>
         </TableContainer>
 
         <Modal
-          className=" overflow-y-scroll w-[400px] h-[40%] top-0 left-0 right-0 fixed m-auto scroll-m-2 bg-slate-500"
+          className="overflow-y-scroll  w-[400px] h-[60%] top-0 left-0 right-0 fixed m-auto scroll-m-2  border-2 border-[#000]  "
           open={modalEdit}
           onClose={openCloseModalEdit}
         >
           {bodyEdit}
         </Modal>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -14,6 +14,7 @@
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.11.8",
+    "@mui/x-data-grid": "^5.17.24",
     "@redux-devtools/extension": "^3.2.5",
     "@reduxjs/toolkit": "^1.9.2",
     "@uploadcare/react-widget": "^2.4.1",

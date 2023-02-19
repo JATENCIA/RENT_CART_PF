@@ -53,13 +53,14 @@ const carSchema = mongoose.Schema({
     minLength: 10,
     maxLength: 200,
   },
-  colour: {
-    type: String,
-    required: true,
-    minLength: 3,
-    maxLength: 18,
-  },
-
+  colour: [
+    {
+      type: String,
+      required: true,
+      minLength: 3,
+      maxLength: 18,
+    },
+  ],
   discount: {
     type: Number,
     default: 0,

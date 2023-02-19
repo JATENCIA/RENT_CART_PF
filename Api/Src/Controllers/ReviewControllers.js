@@ -3,7 +3,6 @@ const Users = require("../Models/Users");
 const Cars = require("../Models/Cars");
 const Review = require("../Models/Review");
 const { validateCreate } = require("../Validators/Review.js");
-const { validateReview } = require("../Assistant/reviewAssistant");
 
 /**
  * It creates a new review, saves it, and then adds the review to the user and car
@@ -13,7 +12,6 @@ const { validateReview } = require("../Assistant/reviewAssistant");
  */
 const routerPostReview = async (req, res) => {
   validateCreate;
-  validateReview(req, res);
   try {
     const review = reviewSchema(req.body);
     const user = await Users.findById(review.user);

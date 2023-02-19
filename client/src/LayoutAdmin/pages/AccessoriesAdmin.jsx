@@ -5,6 +5,9 @@ import { Edit, Delete } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import loading from "../../assets/loading.gif";
 import {
+  FormControlLabel,
+  Radio,
+  RadioGroup,
   Table,
   TableContainer,
   TableHead,
@@ -25,6 +28,8 @@ function AccessoriesAdmin() {
   const [accesorioSeleccionado, setAccesorioSeleccionado] = useState({
     name: "",
     price: "",
+    description: "",
+    quatity: "",
     status: "",
   });
   function handleChange(e) {
@@ -32,15 +37,17 @@ function AccessoriesAdmin() {
       ...accesorioSeleccionado,
       [e.target.name]: e.target.value,
     });
+    console.log(e.target.value);
   }
   const openCloseModalEdit = () => {
     setModalEdit(!modalEdit);
   };
 
-  const selecionarAccesorio = (a, caso) => {
-    setAccesorioSeleccionado(a);
-    caso === "Edit" && setModalEdit(true);
-  };
+  // const selecionarAccesorio = (a, caso) => {
+  //   setAccesorioSeleccionado(a);
+  //   caso === "Edit" && setModalEdit(true);
+  // };
+
   const peticionPut = async () => {
     await axios
       .put(API_URL + accesorioSeleccionado.id, accesorioSeleccionado)
@@ -71,40 +78,80 @@ function AccessoriesAdmin() {
 
   const bodyEdit = (
     <div>
-      <h3>Edit Accesory</h3>
-      <TextField
-        name="name"
-        className="w-full"
-        label="name"
-        onChange={handleChange}
-        value={accesorioSeleccionado && accesorioSeleccionado.name}
-      />
-      <br />
-      <TextField
-        name="price"
-        className="w-full"
-        label="price"
-        onChange={handleChange}
-        value={accesorioSeleccionado && accesorioSeleccionado.price}
-      />
-      <br />
-      <TextField
-        name="status"
-        className="w-full"
-        label="status"
-        onChange={handleChange}
-        value={accesorioSeleccionado && accesorioSeleccionado.status}
-      />
-      <br />
-      <br />
-      <div align="rigth"></div>
+      <div className="bg-white  pl-2 pr-2">
+        <h3 className="text-center pt-2 font-bold text-2xl ">
+          EDIT ACCESSORIES
+        </h3>
+        <br />
+        <TextField
+          name="name"
+          margin="normal"
+          fullWidth
+          label="Name"
+          onChange={(e) => handleChange(e)}
+          value={accesorioSeleccionado && accesorioSeleccionado.name}
+        />
+        <br />
+        <TextField
+          name="description"
+          margin="normal"
+          fullWidth
+          label="Description"
+          onChange={(e) => handleChange(e)}
+          value={accesorioSeleccionado && accesorioSeleccionado.description}
+        />
+        <br />
+        <TextField
+          name="price"
+          margin="normal"
+          fullWidth
+          label="Price"
+          onChange={(e) => handleChange(e)}
+          value={accesorioSeleccionado && accesorioSeleccionado.price}
+        />
+        <br />
+        <TextField
+          name="quatity"
+          margin="normal"
+          fullWidth
+          label="Quantity"
+          onChange={(e) => handleChange(e)}
+          value={accesorioSeleccionado && accesorioSeleccionado.quatity}
+        />
+        <br />
+        <br />
+        <fieldset>
+          <legend>Status</legend>
+          <RadioGroup
+            row
+            name="status"
+            value={accesorioSeleccionado && accesorioSeleccionado.status}
+            style={{ marginLeft: "100px" }}
+            onChange={handleChange}
+          >
+            <FormControlLabel
+              value={"valid"}
+              control={<Radio size="small" />}
+              label="Valid"
+            />
+            <FormControlLabel
+              value={"invalid"}
+              control={<Radio size="small" />}
+              label="Invalid"
+            />
+          </RadioGroup>
+        </fieldset>
+        <br />
+        <br />
+        <div align="rigth"></div>
 
-      <Button className="text-primary" onClick={() => peticionPut()}>
-        Edit
-      </Button>
-      <Button className="text-primary" onClick={() => openCloseModalEdit()}>
-        Cancel
-      </Button>
+        <Button className="text-primary" onClick={() => peticionPut()}>
+          Edit
+        </Button>
+        <Button className="text-primary" onClick={() => openCloseModalEdit()}>
+          Cancel
+        </Button>
+      </div>
     </div>
   );
 
@@ -146,7 +193,7 @@ function AccessoriesAdmin() {
                       <TableCell>
                         <Edit
                           className="cursor-pointer"
-                          onClick={()=>selecionarAccesorio(a,caso)}
+                          onClick={() => openCloseModalEdit()}
                           color="primary"
                         />
                         &nbsp;&nbsp;&nbsp;
@@ -162,7 +209,7 @@ function AccessoriesAdmin() {
           </Table>
         </TableContainer>
         <Modal
-          className="absolute w-[400px] bg-purple-500"
+          className="overflow-y-scroll  w-[400px] h-[60%] top-0 left-0 right-0 fixed m-auto scroll-m-2  border-2 border-[#000]  "
           open={modalEdit}
           onClose={() => openCloseModalEdit()}
         >

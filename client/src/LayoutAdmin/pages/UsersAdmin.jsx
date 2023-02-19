@@ -10,7 +10,6 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  TablePagination,
 } from "@mui/material";
 
 const API_URL = `http://localhost:3001/users`;
@@ -36,13 +35,13 @@ function Users() {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Id</TableCell>
+              {/* <TableCell>Id</TableCell> */}
               <TableCell>Name</TableCell>
               <TableCell>LastName</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Telephone</TableCell>
               <TableCell>Roll</TableCell>
-              <TableCell>Status</TableCell>
+              <TableCell>Active</TableCell>
               <TableCell>Accions</TableCell>
             </TableRow>
           </TableHead>
@@ -51,16 +50,16 @@ function Users() {
               users.map((u) => {
                 return (
                   <TableRow key={u.id}>
+                    {/* <TableCell>{u._id}</TableCell> */}
                     <TableCell>{u.name}</TableCell>
                     <TableCell>{u.lastName}</TableCell>
                     <TableCell>{u.eMail}</TableCell>
                     <TableCell>{u.telephone}</TableCell>
                     <TableCell>{u.roll}</TableCell>
-                    <TableCell>{u.status}</TableCell>
                     <TableCell>{u.active}</TableCell>
                     <TableCell>
                       <Edit />
-                      &nbsp;&nbsp;&nbsp; 
+                      &nbsp;&nbsp;&nbsp;
                       <Delete />
                     </TableCell>
                   </TableRow>
@@ -73,7 +72,6 @@ function Users() {
             )}
           </TableBody>
         </Table>
-        <TablePagination rowsPerPageOptions={[5, 8]} />
       </TableContainer>
     </div>
   );
