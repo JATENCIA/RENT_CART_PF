@@ -2,15 +2,25 @@ import { useEffect, useContext } from "react";
 
 export function MPButton() {
   // aqui se recibe el body
+  const dataMP ={
+    eMail:"test_user_1309324893@testuser.com",
+    dni:"1231212",
+    image: "http://mydogger.com/wp-content/uploads/2019/06/logo-mercado-pago-png-7-1024x312.png",
+    quantity:1,
+    price:12,
+    discount:0,
+    line:["concat"]
+        }
+  //-----------------------
 
   useEffect(() => {
     const fetchCheckout = async () => {
-      const res = await fetch("/payment", {
+      const res = await fetch("http://localhost:3001/payment", { 
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json", 
         },
-        body: JSON.stringify({
+        body: JSON.stringify({ dataMP
           // aqui se manda la data recibida en el body
         }),
       });
@@ -24,15 +34,15 @@ export function MPButton() {
         document.body.appendChild(script);
 
         const mp = new window.MercadoPago(
-          process.env.NEXT_PUBLIC_MP_PUBLIC_KEY,
+          "APP_USR-01eba9fa-b636-4383-88d4-edff9d5a2e8c",
           {
-            locale: "es-AR",
+            locale: "es-CO",
           }
         );
 
         mp.checkout({
           preference: {
-            id: data.global,
+            id: data.id,
           },
           render: {
             container: ".cho-container",
@@ -45,5 +55,10 @@ export function MPButton() {
     fetchCheckout();
   }, []);
 
-  return <div className="cho-container"></div>;
+  return (
+  <>
+  <div>Tittle</div>
+    <div className="cho-container"></div>
+  </>);
+  
 }

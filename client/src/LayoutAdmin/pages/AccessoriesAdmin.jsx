@@ -1,12 +1,72 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
+import { Edit, Delete } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import {
+  Table,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from "@mui/material";
+
+const API_URL = `http://localhost:3001/accessories`;
 
 function AccessoriesAdmin() {
+  const dispatch = useDispatch();
+  const [accesories, setAccessories] = useState([]);
+
+  const dataInfo = async () => {
+    try {
+      const { data } = await axios.get(API_URL);
+      setAccessories(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    dispatch(dataInfo);
+  }, [dispatch]);
+
   return (
     <div className="flex font-bold text-3xl">
       <h1>
         <span className="text-primary">Accessories!</span>
       </h1>
+      <div className="bg-blue-900">
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Id</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Price</TableCell>
+                <TableCell>Quantity</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Accions</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {accesories.map((a) => (
+                <TableRow key={a.id}>
+                  <TableCell>{a._id}</TableCell>
+                  <TableCell>{a.name}</TableCell>
+                  <TableCell>{a.price}</TableCell>
+                  <TableCell>{a.quantity}</TableCell>
+                  <TableCell>{a.status}</TableCell>
+                  <TableCell>
+                    <Edit />
+                    &nbsp;&nbsp;&nbsp;
+                    <Delete />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
       <Link to="/create/accessory">
         <button
           type="button"
