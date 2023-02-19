@@ -29,7 +29,7 @@ function AccessoriesAdmin() {
     name: "",
     price: "",
     description: "",
-    quatity: "",
+    quantity: "",
     status: "",
   });
   function handleChange(e) {
@@ -43,10 +43,10 @@ function AccessoriesAdmin() {
     setModalEdit(!modalEdit);
   };
 
-  // const selecionarAccesorio = (a, caso) => {
-  //   setAccesorioSeleccionado(a);
-  //   caso === "Edit" && setModalEdit(true);
-  // };
+  const selecionarAccesorio = (a, caso) => {
+    setAccesorioSeleccionado(a);
+    caso === "Edit" && setModalEdit(true);
+  };
 
   const peticionPut = async () => {
     await axios
@@ -111,12 +111,12 @@ function AccessoriesAdmin() {
         />
         <br />
         <TextField
-          name="quatity"
+          name="quantity"
           margin="normal"
           fullWidth
           label="Quantity"
           onChange={(e) => handleChange(e)}
-          value={accesorioSeleccionado && accesorioSeleccionado.quatity}
+          value={accesorioSeleccionado && accesorioSeleccionado.quantity}
         />
         <br />
         <br />
@@ -193,17 +193,17 @@ function AccessoriesAdmin() {
                       <TableCell>
                         <Edit
                           className="cursor-pointer"
-                          onClick={() => openCloseModalEdit()}
+                          onClick={() => selecionarAccesorio(a, "Edit")}
                           color="primary"
                         />
                         &nbsp;&nbsp;&nbsp;
-                        <Delete color="primary" />
+                        <Delete color="error" className="cursor-pointer" />
                       </TableCell>
                     </TableRow>
                   );
                 })
               ) : (
-                <img className="items-center" src={loading} alt="loading" />
+                <img  src={loading} alt="loading" />
               )}
             </TableBody>
           </Table>

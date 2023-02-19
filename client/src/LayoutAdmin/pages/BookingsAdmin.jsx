@@ -11,7 +11,7 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  TablePagination
+  TablePagination,
 } from "@mui/material";
 const API_URL = `http://localhost:3001/billing`;
 
@@ -52,9 +52,9 @@ function BookingsAdmin() {
                     {/* <TableCell>{c.user._id}</TableCell> */}
                     <TableCell>{b.active}</TableCell>
                     <TableCell>
-                      <Edit />
+                      <Edit className="cursor-pointer" color="primary" />
                       &nbsp;&nbsp;&nbsp;
-                      <Delete />
+                      <Delete color="error" className="cursor-pointer" />
                     </TableCell>
                   </TableRow>
                 );

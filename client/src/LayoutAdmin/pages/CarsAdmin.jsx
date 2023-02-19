@@ -68,10 +68,10 @@ function CarsAdmin() {
     setModalEdit(!modalEdit);
   };
 
-  // function selectCar(car, caso) {
-  //   setCarSelected(car);
-  //   caso === "Edit" && setModalEdit(true);
-  // }
+  function selectCar(c, caso) {
+    setCarSelected(c);
+    caso === "Edit" && setModalEdit(true);
+  }
 
   const peticionPut = async () => {
     await axios.put(API_URL + carSelected.id, carSelected).then((response) => {
@@ -326,10 +326,11 @@ function CarsAdmin() {
                       <TableCell>
                         <Edit
                           className="cursor-pointer"
-                          onClick={() => openCloseModalEdit()}
+                          color="primary"
+                          onClick={() => selectCar(c, "Edit")}
                         />
                         &nbsp;&nbsp;&nbsp;
-                        <Delete className="cursor-pointer" />
+                        <Delete color="error" className="cursor-pointer" />
                       </TableCell>
                     </TableRow>
                   );
