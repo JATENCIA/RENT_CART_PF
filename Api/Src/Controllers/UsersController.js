@@ -3,11 +3,8 @@ const Cars = require("../Models/Cars");
 const Users = require("../Models/Users");
 const userSchema = require("../Models/Users");
 const { validateCreate } = require("../Validators/Users.js");
-<<<<<<< HEAD
-=======
 const { eMail1 } = require("../Nodemailer/Mailer.js");
 const { validateUser } = require("../Assistant/usersAssistant");
->>>>>>> dc215963eaef4b4600b62294c5a6057d45f3e5e2
 
 /**
  * It takes the licensePlate of a car and the eMail of a user, then it checks if the user has the car
@@ -60,10 +57,9 @@ const routerPostUser = async (req, res) => {
 
     const saveUser = await newUser.save();
     res.status(200).json(saveUser);
-<<<<<<< HEAD
-=======
+
     eMail1(user.eMail);
->>>>>>> dc215963eaef4b4600b62294c5a6057d45f3e5e2
+
   } catch (error) {
     res.status(500).send(`{messaje: ${error}}`);
   }
