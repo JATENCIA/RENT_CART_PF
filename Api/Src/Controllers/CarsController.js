@@ -113,7 +113,7 @@ const routerPutCars = async (req, res) => {
     image,
   } = req.body;
 
-  if (user && user.loading === "valid") {
+  if (user.length && user.loading === "valid") {
     if (user.roll === "admin" || user.roll === "superAdmin") {
       carSchema
         .updateOne(

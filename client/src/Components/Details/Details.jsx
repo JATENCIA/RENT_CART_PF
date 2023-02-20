@@ -132,7 +132,8 @@ export default function Details() {
           </div>
           <div>
             <br />
-            <h1 className="title">Accessories: </h1>
+            <h1 className="title2">Accessories: </h1>
+            <br />
             <div className="listaccesori">
               {Accessories.map((acce) => (
                 <h4 className="row2">

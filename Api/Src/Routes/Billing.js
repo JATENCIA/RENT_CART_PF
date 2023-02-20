@@ -5,9 +5,24 @@ const Users = require("../Models/Users");
 const Billing = require("../Models/Billing");
 const billingSchema = require("../Models/Billing");
 const Accessories = require("../Models/Accessories");
+<<<<<<< HEAD
 
 /* This is a post request that is looking for the billing information. */
 router.post("/", async (req, res) => {
+=======
+
+
+/* This is a post request that is looking for the billing information. */
+router.post("/", async (req, res) => {
+
+const { validateCreate } = require("../Validators/Billing.js");
+const { eMail3 } = require("../Nodemailer/NodemailerBooking.js");
+
+/* This is a post request that is looking for the billing information. */
+router.post("/", async (req, res) => {
+  validateCreate;
+
+>>>>>>> dc215963eaef4b4600b62294c5a6057d45f3e5e2
   try {
     const billing = billingSchema(req.body);
     const user = await Users.findById(billing.user);
@@ -33,6 +48,11 @@ router.post("/", async (req, res) => {
       await accessories.save();
     });
     res.status(200).json("successful billing");
+<<<<<<< HEAD
+=======
+
+    eMail3; //(pasar datos de  donde viaja el email del usuario, arriba no encuentro de que este.)
+>>>>>>> dc215963eaef4b4600b62294c5a6057d45f3e5e2
   } catch (error) {
     res.status(500).send(`{messaje: ${error}}`);
   }
