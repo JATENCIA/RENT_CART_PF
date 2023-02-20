@@ -138,3 +138,29 @@
 #black2 {
   cursor: pointer;
 }
+.form-date {
+  margin-bottom: 10px;
+  /* border: solid #ffb703 ; */
+  display: inline-block;
+  background-color: #023047;
+  border-radius: 10px;
+  padding: 1px;
+}
+
+.form-label {
+  color: #ffb703;
+  padding: 10px;
+}
+
+#form-submit {
+  /* background: white; */
+  color: #ffb703;
+  margin-left: 2px;
+  border: solid 1px;
+}
+
+#form-submit:hover{
+  background-color: #ffb703;
+  color: #003566;
+  transition: 0.5s;
+}

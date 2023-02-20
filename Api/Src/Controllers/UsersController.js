@@ -3,18 +3,15 @@ const Cars = require("../Models/Cars");
 const Users = require("../Models/Users");
 const userSchema = require("../Models/Users");
 const { validateCreate } = require("../Validators/Users.js");
-<<<<<<< HEAD
 const { eMail1 } = require("../Nodemailer/Mailer.js");
-=======
 const { validateUser } = require("../Assistant/usersAssistant");
->>>>>>> b964b14a48dd196d61925dc1567aec7ff352699b
 
 /**
  * It takes the licensePlate of a car and the eMail of a user, then it checks if the user has the car
  * in his favorites, if he does, it removes it, if he doesn't, it adds it
  * @param req - The request object.
  * @param res - The response object.
- */
+ */ 
 const routerGetFavorite = async (req, res) => {
   try {
     const { favori, eMail } = req.body;
@@ -42,7 +39,7 @@ const routerGetFavorite = async (req, res) => {
  * It creates a new user in the database
  * @param req - The request object.
  * @param res - The response object.
- */
+ */ 
 
 const routerPostUser = async (req, res) => {
   try {
