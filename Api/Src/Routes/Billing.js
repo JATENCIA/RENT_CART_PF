@@ -6,9 +6,7 @@ const Billing = require("../Models/Billing");
 const billingSchema = require("../Models/Billing");
 const Accessories = require("../Models/Accessories");
 
-
 /* This is a post request that is looking for the billing information. */
-router.post("/", async (req, res) => {
 
 const { validateCreate } = require("../Validators/Billing.js");
 const { eMail3 } = require("../Nodemailer/NodemailerBooking.js");
@@ -43,7 +41,7 @@ router.post("/", async (req, res) => {
     });
     res.status(200).json("successful billing");
 
-    eMail3; //(pasar datos de  donde viaja el email del usuario, arriba no encuentro de que este.)
+    //eMail3; //(pasar datos de  donde viaja el email del usuario, arriba no encuentro de que este.)
   } catch (error) {
     res.status(500).send(`{messaje: ${error}}`);
   }

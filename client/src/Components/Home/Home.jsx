@@ -16,7 +16,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getAllCars());
-  }, [dispatch]);  
+  }, [dispatch]);
   const cars = useSelector((state) => state.cars);
 
   // const API_URL = `http://localhost:3001/cars`;
@@ -36,22 +36,21 @@ export default function Home() {
   let [arCar, setarCar] = useState(cars);
   let [xclude] = useState([[], [], [], [], []]);
   let ordenado = [];
-  
+
   let [pag, setPag] = useState(1);
-  const[carsPerPege]=useState(6);
-  
+  const [carsPerPege] = useState(6);
+
   var until = pag * carsPerPege;
   var since = until - carsPerPege;
 
   let carPag = arCar.slice(since, until);
 
-  const paginado=pageNumber => {
-    setPag(pageNumber)
-  }
+  const paginado = (pageNumber) => {
+    setPag(pageNumber);
+  };
   useEffect(() => {
     paginado(1);
   }, [cars]);
-
 
   //functions-------------------------------------
   function paginate(e, num) {
@@ -100,22 +99,20 @@ export default function Home() {
   function ordenate2(e) {
     setindexo(e.target.value);
   }
-  function cleanFilters (e){
+  function cleanFilters(e) {
     e.preventDefault();
     Swal.fire({
-      title: 'you want to clean the filters?',                
-      icon: 'warning',
+      title: "you want to clean the filters?",
+      icon: "warning",
       showCancelButton: true,
-      cancelButtonColor: '#e38e15',
-      confirmButtonColor: '#e38e15',
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'No'
-  }).then((result) => {
-    if (result.isConfirmed) { 
-      
-      } 
-  })
-
+      cancelButtonColor: "#e38e15",
+      confirmButtonColor: "#e38e15",
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
+      }
+    });
   }
 
   //---------------ordenate-------------------------------
@@ -215,7 +212,6 @@ export default function Home() {
   //   paginado(1);
   // }, [cars]);
 
-
   return (
     <React.Fragment>
       <Search />
@@ -226,7 +222,13 @@ export default function Home() {
         xclude={xclude}
       />
 
-      <div className="Filteredout"> <div>Filtered out</div> <div id="linpFilter" on onClick={(e)=>cleanFilters(e)}>🗑️</div>  </div>
+      <div className="Filteredout">
+        {" "}
+        <div>Filtered out</div>{" "}
+        <div id="linpFilter" on onClick={(e) => cleanFilters(e)}>
+          🗑️
+        </div>{" "}
+      </div>
       <NavBar />
       <div className="homen">
         {/* {
