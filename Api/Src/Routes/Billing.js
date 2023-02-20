@@ -6,9 +6,7 @@ const Billing = require("../Models/Billing");
 const billingSchema = require("../Models/Billing");
 const Accessories = require("../Models/Accessories");
 
-
 /* This is a post request that is looking for the billing information. */
-router.post("/", async (req, res) => {
 
 const { validateCreate } = require("../Validators/Billing.js");
 const { eMail3 } = require("../Nodemailer/NodemailerBooking.js");
