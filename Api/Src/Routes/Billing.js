@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
     });
     res.status(200).json("successful billing");
 
-    eMail3; //(pasar datos de  donde viaja el email del usuario, arriba no encuentro de que este.)
+    //eMail3; //(pasar datos de  donde viaja el email del usuario, arriba no encuentro de que este.)
   } catch (error) {
     res.status(500).send(`{messaje: ${error}}`);
   }
