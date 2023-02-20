@@ -25,6 +25,7 @@ function AccessoriesAdmin() {
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
   const [modalEdit, setModalEdit] = useState(false);
+  const [modalDelete, setModalDelete] = useState(false);
   const [accesorioSeleccionado, setAccesorioSeleccionado] = useState({
     name: "",
     price: "",
@@ -42,10 +43,19 @@ function AccessoriesAdmin() {
   const openCloseModalEdit = () => {
     setModalEdit(!modalEdit);
   };
+  const openCloseModalDelete = () => {
+    setModalDelete(!modalDelete);
+  };
 
   const selecionarAccesorio = (a, caso) => {
     setAccesorioSeleccionado(a);
-    caso === "Edit" && setModalEdit(true);
+    caso === "Edit" ? openCloseModalEdit() : openCloseModalDelete();
+  };
+
+  const peticionDelete = async () => {
+    await axios.delete(API_URL + accesorioSeleccionado.id).then((response) => {
+      setData(data.filter((a) => a.id !== accesorioSeleccionado.id));
+    });
   };
 
   const peticionPut = async () => {
@@ -159,6 +169,27 @@ function AccessoriesAdmin() {
     </div>
   );
 
+  const bodyDelete = (
+    <div className="bg-white  pl-2 pr-2">
+      <p className="text-center pt-12 pb-10 font-bold text-2xl ">
+        Are you sure you want to remove the accessory{" "}
+        <b>{accesorioSeleccionado && accesorioSeleccionado.name}</b> ?
+      </p>
+      <div className="text-center pb-10 ">
+        <Button variant="contained" color="success" onClick={peticionDelete}>
+          Yes
+        </Button>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={openCloseModalDelete}
+        >
+          No
+        </Button>
+      </div>
+    </div>
+  );
+
   return (
     <>
       <div className="flex font-bold text-3xl">
@@ -201,7 +232,11 @@ function AccessoriesAdmin() {
                           color="primary"
                         />
                         &nbsp;&nbsp;&nbsp;
-                        <Delete color="error" className="cursor-pointer" />
+                        <Delete
+                          onClick={() => selecionarAccesorio(a, "Delete")}
+                          color="error"
+                          className="cursor-pointer"
+                        />
                       </TableCell>
                     </TableRow>
                   );
@@ -218,6 +253,14 @@ function AccessoriesAdmin() {
           onClose={() => openCloseModalEdit()}
         >
           {bodyEdit}
+        </Modal>
+
+        <Modal
+          className=" mt-40  w-[700px] h-[33%] top-0 left-0 right-0 fixed m-auto scroll-m-2  border-2 border-[#000]  "
+          open={modalDelete}
+          onClose={() => openCloseModalDelete()}
+        >
+          {bodyDelete}
         </Modal>
       </div>
     </>

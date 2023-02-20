@@ -41,6 +41,7 @@ function CarsAdmin() {
 
   // <--------------Modificar los estados al Editar--------------->
   const [modalEdit, setModalEdit] = useState(false);
+  const [modalDelete, setModalDelete] = useState(false);
   const [carSelected, setCarSelected] = useState({
     licensePlate: "",
     brand: "",
@@ -68,11 +69,19 @@ function CarsAdmin() {
   const openCloseModalEdit = () => {
     setModalEdit(!modalEdit);
   };
+  const openCloseModalDelete = () => {
+    setModalDelete(!modalDelete);
+  };
 
   function selectCar(c, caso) {
     setCarSelected(c);
-    caso === "Edit" && setModalEdit(true);
+    caso === "Edit" ? openCloseModalEdit() : openCloseModalDelete();
   }
+  const peticionDelete = async () => {
+    await axios.delete(API_URL + carSelected.id).then((response) => {
+      setData(data.filter((c) => c.id !== carSelected.id));
+    });
+  };
 
   const peticionPut = async () => {
     await axios.put(API_URL + carSelected.id, carSelected).then((response) => {
@@ -226,8 +235,8 @@ function CarsAdmin() {
         margin="normal"
         onChange={handleChange}
       >
-        <MenuItem value="automatic">Automatic</MenuItem>
-        <MenuItem value="handBook">HandBook</MenuItem>
+        <MenuItem value="automatic">automatic</MenuItem>
+        <MenuItem value="Handbook">HandBook</MenuItem>
         <MenuItem value="semiautomatic">Semiautomatic</MenuItem>
       </TextField>
       <br />
@@ -283,6 +292,27 @@ function CarsAdmin() {
         </Button>
         <Button variant="contained" color="error" onClick={openCloseModalEdit}>
           Cancel
+        </Button>
+      </div>
+    </div>
+  );
+
+  const bodyDelete = (
+    <div className="bg-white  pl-2 pr-2">
+      <p className="text-center pt-10 pb-10 font-bold text-2xl ">
+        Are you sure you want to remove the car{" "}
+        <b>{carSelected && carSelected.licensePlate}</b> ?
+      </p>
+      <div className="text-center pb-10 ">
+        <Button variant="contained" color="success" onClick={peticionDelete}>
+          Yes
+        </Button>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={openCloseModalDelete}
+        >
+          No
         </Button>
       </div>
     </div>
@@ -345,7 +375,11 @@ function CarsAdmin() {
                           onClick={() => selectCar(c, "Edit")}
                         />
                         &nbsp;&nbsp;&nbsp;
-                        <Delete color="error" className="cursor-pointer" />
+                        <Delete
+                          onClick={() => selectCar(c, "Delete")}
+                          color="error"
+                          className="cursor-pointer"
+                        />
                       </TableCell>
                     </TableRow>
                   );
@@ -363,6 +397,14 @@ function CarsAdmin() {
           onClose={openCloseModalEdit}
         >
           {bodyEdit}
+        </Modal>
+
+        <Modal
+          className=" mt-40  w-[700px] h-[27%] top-0 left-0 right-0 fixed m-auto scroll-m-2  border-2 border-[#000]  "
+          open={modalDelete}
+          onClose={() => openCloseModalDelete()}
+        >
+          {bodyDelete}
         </Modal>
       </div>
     </>
