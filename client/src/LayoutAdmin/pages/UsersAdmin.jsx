@@ -24,6 +24,7 @@ function Users() {
   const dispatch = useDispatch();
   const [users, setUsers] = useState([]);
   const [modalEdit, setModalEdit] = useState(false);
+  const [modalDelete, setModalDelete] = useState(false);
   const [userSelecionado, setUserSeleccionado] = useState({
     active: "",
   });
@@ -38,9 +39,19 @@ function Users() {
     setModalEdit(!modalEdit);
   };
 
+  const openCloseModalDelete = () => {
+    setModalDelete(!modalDelete);
+  };
+
   const selecionarUser = (u, caso) => {
     setUserSeleccionado(u);
-    caso === "Edit" && setModalEdit(true);
+    caso === "Edit" ? openCloseModalEdit() : openCloseModalDelete();
+  };
+
+  const peticionDelete = async () => {
+    await axios.delete(API_URL + userSelecionado.id).then((response) => {
+      setData(data.filter((u) => u.id !== userSelecionado.id));
+    });
   };
 
   const dataInfo = async () => {
@@ -99,6 +110,27 @@ function Users() {
     </div>
   );
 
+  const bodyDelete = (
+    <div className="bg-white  pl-2 pr-2">
+      <p className="text-center pt-10 pb-12 font-bold text-2xl ">
+        Are you sure you want to remove the user{" "}
+        <b>{userSelecionado && userSelecionado.eMail}</b> ?
+      </p>
+      <div className="text-center pb-12 ">
+        <Button variant="contained" color="success" onClick={peticionDelete}>
+          Yes
+        </Button>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={openCloseModalDelete}
+        >
+          No
+        </Button>
+      </div>
+    </div>
+  );
+
   return (
     <div className="bg-white">
       <TableContainer>
@@ -134,7 +166,11 @@ function Users() {
                         color="primary"
                       />
                       &nbsp;&nbsp;&nbsp;
-                      <Delete color="error" className="cursor-pointer" />
+                      <Delete
+                        onClick={() => selecionarUser(u, "Delete")}
+                        color="error"
+                        className="cursor-pointer"
+                      />
                     </TableCell>
                   </TableRow>
                 );
@@ -151,6 +187,14 @@ function Users() {
         onClose={() => openCloseModalEdit()}
       >
         {bodyEdit}
+      </Modal>
+
+      <Modal
+        className=" mt-40  w-[700px] h-[33.5%] top-0 left-0 right-0 fixed m-auto scroll-m-2  border-2 border-[#000]  "
+        open={modalDelete}
+        onClose={() => openCloseModalDelete()}
+      >
+        {bodyDelete}
       </Modal>
     </div>
   );
