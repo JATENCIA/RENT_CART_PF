@@ -5,7 +5,6 @@ const userSchema = require("../Models/Users");
 const { validateCreate } = require("../Validators/Users.js");
 const { eMail1 } = require("../Nodemailer/Mailer.js");
 const { validateUser } = require("../Assistant/usersAssistant");
-
 /**
  * It takes the licensePlate of a car and the eMail of a user, then it checks if the user has the car
  * in his favorites, if he does, it removes it, if he doesn't, it adds it
