@@ -17,8 +17,9 @@ const Header = () => {
   let month = today.getMonth() + 1;
   let year = today.getFullYear();
 
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated, isLoading, logout  } = useAuth0();
   return (
+    isAuthenticated && (
     <header className="h-[7vh] md:h-[10vh] border-b border-secondary-100 p-8 flex items-center justify-end">
       <nav className="flex items-center gap-2">
         <button className="items-center flex gap-x-2 hover:text-white ">
@@ -39,9 +40,10 @@ const Header = () => {
             <MenuButton className="flex bg-primary items-center gap-x-2 hover:bg-[#219EBC] p-2 rounded-lg transition-colors">
               <img
                 src={user.picture}
+                alt={user.name}
                 className="w-6 h-6 object-cover rounded-full"
               />
-              <span>Isidoro Francisco Hilario</span>
+              <span>{user.name}</span>
               <RiArrowDownSLine />
             </MenuButton>
           }
@@ -57,13 +59,14 @@ const Header = () => {
               className="rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-4 py-2 px-6 flex-1"
             >
               <img
-                src="https://img.freepik.com/foto-gratis/feliz-optimista-guapo-gerente-ventas-latina-apuntando-lado-mirando-camara_1262-12679.jpg"
+                src={user.picture}
+                alt={user.name}
                 className="w-8 h-8 object-cover rounded-full"
               />
               <div className="flex flex-col text-sm">
-                <span className="text-sm">Isidoro Francisco </span>
+                <span className="text-sm">{user.name} </span>
                 <span className="text-xs text-gray-500">
-                  ihilario00@gmail.com
+                  {user.email}
                 </span>
               </div>
             </Link>
@@ -88,6 +91,7 @@ const Header = () => {
         </Menu>
       </nav>
     </header>
+    )
   );
 };
 

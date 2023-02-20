@@ -83,7 +83,7 @@ function Users() {
         </fieldset>
         <br />
         <br />
-        <div className="text-center pb-3">
+        <div className="text-center pb-6">
           {/* <Button variant="contained" color="success" onClick={peticionPut}>
           Edit
         </Button> */}
@@ -146,7 +146,7 @@ function Users() {
         </Table>
       </TableContainer>
       <Modal
-        className="rounded-[10px] mt-40 overflow-y-scroll  w-[450px] h-[35%] top-0 left-0 right-0 fixed m-auto scroll-m-2  border-2 border-[#000]  "
+        className=" mt-40  w-[400px] h-[33%] top-0 left-0 right-0 fixed m-auto scroll-m-2  border-2 border-[#000]  "
         open={modalEdit}
         onClose={() => openCloseModalEdit()}
       >
