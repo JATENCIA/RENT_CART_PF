@@ -13,12 +13,11 @@ import Search from "../Search/Search";
 export default function Home() {
   // const [cars, setCars] = useState([]);
   const dispatch = useDispatch();
-  const cars = useSelector((state) => state.cars);
 
   useEffect(() => {
     dispatch(getAllCars());
-  }, [dispatch]);
-  
+  }, [dispatch]);  
+  const cars = useSelector((state) => state.cars);
 
   // const API_URL = `http://localhost:3001/cars`;
 
@@ -29,7 +28,6 @@ export default function Home() {
   //     // setarCar(data);
   //     // setCars(data);
   //   } catch (e) {
-  //     console.log(e);
   //   }
   // };
 
@@ -75,7 +73,6 @@ export default function Home() {
       : xclude[index].push(obj);
     //----filter brand----
     cars.map((objCar) => {
-      console.log(objCar, "fff");
       xclude[0].includes(objCar.brand) ? null : filt1.push(objCar);
     });
     //----filter category----
