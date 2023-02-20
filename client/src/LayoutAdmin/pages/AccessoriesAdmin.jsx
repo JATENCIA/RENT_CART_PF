@@ -32,6 +32,7 @@ function AccessoriesAdmin() {
     description: "",
     quantity: "",
     status: "",
+    discount: "",
   });
   function handleChange(e) {
     setAccesorioSeleccionado({
@@ -68,6 +69,7 @@ function AccessoriesAdmin() {
             accesorio.name = accesorioSeleccionado.name;
             accesorio.price = accesorioSeleccionado.price;
             accesorio.status = accesorioSeleccionado.status;
+            accesorio.discount = accesorioSeleccionado.discount;
           }
         });
         setData(dataNew);
@@ -127,6 +129,15 @@ function AccessoriesAdmin() {
           label="Quantity"
           onChange={(e) => handleChange(e)}
           value={accesorioSeleccionado && accesorioSeleccionado.quantity}
+        />
+        <br />
+        <TextField
+          name="discount"
+          margin="normal"
+          fullWidth
+          label="Discount"
+          onChange={(e) => handleChange(e)}
+          value={accesorioSeleccionado && accesorioSeleccionado.discount}
         />
         <br />
         <br />
