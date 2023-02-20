@@ -126,7 +126,7 @@ function AccessoriesAdmin() {
             row
             name="status"
             value={accesorioSeleccionado && accesorioSeleccionado.status}
-            style={{ marginLeft: "100px" }}
+            style={{ marginLeft: "200px" }}
             onChange={handleChange}
           >
             <FormControlLabel
@@ -143,14 +143,18 @@ function AccessoriesAdmin() {
         </fieldset>
         <br />
         <br />
-        <div align="rigth"></div>
-
-        <Button className="text-primary" onClick={() => peticionPut()}>
-          Edit
-        </Button>
-        <Button className="text-primary" onClick={() => openCloseModalEdit()}>
-          Cancel
-        </Button>
+        <div className="text-center pb-2">
+          <Button variant="contained" color="success" onClick={peticionPut}>
+            Edit
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={openCloseModalEdit}
+          >
+            Cancel
+          </Button>
+        </div>
       </div>
     </div>
   );
@@ -203,13 +207,13 @@ function AccessoriesAdmin() {
                   );
                 })
               ) : (
-                <img  src={loading} alt="loading" />
+                <img src={loading} alt="loading" />
               )}
             </TableBody>
           </Table>
         </TableContainer>
         <Modal
-          className="overflow-y-scroll  w-[400px] h-[60%] top-0 left-0 right-0 fixed m-auto scroll-m-2  border-2 border-[#000]  "
+          className=" rounded-[10px] mt-40 overflow-y-scroll  w-[600px] h-[60%] top-0 left-0 right-0 fixed m-auto scroll-m-2  border-2 border-[#000]  "
           open={modalEdit}
           onClose={() => openCloseModalEdit()}
         >

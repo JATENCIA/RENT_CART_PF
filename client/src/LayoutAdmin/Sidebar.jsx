@@ -18,7 +18,7 @@ function Sidebar() {
   return (
     <>
       <div
-        className={`xl:h-[100vh]  fixed xl:static w-[50%] md:w-[40%] lg:w-[30%] xl:w-auto h-full top-0 bg-secondary-100 p-4 flex flex-col justify-between z-50 ${
+        className={`xl:h-[100vh]  fixed xl:static w-[50%] md:w-[40%] lg:w-[30%] xl:w-auto h-full  top-0 bg-secondary-100 p-4 flex flex-col justify-between z-50  ${
           showMenu ? "left-0" : "-left-full"
         } transition-all`}
       >

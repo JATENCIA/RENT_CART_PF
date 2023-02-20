@@ -6,6 +6,7 @@ import loading from "../../assets/loading.gif";
 import axios from "axios";
 import {
   FormControlLabel,
+  MenuItem,
   Radio,
   RadioGroup,
   Table,
@@ -102,7 +103,7 @@ function CarsAdmin() {
 
   const bodyEdit = (
     <div className="bg-white  pl-2 pr-2">
-      <h3 className="text-center pt-2 font-bold text-2xl">EDIT CARS</h3>
+      <h3 className="text-center pt-4 font-bold text-2xl">EDIT CARS</h3>
       <br />
       <TextField
         name="licensePlate"
@@ -203,22 +204,32 @@ function CarsAdmin() {
       />
       <br />
       <TextField
+        fullWidth
+        select
+        label="Type Of Fuel"
+        value={carSelected && carSelected.fuelType}
         name="fuelType"
         margin="normal"
-        fullWidth
-        label="fuelType"
         onChange={handleChange}
-        value={carSelected && carSelected.fuelType}
-      />
+      >
+        <MenuItem value="gasoline">Gasoline</MenuItem>
+        <MenuItem value="gas">Gas</MenuItem>
+        <MenuItem value="hibrid">Hibrid</MenuItem>
+      </TextField>
       <br />
       <TextField
+        fullWidth
+        select
+        label="Type Of Box"
+        value={carSelected && carSelected.typeOfBox}
         name="typeOfBox"
         margin="normal"
-        fullWidth
-        label="typeOfBox"
         onChange={handleChange}
-        value={carSelected && carSelected.typeOfBox}
-      />
+      >
+        <MenuItem value="automatic">Automatic</MenuItem>
+        <MenuItem value="handBook">HandBook</MenuItem>
+        <MenuItem value="semiautomatic">Semiautomatic</MenuItem>
+      </TextField>
       <br />
       <fieldset>
         <legend>Status</legend>
@@ -226,7 +237,7 @@ function CarsAdmin() {
           row
           name="status"
           value={carSelected && carSelected.status}
-          style={{ marginLeft: "100px" }}
+          style={{ marginLeft: "200px" }}
           onChange={handleChange}
         >
           <FormControlLabel
@@ -249,7 +260,7 @@ function CarsAdmin() {
           row
           name="active"
           value={carSelected && carSelected.active}
-          style={{ marginLeft: "100px" }}
+          style={{ marginLeft: "200px" }}
           onChange={handleChange}
         >
           <FormControlLabel
@@ -266,10 +277,14 @@ function CarsAdmin() {
       </fieldset>
 
       <br />
-      <div align="rigth"></div>
-
-      <Button onClick={peticionPut}>Edit</Button>
-      <Button onClick={openCloseModalEdit}>Cancel</Button>
+      <div className="text-center pb-4">
+        <Button variant="contained" color="success" onClick={peticionPut}>
+          Edit
+        </Button>
+        <Button variant="contained" color="error" onClick={openCloseModalEdit}>
+          Cancel
+        </Button>
+      </div>
     </div>
   );
 
@@ -343,7 +358,7 @@ function CarsAdmin() {
         </TableContainer>
 
         <Modal
-          className="overflow-y-scroll  w-[400px] h-[60%] top-0 left-0 right-0 fixed m-auto scroll-m-2  border-2 border-[#000]  "
+          className="rounded-[10px] mt-40 overflow-y-scroll  w-[600px] h-[60%] top-0 left-0 right-0 fixed m-auto scroll-m-2  border-2 border-[#000]  "
           open={modalEdit}
           onClose={openCloseModalEdit}
         >

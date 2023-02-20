@@ -17,6 +17,7 @@
     "@mui/x-data-grid": "^5.17.24",
     "@redux-devtools/extension": "^3.2.5",
     "@reduxjs/toolkit": "^1.9.2",
+    "@szhsin/react-menu": "^3.4.1",
     "@uploadcare/react-widget": "^2.4.1",
     "axios": "^1.2.6",
     "dotenv": "^16.0.3",
