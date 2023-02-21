@@ -22,14 +22,14 @@ router.post("/", async (req, res) => {
     const billings = await Billing.find({});
 
     const newBilling = await new Billing({
-      discount: billing.discount,
-      user: user._id,
       car: car._id,
-      accessories: billing.accessories,
+      user: user._id,
       deadline: billing.deadline,
+      discount: billing.discount,
       rentalDate: billing.rentalDate,
-      invoice_number: billing.invoice_number,
       full_value: billing.full_value,
+      accessories: billing.accessories,
+      invoice_number: billing.invoice_number,
     });
 
     const saveBilling = await newBilling.save();
