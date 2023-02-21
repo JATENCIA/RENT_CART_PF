@@ -67,9 +67,10 @@ export const ContainerStyled = styled.div`
   justify-content: space-around;
   align-items: center;
   font-size: 20px;
-  position: absolute;
-  top: 0px;
-  left: 0px;
+  position: fixed;
+  z-index:1;
+  top: 0;
+  // left: 0px;
 `;
 
 export const NavStyled = styled.nav`
