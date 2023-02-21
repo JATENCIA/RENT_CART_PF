@@ -7,6 +7,13 @@ const billingSchema = mongoose.Schema({
     required: true,
   },
 
+  invoice_number: {
+    type: String,
+    minLength: 4,
+    unique: true,
+    required: true,
+  },
+
   user: {
     type: mongoose.Types.ObjectId,
     ref: "Users",
@@ -35,17 +42,12 @@ const billingSchema = mongoose.Schema({
     default: "valid",
   },
 
-  Deadline: {
-    type: Date,
+  deadline: {
+    type: String,
     required: true,
   },
-
-  Deadline_iso: {
-    type: Date,
-    required: true,
-  },
-  rentalDate_iso: {
-    type: Date,
+  rentalDate: {
+    type: String,
     required: true,
   },
 

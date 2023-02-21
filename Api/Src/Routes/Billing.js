@@ -26,6 +26,9 @@ router.post("/", async (req, res) => {
       user: user._id,
       car: car._id,
       accessories: billing.accessories,
+      deadline: billing.deadline,
+      rentalDate: billing.rentalDate,
+      invoice_number: billing.invoice_number,
     });
 
     const saveBilling = await newBilling.save();
@@ -38,7 +41,7 @@ router.post("/", async (req, res) => {
       accessories.billing = accessories.billing.concat(saveBilling._id);
       await accessories.save();
     });
-    res.status(200).json("successful billing");
+    res.status(200).json(saveBilling);
 
     //eMail3; //(pasar datos de  donde viaja el email del usuario, arriba no encuentro de que este.)
   } catch (error) {
