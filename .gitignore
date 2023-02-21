@@ -13,3 +13,4 @@ dist-ssr
 *.local
 package-lock.json
 package-lock.json
+client/node_modules/.vite/deps/_metadata.json

@@ -10,14 +10,14 @@ import { BiChevronUpCircle } from "react-icons/bi";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function LandingPage() {
-  const [showButton, setShowButton] = React.useState(true);
+  const [showButton, setShowButton] = React.useState(false);
   localStorage.setItem("nombre", "");
 
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getAllCars());
   }, [dispatch]);
+  
   useEffect(() => {
     const handleScrollButtonVisibility = () => {
       window.pageYOffset > 300 ? setShowButton(true) : setShowButton(false);
@@ -57,18 +57,18 @@ export default function LandingPage() {
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="https://images.unsplash.com/photo-1474022650697-7624c32312fa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cmVsYXh8ZW58MHx8MHx8&w=900&q=60"
+                src="https://images.unsplash.com/photo-1535137236496-b279252d173b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8YXV0b3MlMjBpc2xhbmRpYXxlbnwwfDB8MHx8&auto=format&fit=crop&w=700&q=60"
                 alt="First slide"
               />
               <Carousel.Caption>
-                <h3>NO EXCUSES TO TRAVEL WHERE YOU WANT</h3>
+                <h3>TRAVEL WHERE YOU WANT</h3>
                 <p>Meet magical places with your dream car</p>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="https://images.unsplash.com/photo-1493238792000-8113da705763?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8Y2FyfGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=700&q=60"
+                src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YXV0b3N8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60"
                 alt="Second slide"
               />
 
@@ -80,7 +80,7 @@ export default function LandingPage() {
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="https://images.unsplash.com/photo-1521136095380-08fbd7be93c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y29uZHVjaXIlMjBhdXRvfGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=700&q=60"
+                src="https://images.unsplash.com/photo-1526726538690-5cbf956ae2fd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=700&q=60"
                 alt="Third slide"
               />
 
@@ -120,7 +120,7 @@ export default function LandingPage() {
           </div>
         </div>
         <div className="how-text">
-          <h2>How we work?</h2>
+          <h2>How is our way of working?</h2>
           <p>Understand our simple process to rent a fabulous car </p>
         </div>
       </div>

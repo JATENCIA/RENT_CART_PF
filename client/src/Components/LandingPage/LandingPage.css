@@ -70,7 +70,7 @@
   background-color: #f3f7f7;
 }
 .phrase {
-  margin: 50px;
+  margin: 100px;
 }
 .phrase h2 {
   font-size: 60px;
@@ -81,7 +81,7 @@
 .phrase p {
   color: rgb(5, 36, 97);
   font-size: larger;
-  font-weight: lighter;
+  font-weight: light;
 }
 .roll{
   margin: 80px;
@@ -104,7 +104,7 @@
   background-color: #2a2c2c;
 }
 .process-card {
-  gap: 5px;
+  gap: 55px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -148,6 +148,8 @@
 }
 .how-text {
   margin: 50px;
+  margin-top: 90px;
+  width: 330px;
 }
 .how-text h2 {
   font-size: 60px;
@@ -165,7 +167,7 @@
   background-color: #090909;
 }
 .team-text {
-  margin: 50px;
+  margin: 150px;
 }
 .team-text h2{
   font-size: 60px;
@@ -178,9 +180,9 @@
   font-weight: light;
 }
 .team-profile-cards{
-  margin: 90px;
+  margin: 50px;
   display: flex;
-  gap: 70px;
+  gap: 50px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
