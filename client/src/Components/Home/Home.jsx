@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllCars } from "../../redux/actions/actions";
+import { getAllCars,getAllUser } from "../../redux/actions/actions";
 import "./Home.css";
 import Cards from "../Cards/Cards";
 import Pagination from "../Pagination/Pagination";
@@ -16,6 +16,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getAllCars());
+    dispatch(getAllUser());
   }, [dispatch]);
   const cars = useSelector((state) => state.cars);
 

@@ -13,6 +13,7 @@ export default function Details() {
 
   const dispatch = useDispatch();
   const acc = useSelector((state) => state.acceso);
+  const allUsers = useSelector((state) => state.usersiD);
 
   var [Validate, setvalidate] = useState(0);
 
@@ -121,10 +122,18 @@ export default function Details() {
 
   let concat = [],
     total = 0,
+    idsAccesories =[],
     disc = 0;
+    let cont =1;
+  while (shoping[cont]){
+    idsAccesories.push (shoping[cont][2])
+    cont++;
+  }
+
   shoping.map((art) => {
     art[3] === "tru"
-      ? (concat.push(art[0]),
+      ? (
+        concat.push(art[0]),
         (total += parseInt(art[1])),
         (disc += parseInt(art[1]) * (parseInt(art[4]) / 100)))
       : null;
@@ -138,6 +147,19 @@ export default function Details() {
     discount: disc,
     line: concat,
   };
+
+  const idUser = allUsers.find(element => element = user.email);
+  allUsers
+  const newBillig = {
+    full_value:total,
+    user:idUser._id,
+    car:shoping[0][2],
+    accessories:idsAccesories,
+    discount:disc
+  };
+  
+  console.log(newBillig);
+  
 
   return (
     <>

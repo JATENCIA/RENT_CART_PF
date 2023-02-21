@@ -10,8 +10,21 @@ export const GET_ALL_BILLING = "GET_ALL_BILLING"
 export const GET_ALL_CARREVIEW = "GET_ALL_CARREVIEW"
 export const GET_ALL_ACCREVIEW = "GET_ALL_ACCREVIEW"
 export const ACCESO = "ACCESO"
+export const POST_BILLING = "POST_BILLING"
+export const GET_ALL_USER = "GET_ALL_USER"
 
+// export const postBilling = (payload) => async (dispatch) => {
+//   try {
+//     const billCreated = await axios.post("http://localhost:3001/billing", payload)
+//     return dispatch({
+//       type: "POST_BILLING",
+//       payload: billCreated
+//     })
 
+//   } catch (e) {
+//     console.log(e)
+//   }
+// }
 
 export function getAllAccReview () {
   try {    
@@ -93,7 +106,17 @@ export const getAllCars = () => async (dispatch) => {
     console.log(e)
   }
 }
-
+export const getAllUser = () => async (dispatch) => {
+  try {
+    const { data } = await axios.get("http://localhost:3001/users")
+    dispatch({
+      type: "GET_ALL_USER",
+      payload: data
+    })
+  } catch (e) {
+    console.log(e)
+  }
+}
 export const getCarById = (licensePlate) => async (dispatch) => {
   try {
     const { data } = await axios.get(`http://localhost:3001/cars/${licensePlate}`)
