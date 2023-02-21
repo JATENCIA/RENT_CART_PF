@@ -1,5 +1,12 @@
 const mongoose = require("mongoose");
 const billingSchema = mongoose.Schema({
+  invoice_number: {
+    type: String,
+    minLength: 4,
+    unique: true,
+    required: true,
+  },
+
   full_value: {
     type: Number,
     minLength: 0,
@@ -48,11 +55,6 @@ const billingSchema = mongoose.Schema({
   rentalDate: {
     type: String,
     required: true,
-  },
-
-  qualified: {
-    type: Boolean,
-    default: false,
   },
 });
 
