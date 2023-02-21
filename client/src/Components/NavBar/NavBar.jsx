@@ -1,12 +1,30 @@
-import React from "react";
+import React,{ useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import { NavLink, Outlet, Link } from "react-router-dom";
+import {useSelector, useDispatch } from "react-redux";
 import { LoginButton } from "../Auth/LoginButton";
 import { LogoutButton } from "../Auth/LogoutButton";
+import { getAllBilling,getAllCarReview,getAllAccReview } from "../../redux/actions/actions";
+import './NavBar.css'
 
 function NavBar() {
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, user } = useAuth0();
+  const dispatch = useDispatch();
+
+  //-----------------------reviw
+  useEffect(() => {
+    dispatch(getAllBilling());
+    dispatch(getAllCarReview());
+    dispatch(getAllAccReview());
+  }, [dispatch]);
+  const allBilling = (useSelector((state) => state.allbilling));
+  const allCarReview = (useSelector((state) => state.allcarreview));
+  const allAccreview = (useSelector((state) => state.allaccreview));
+  //console.log(allBilling);
+  //console.log(allCarReview);
+  //console.log(allAccreview);
+  //----------------------------
   return (
     <>
       <ContainerStyled>
@@ -16,6 +34,8 @@ function NavBar() {
           <ListStyled to="/about">ABOUT US</ListStyled>
           <ListStyled to="/contact">CONTACT</ListStyled>
           <ListStyled to="/shopping">RESERVED</ListStyled>
+          
+          
           {isAuthenticated ? (
             <Link to={`/profile`} className="link">
               PROFILE
@@ -24,6 +44,7 @@ function NavBar() {
             ""
           )}
         </NavStyled>
+          {allBilling?<ListStyled to="/createReview" id="btnReview">REVIEW PENDING</ListStyled>:null}
         {isAuthenticated ? (
           <>
             {" "}

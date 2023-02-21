@@ -13,11 +13,11 @@ import Search from "../Search/Search";
 export default function Home() {
   // const [cars, setCars] = useState([]);
   const dispatch = useDispatch();
-  const cars = useSelector((state) => state.cars);
 
   useEffect(() => {
     dispatch(getAllCars());
   }, [dispatch]);
+  const cars = useSelector((state) => state.cars);
 
   // const API_URL = `http://localhost:3001/cars`;
 
@@ -28,16 +28,30 @@ export default function Home() {
   //     // setarCar(data);
   //     // setCars(data);
   //   } catch (e) {
-  //     console.log(e);
   //   }
   // };
 
   let [ordeno, setordeno] = useState("Ascending");
   let [indexo, setindexo] = useState("Brand");
   let [arCar, setarCar] = useState(cars);
-  let [pag, setPag] = useState(1);
   let [xclude] = useState([[], [], [], [], []]);
   let ordenado = [];
+
+  let [pag, setPag] = useState(1);
+  const [carsPerPege] = useState(6);
+
+  var until = pag * carsPerPege;
+  var since = until - carsPerPege;
+
+  let carPag = arCar.slice(since, until);
+
+  const paginado = (pageNumber) => {
+    setPag(pageNumber);
+  };
+  useEffect(() => {
+    paginado(1);
+  }, [cars]);
+
   //functions-------------------------------------
   function paginate(e, num) {
     e.preventDefault();
@@ -58,7 +72,6 @@ export default function Home() {
       : xclude[index].push(obj);
     //----filter brand----
     cars.map((objCar) => {
-      console.log(objCar, "fff");
       xclude[0].includes(objCar.brand) ? null : filt1.push(objCar);
     });
     //----filter category----
@@ -85,6 +98,21 @@ export default function Home() {
   }
   function ordenate2(e) {
     setindexo(e.target.value);
+  }
+  function cleanFilters(e) {
+    e.preventDefault();
+    Swal.fire({
+      title: "you want to clean the filters?",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonColor: "#e38e15",
+      confirmButtonColor: "#e38e15",
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
+      }
+    });
   }
 
   //---------------ordenate-------------------------------
@@ -172,10 +200,18 @@ export default function Home() {
   }
 
   //----------------------------------------------
-  var until = pag * 6;
-  var since = until - 6;
+  // var until = pag * 6;
+  // var since = until - 6;
 
-  let carPag = arCar.slice(since, until);
+  // let carPag = arCar.slice(since, until);
+
+  // const paginado=pageNumber => {
+  //   setPag(pageNumber)
+  // }
+  // useEffect(() => {
+  //   paginado(1);
+  // }, [cars]);
+
   return (
     <React.Fragment>
       <Search />
@@ -186,9 +222,18 @@ export default function Home() {
         xclude={xclude}
       />
 
-      <div className="Filteredout">Filtered out</div>
+      <div className="Filteredout">
+        {" "}
+        <div>Filtered out</div>{" "}
+        <div id="linpFilter" on onClick={(e) => cleanFilters(e)}>
+          🗑️
+        </div>{" "}
+      </div>
       <NavBar />
       <div className="homen">
+        {/* {
+          carPag?.map((e) => {})
+        } */}
         <Cards cars={carPag} ttFilt={arCar.length} />
         <Pagination total={arCar.length} paginate={paginate} />
       </div>

@@ -6,21 +6,77 @@ export const POST_ACCESSORIES = "POST_ACCESSORIES"
 export const POST_USER = "POST_USER"
 export const SEARCH = "SEARCH"
 export const GET_ALL_ACCESSORIES = "GET_ALL_ACCESSORIES"
-export const RESERVED = "RESERVED"
+export const GET_ALL_BILLING = "GET_ALL_BILLING"
+export const GET_ALL_CARREVIEW = "GET_ALL_CARREVIEW"
+export const GET_ALL_ACCREVIEW = "GET_ALL_ACCREVIEW"
+export const ACCESO = "ACCESO"
 
 
 
+export function getAllAccReview () {
+  try {    
+      return function (dispatch) {
+        return fetch(`http://localhost:3001/reviewAccessories`)
+          .then(response => response.json())
+          .then(json => {
+            dispatch({ type: "GET_ALL_ACCREVIEW", payload: json });
+          });
+      };
+  } catch (e) {
+    console.log(e)
+  }
+}
 
-export function getAllAccsessories() {
-  try {
-    return function (dispatch) {
-      return fetch(`http://localhost:3001/accessories`)
-        .then(response => response.json())
-        .then(json => {
-          console.log(json, "esteeee");
-          dispatch({ type: "GET_ALL_ACCESSORIES", payload: json });
-        });
-    };
+export function getAllBilling () {
+  try {    
+      return function (dispatch) {
+        return fetch(`http://localhost:3001/billing`)
+          .then(response => response.json())
+          .then(json => {
+            dispatch({ type: "GET_ALL_BILLING", payload: json });
+          });
+      };
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export function getAllCarReview () {
+  try {    
+      return function (dispatch) {
+        return fetch(`http://localhost:3001/review`)
+          .then(response => response.json())
+          .then(json => {
+            dispatch({ type: "GET_ALL_CARREVIEW", payload: json });
+          });
+      };
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+  export const acceso = (payload) => async (dispatch) => {
+    try {    
+      const RutaMP = await axios.post("http://localhost:3001/payment", payload)
+      return dispatch({
+        type: "ACCESO",
+        payload: RutaMP
+      })     
+  
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+export function getAllAccsessories () {
+  try {    
+      return function (dispatch) {
+        return fetch(`http://localhost:3001/accessories`)
+          .then(response => response.json())
+          .then(json => {
+            dispatch({ type: "GET_ALL_ACCESSORIES", payload: json });
+          });
+      };
   } catch (e) {
     console.log(e)
   }

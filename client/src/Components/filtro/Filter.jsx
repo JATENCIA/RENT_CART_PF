@@ -103,7 +103,7 @@ export function Filter({ cars, filterInHome, paginate, xclude }) {
                         <img
                           id={obj}
                           className="filtimg"
-                          src="https://content.r9cdn.net/rimg/carimages/generic/02_economy_red.png?height=116"
+                          src="https://www.pnguniverse.com/wp-content/uploads/2021/06/Carro-blanco-marca-nuevaa-834afdf1.png"
                           alt={"No"}
                         />
                       </div>
@@ -156,7 +156,7 @@ export function Filter({ cars, filterInHome, paginate, xclude }) {
                         <img
                           id={obj}
                           className="filtimg"
-                          src="https://content.r9cdn.net/rimg/carimages/generic/02_economy_red.png?height=116"
+                          src="https://www.pngall.com/wp-content/uploads/13/Ford-Mustang.png"
                           alt={"No"}
                         />
                       </div>
@@ -209,7 +209,7 @@ export function Filter({ cars, filterInHome, paginate, xclude }) {
                         <img
                           id={obj}
                           className="filtimg"
-                          src="https://content.r9cdn.net/rimg/carimages/generic/02_economy_red.png?height=116"
+                          src="https://s3.amazonaws.com/kia.com.co/Rio_Sedan_Gris_9ad3fa0dbf.png"
                           alt={"No"}
                         />
                       </div>
@@ -253,7 +253,7 @@ export function Filter({ cars, filterInHome, paginate, xclude }) {
                         <img
                           id={obj}
                           className="filtimgF"
-                          src="https://content.r9cdn.net/rimg/carimages/generic/02_economy_red.png?height=116"
+                          src="https://www.suzuki.com.uy/public/7d64db4658.png"
                           alt={"No"}
                         />
                       </div>
@@ -316,7 +316,7 @@ export function Filter({ cars, filterInHome, paginate, xclude }) {
                         <img
                           id={obj}
                           className="filtimg"
-                          src="https://content.r9cdn.net/rimg/carimages/generic/02_economy_red.png?height=116"
+                          src="https://www.suzuki.com.uy/public/7d64db4658.png"
                           alt={"No"}
                         />
                       </div>

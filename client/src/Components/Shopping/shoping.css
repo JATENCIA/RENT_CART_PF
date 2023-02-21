@@ -1,7 +1,7 @@
-.ccontainer1 {
+.ccontainer18 {
   margin: 23%;
  
-  margin-top: 10%;
+  margin-top: 5%;
   background-color: rgb(255, 255, 255, 0.3);
   color: #070707cc;
   border-color: black;
@@ -58,6 +58,7 @@
   border-left: 0px solid #858585cc;
   border-right: 0px solid #858585cc;
   align-items: center;
+  margin-top: 20px;
 }
 .crow2tru img, .crow2fal img{
   width: 50px;
@@ -155,4 +156,24 @@ font-weight: normal;
 }
 #justi{
   text-align: justify;
+}
+#dni{
+  text-align:left;
+  font-weight: bold;
+  color:#023047;
+}
+#boxdni{
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #858585cc;
+  border-radius: 3px;
+  font-weight:normal;
+  outline: none;
+  color:#023047;
+  padding-left: 10px;
+}
+#nameShopping{
+  text-align: left;
+}
+#preFra{
+  width: 202px;
 }
