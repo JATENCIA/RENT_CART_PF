@@ -216,7 +216,7 @@ function AccessoriesAdmin() {
       <div className="bg-white mt-[40px]">
         <TableContainer>
           <Table>
-            <TableHead>
+            <TableHead className="bg-[#8ECAE6]">
               <TableRow>
                 <TableCell>Id</TableCell>
                 <TableCell>Name</TableCell>

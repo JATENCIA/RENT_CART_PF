@@ -34,13 +34,14 @@ function BookingsAdmin() {
     <div className="bg-white">
       <TableContainer>
         <Table>
-          <TableHead>
+          <TableHead className="bg-[#8ECAE6]">
             <TableRow>
-              {/* <TableCell>Id</TableCell> */}
-              <TableCell>Invoice-Number</TableCell>
-              {/* <TableCell>User</TableCell> */}
-              <TableCell>Status</TableCell>
-              <TableCell>Accions</TableCell>
+              <TableCell>Id</TableCell>
+              <TableCell>Invoice-number</TableCell>              
+              <TableCell>Discount</TableCell>
+              <TableCell>Full-value</TableCell>
+              <TableCell>Active</TableCell>              
+              {/* <TableCell>Accions</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -48,14 +49,16 @@ function BookingsAdmin() {
               bookings.map((b) => {
                 return (
                   <TableRow key={b.id}>
-                    <TableCell>{b.invoice_number}</TableCell>
-                    {/* <TableCell>{c.user._id}</TableCell> */}
+                    <TableCell>{b._id}</TableCell>
+                    <TableCell>{b.invoice_number}</TableCell>                    
+                    <TableCell>{b.discount}</TableCell>
+                    <TableCell>{b.full_value}</TableCell>
                     <TableCell>{b.active}</TableCell>
-                    <TableCell>
+                    {/* <TableCell>
                       <Edit className="cursor-pointer" color="primary" />
                       &nbsp;&nbsp;&nbsp;
                       <Delete color="error" className="cursor-pointer" />
-                    </TableCell>
+                    </TableCell> */}
                   </TableRow>
                 );
               })

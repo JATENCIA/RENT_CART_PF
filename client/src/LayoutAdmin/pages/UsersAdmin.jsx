@@ -25,12 +25,12 @@ function Users() {
   const [users, setUsers] = useState([]);
   const [modalEdit, setModalEdit] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
-  const [userSelecionado, setUserSeleccionado] = useState({
+  const [userSeleccionado, setUserSeleccionado] = useState({
     active: "",
   });
   function handleChange(e) {
     setUserSeleccionado({
-      ...userSelecionado,
+      ...userSeleccionado,
       [e.target.name]: e.target.value,
     });
     console.log(e.target.value);
@@ -43,15 +43,30 @@ function Users() {
     setModalDelete(!modalDelete);
   };
 
-  const selecionarUser = (u, caso) => {
+  const seleccionarUser = (u, caso) => {
     setUserSeleccionado(u);
     caso === "Edit" ? openCloseModalEdit() : openCloseModalDelete();
   };
 
   const peticionDelete = async () => {
-    await axios.delete(API_URL + userSelecionado.id).then((response) => {
-      setData(data.filter((u) => u.id !== userSelecionado.id));
+    await axios.delete(API_URL + userSeleccionado.id).then((response) => {
+      setData(data.filter((u) => u.id !== userSeleccionado.id));
     });
+  };
+
+  const peticionPut = async () => {
+    await axios
+      .put(API_URL + userSeleccionado.id, userSeleccionado)
+      .then((response) => {
+        var dataNew = data;
+        dataNew.map((u) => {
+          if (userSeleccionado.id === u.id) {
+            u.active = userSeleccionado.active;
+          }
+        });
+        setData(dataNew);
+        openCloseModalEdit();
+      });
   };
 
   const dataInfo = async () => {
@@ -76,7 +91,7 @@ function Users() {
           <RadioGroup
             row
             name="active"
-            value={userSelecionado && userSelecionado.active}
+            value={userSeleccionado && userSeleccionado.active}
             style={{ marginLeft: "100px" }}
             onChange={handleChange}
           >
@@ -114,7 +129,7 @@ function Users() {
     <div className="bg-white  pl-2 pr-2">
       <p className="text-center pt-10 pb-12 font-bold text-2xl ">
         Are you sure you want to remove the user{" "}
-        <b>{userSelecionado && userSelecionado.eMail}</b> ?
+        <b>{userSeleccionado && userSeleccionado.eMail}</b> ?
       </p>
       <div className="text-center pb-12 ">
         <Button variant="contained" color="success" onClick={peticionDelete}>
@@ -135,7 +150,7 @@ function Users() {
     <div className="bg-white">
       <TableContainer>
         <Table>
-          <TableHead>
+          <TableHead className="bg-[#8ECAE6]">
             <TableRow>
               {/* <TableCell>Id</TableCell> */}
               <TableCell>Name</TableCell>
@@ -162,12 +177,12 @@ function Users() {
                     <TableCell>
                       <Edit
                         className="cursor-pointer"
-                        onClick={() => selecionarUser(u, "Edit")}
+                        onClick={() => seleccionarUser(u, "Edit")}
                         color="primary"
                       />
                       &nbsp;&nbsp;&nbsp;
                       <Delete
-                        onClick={() => selecionarUser(u, "Delete")}
+                        onClick={() => seleccionarUser(u, "Delete")}
                         color="error"
                         className="cursor-pointer"
                       />

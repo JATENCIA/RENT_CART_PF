@@ -18,6 +18,7 @@ import {
   Modal,
   Button,
   TextField,
+  TablePagination
 } from "@mui/material";
 
 const API_URL = `http://localhost:3001/cars/`;
@@ -69,6 +70,15 @@ function CarsAdmin() {
   const openCloseModalEdit = () => {
     setModalEdit(!modalEdit);
   };
+  const showAlertEdit = () => {
+    Swal.fire({
+      title: "Are you sure you want to perform an action?",
+      showDenyButton: true,
+      denyButtonText: "Cancel",
+      confirmButtonText: "Delete",
+    });
+  };
+
   const openCloseModalDelete = () => {
     setModalDelete(!modalDelete);
   };
@@ -86,23 +96,23 @@ function CarsAdmin() {
   const peticionPut = async () => {
     await axios.put(API_URL + carSelected.id, carSelected).then((response) => {
       var dataNew = data;
-      dataNew.map((car) => {
-        if (carSelected.id === car.id) {
-          car.licensePlate = carSelected.licensePlate;
-          car.brand = carSelected.brand;
-          car.line = carSelected.line;
-          car.price = carSelected.price;
-          car.description = carSelected.description;
-          car.category = carSelected.category;
-          car.location = carSelected.location;
-          car.fuelConsumption = carSelected.fuelConsumption;
-          car.doors = carSelected.doors;
-          car.colour = carSelected.colour;
-          car.discount = carSelected.discount;
-          car.fuelType = carSelected.fuelType;
-          car.typeOfBox = carSelected.typeOfBox;
-          car.active = carSelected.active;
-          car.status = carSelected.status;
+      dataNew.map((c) => {
+        if (carSelected.id === c.id) {
+          c.licensePlate = carSelected.licensePlate;
+          c.brand = carSelected.brand;
+          c.line = carSelected.line;
+          c.price = carSelected.price;
+          c.description = carSelected.description;
+          c.category = carSelected.category;
+          c.location = carSelected.location;
+          c.fuelConsumption = carSelected.fuelConsumption;
+          c.doors = carSelected.doors;
+          c.colour = carSelected.colour;
+          c.discount = carSelected.discount;
+          c.fuelType = carSelected.fuelType;
+          c.typeOfBox = carSelected.typeOfBox;
+          c.active = carSelected.active;
+          c.status = carSelected.status;
         }
       });
       setData(dataNew);
@@ -334,7 +344,7 @@ function CarsAdmin() {
       <div className="bg-white mt-[40px]">
         <TableContainer>
           <Table>
-            <TableHead>
+            <TableHead className="bg-[#8ECAE6]">
               <TableRow>
                 {/* <TableCell>Id</TableCell> */}
                 <TableCell>LicensePlate</TableCell>
@@ -389,6 +399,9 @@ function CarsAdmin() {
               )}
             </TableBody>
           </Table>
+          
+
+
         </TableContainer>
 
         <Modal
