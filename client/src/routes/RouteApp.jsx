@@ -8,8 +8,8 @@ import Contact from "../pages/Contact/Contact";
 import FaqSection from "../pages/FaqSection/FaqSection";
 import Details from "../Components/Details/Details";
 import Shopping from "../Components/Shopping/shoping";
-import { MPButton } from '../Components/MercadoPago/MercadoPago';
-import CreateReview  from '../Components/Review/Review';
+import { MPButton } from "../Components/MercadoPago/MercadoPago";
+import CreateReview from "../Components/Review/Review";
 //Dashboard perfil de usuario
 import LayoutProfile from "../LayoutProfile/LayoutProfile";
 import MyDates from "../LayoutProfile/pages/MyDates";
@@ -45,7 +45,7 @@ function RouteApp() {
         <Route exact path="detail/:id" element={<Details />} />
         <Route exact path="shopping" element={<Shopping />} />
         <Route exact path="createReview" element={<CreateReview />} />
-        <Route exact path="gopay" element={<MPButton />} />        
+        <Route exact path="gopay" element={<MPButton />} />
         {/* Configuración de rutas iniciar sesion */}
         <Route exact path="login" element={<Login />} />
         <Route exact path="register" element={<Register />} />
@@ -69,12 +69,10 @@ function RouteApp() {
           <Route path="cars" element={<CarsAdmin />} />
           <Route path="accessories" element={<AccessoriesAdmin />} />
           <Route path="bookings" element={<BookingsAdmin />} />
+          <Route path="create-car" element={<FormCar />} />
+          <Route path="create-accessory" element={<FormAccessory />} />
         </Route>
 
-        <Route path="/create" element={<LayoutAdmin />}>
-          <Route path="car" element={<FormCar />} />
-          <Route path="accessory" element={<FormAccessory />} />
-        </Route>
         {/* Configuración de ruta 404 error */}
         <Route exact path="*" element={<NotFound />} />
       </Routes>

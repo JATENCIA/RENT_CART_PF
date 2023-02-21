@@ -48,6 +48,12 @@ const billingSchema = mongoose.Schema({
     default: "valid",
   },
 
+  payment_status: {
+    type: String,
+    enum: ["approved", "disapproved"],
+    default: "disapproved",
+  },
+
   deadline: {
     type: String,
     required: true,

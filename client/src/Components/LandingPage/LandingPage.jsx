@@ -1,14 +1,8 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./LandingPage.css";
-import {useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getAllCars } from "../../redux/actions/actions";
-
-
-export default function LandingPage() {
-  localStorage.setItem ('nombre',"")
-  
-
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 import Carousel from "react-bootstrap/Carousel";
@@ -23,7 +17,7 @@ export default function LandingPage() {
   useEffect(() => {
     dispatch(getAllCars());
   }, [dispatch]);
-  
+
   useEffect(() => {
     const handleScrollButtonVisibility = () => {
       window.pageYOffset > 300 ? setShowButton(true) : setShowButton(false);
@@ -34,18 +28,9 @@ export default function LandingPage() {
     };
   }, []);
   const handleScrollToTop = () => {
-    window.scrollTo({top: 0, behavior: 'smooth'})
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
   return (
-
-    <div className="information">
-      <div class="container">
-        <h1 className="titulo">RENT A CAR FROM $20/DAY</h1>
-        <Link to="/home">
-          <button className="button">RENT CAR</button>
-        </Link>
-      </div>
-
     <div className="main">
       <NavBar />
       <div className="container">
@@ -369,18 +354,14 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
-      {
-        showButton && (
+      {showButton && (
         <div className="scrollToTop">
-          <button
-          onClick={handleScrollToTop}
-          >
+          <button onClick={handleScrollToTop}>
             <BiChevronUpCircle />
           </button>
-        </div>)
-      }
+        </div>
+      )}
       <Footer />
-
     </div>
   );
 }
