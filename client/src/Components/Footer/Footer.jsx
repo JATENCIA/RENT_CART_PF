@@ -43,6 +43,7 @@ function Footer() {
       <CopyrightStyled>
         <p className="footer">Copyright © 2023 Rent Car. All rights reserved</p>
         <ul className="social-network">
+          Follow us!
           <a href="https://www.facebook.com/profile.php?id=100090221383335">
             <li className="facebook">
               <svg

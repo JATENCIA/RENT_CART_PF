@@ -204,7 +204,7 @@ function AccessoriesAdmin() {
   return (
     <>
       <div className="flex font-bold text-3xl">
-        <Link to="/create/accessory">
+        <Link to="/auth-admin/create-accessory">
           <button
             type="button"
             className="absolute top-20 right-4 flex px-6 py-2.5 text-[#023047] font-bold bg-primary text-xs leading-tight uppercase rounded shadow-md hover:bg-[#219EBC] hover:shadow-lg focus:bg-[#219EBC] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#219EBC] active:shadow-lg  duration-150 ease-in-out"

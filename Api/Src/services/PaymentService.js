@@ -35,7 +35,7 @@ class PaymentService {
       back_urls: {
         failure: "/failure",
         pending: "/pending",
-        success: "/success",
+        success: "https://f7b5-186-84-88-129.ngrok.io/payment/success",
       },
     };
 

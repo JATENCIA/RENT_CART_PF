@@ -9,8 +9,14 @@ const billingSchema = mongoose.Schema({
 
   full_value: {
     type: Number,
-    default: 0,
     minLength: 0,
+    required: true,
+  },
+
+  invoice_number: {
+    type: String,
+    minLength: 4,
+    unique: true,
     required: true,
   },
 
@@ -42,17 +48,18 @@ const billingSchema = mongoose.Schema({
     default: "valid",
   },
 
-  Deadline: {
-    type: Date,
-    required: true,
+  payment_status: {
+    type: String,
+    enum: ["approved", "disapproved"],
+    default: "disapproved",
   },
 
-  Deadline_iso: {
-    type: Date,
+  deadline: {
+    type: String,
     required: true,
   },
-  rentalDate_iso: {
-    type: Date,
+  rentalDate: {
+    type: String,
     required: true,
   },
 });
