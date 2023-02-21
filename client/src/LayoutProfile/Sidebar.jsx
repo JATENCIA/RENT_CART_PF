@@ -108,7 +108,7 @@ function Sidebar() {
             </li> */}
             <li>
               <Link
-                to="/"
+                to="/home"
                 className="flex text-2xl items-center gap-4  py-2 px-4 rounded-lg hover:bg-secondary-900 w-full"
               >
                 <RiHome7Fill className="text-primary" />

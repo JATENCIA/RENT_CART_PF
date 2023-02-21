@@ -54,7 +54,7 @@ const carSchema = mongoose.Schema({
     maxLength: 200,
   },
   colour: {
-    type: Array,
+    type: String,
     required: true,
     minLength: 3,
     maxLength: 18,
