@@ -24,6 +24,7 @@ class PaymentService {
           discount: shoppingcart.discount,
         },
       ],
+      external_reference: shoppingcart.eMail,
       payment_methods: {
         excluded_payment_types: [
           {
