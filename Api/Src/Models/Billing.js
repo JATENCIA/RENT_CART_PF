@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const billingSchema = mongoose.Schema({
   full_value: {
     type: Number,
-    default: 0,
     minLength: 0,
     required: true,
   },

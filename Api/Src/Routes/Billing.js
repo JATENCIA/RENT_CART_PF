@@ -29,6 +29,7 @@ router.post("/", async (req, res) => {
       deadline: billing.deadline,
       rentalDate: billing.rentalDate,
       invoice_number: billing.invoice_number,
+      full_value: billing.full_value,
     });
 
     const saveBilling = await newBilling.save();
