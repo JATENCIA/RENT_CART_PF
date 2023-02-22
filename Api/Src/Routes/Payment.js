@@ -18,9 +18,27 @@ router.get("/success", async (req, res) => {
     const users = await Users.findOne({ eMail });
     let id = users.billing[users.billing.length - 1];
     const billing = await Billing.find({ _id: id });
-    let payment_status = infoMercadoPago.status;
-    await Billing.updateOne({ _id: id }, { $set: { payment_status } });
-    res.status(200).json(infoMercadoPago);
+
+    if (infoMercadoPago.status === "approved") {
+      let payment_status = infoMercadoPago.status;
+      await Billing.updateOne({ _id: id }, { $set: { payment_status } });
+
+      let transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        auth: {
+          user: process.env.USSER,
+          pass: process.env.PASS,
+        },
+      });
+
+      transporter.sendMail({
+        from: '"RentCar" <info.grupo.rentcar@gmail.com>',
+        to: eMail,
+        subject: "Su pago fue exitoso !!!",
+        text: `Estimado Usuario:${users.name}`,
+      });
+    }
   } catch (error) {
     res.status(500).send({ mensage: `${error}` });
   }
