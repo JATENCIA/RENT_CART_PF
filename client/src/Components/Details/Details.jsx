@@ -72,7 +72,8 @@ export default function Details() {
       "¬" +
       data;
 
-    localStorage.setItem("nombre", info);
+    localStorage.setItem("nombre", info);    
+    
   }
 
   return (
