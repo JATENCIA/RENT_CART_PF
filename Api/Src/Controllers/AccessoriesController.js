@@ -12,20 +12,20 @@ const routerPostAccessories = async (req, res) => {
   validateCreate;
   const accessories = accessoriesSchema(req.body);
 
-  const user = await Users.findOne(accessories.eMail);
+  // const user = await Users.findOne(accessories.eMail);
 
-  if (user && user.loading === "valid") {
-    if (user.roll === "admin" || user.roll === "superAdmin") {
-      accessories
-        .save()
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error }));
-    } else {
-      return res.status(201).json("you do not have access to this information");
-    }
-  } else {
-    return res.status(201).json(`${eMail} Not found`);
-  }
+  // if (user && user.loading === "valid") {
+  //   if (user.roll === "admin" || user.roll === "superAdmin") {
+  accessories
+    .save()
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error }));
+  //   } else {
+  //     return res.status(201).json("you do not have access to this information");
+  //   }
+  // } else {
+  //   return res.status(201).json(`${eMail} Not found`);
+  // }
 };
 
 /**
@@ -87,7 +87,8 @@ const routerGetByidAccessories = (req, res) => {
  * @param res - The response object.
  */
 const routerPutAccessories = async (req, res) => {
-  const { name, price, description, image, discount, status, id } = req.body;
+  const { id } = req.params
+  const { name, price, description, image, discount, status } = req.body;
 
   accessoriesSchema
     .updateOne(
@@ -107,23 +108,23 @@ const routerPutAccessories = async (req, res) => {
  */
 const routerDeleteAccessories = async (req, res) => {
   const { id } = req.params;
-  const { status, eMail } = req.body;
-  const user = await Users.findOne(car.eMail);
+  const { status } = req.body;
+  // const user = await Users.findOne(car.eMail);
 
-  if (user) {
-    if (user.roll === "superAdmin" && user.loading === "valid") {
-      accessoriesSchema
+  // if (user) {
+  //   if (user.roll === "superAdmin" && user.loading === "valid") {
+  accessoriesSchema
 
-        .updateOne({ _id: id }, { $set: { status } })
-        .populate("review", { description: 1, rate: 1 })
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error }));
-    } else {
-      return res.status(201).json("you do not have access to this information");
-    }
-  } else {
-    return res.status(201).json(`${eMail} Not found`);
-  }
+    .updateOne({ _id: id }, { $set: { status } })
+    .populate("review", { description: 1, rate: 1 })
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error }));
+  //   } else {
+  //     return res.status(201).json("you do not have access to this information");
+  //   }
+  // } else {
+  //   return res.status(201).json(`${eMail} Not found`);
+  // }
 };
 
 module.exports = {

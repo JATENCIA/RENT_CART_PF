@@ -210,7 +210,7 @@ const routerByidUser = async (req, res) => {
  */
 const routerPutUser = async (req, res) => {
   const { id } = req.params;
-  const { name, lastName, kindOfPerson, eMail, location, telephone, image } =
+  const { name, lastName, kindOfPerson, eMail, location, telephone } =
     req.body;
 
   let user = await Users.findById(id);

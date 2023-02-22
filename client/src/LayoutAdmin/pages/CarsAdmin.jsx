@@ -21,7 +21,7 @@ import {
   TablePagination,
 } from "@mui/material";
 
-const API_URL = `http://localhost:3001/cars/`;
+const API_URL = "http://localhost:3001/cars/";
 
 function CarsAdmin() {
   const dispatch = useDispatch();
@@ -94,10 +94,10 @@ function CarsAdmin() {
   };
 
   const peticionPut = async () => {
-    await axios.put(API_URL + carSelected.id, carSelected).then((response) => {
+    await axios.put(API_URL + carSelected._id, carSelected).then((response) => {
       var dataNew = data;
       dataNew.map((c) => {
-        if (carSelected.id === c.id) {
+        if (carSelected._id === c._id) {
           c.licensePlate = carSelected.licensePlate;
           c.brand = carSelected.brand;
           c.line = carSelected.line;
@@ -331,7 +331,7 @@ function CarsAdmin() {
   return (
     <>
       <div className="flex font-bold text-3xl">
-        <Link to="/auth-admin/create-car">
+        <Link to="/dashboard/create-car">
           <button
             type="button"
             className="absolute top-20 right-4 flex px-6 py-2.5 bg-primary text-[#023047] font-bold  text-xs leading-tight uppercase rounded shadow-md hover:bg-[#219EBC] hover:shadow-lg focus:bg-[#219EBC] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg  duration-150 ease-in-out"
