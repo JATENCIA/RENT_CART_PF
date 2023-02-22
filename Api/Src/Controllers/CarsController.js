@@ -52,6 +52,7 @@ const routerPostCars = async (req, res) => {
     .save()
     .then((data) => res.status(200).json(data))
     .catch((error) => res.status(500).json({ message: `${error}` }));
+
 };
 
 /**
@@ -79,7 +80,8 @@ const routerByidCars = (req, res) => {
  */
 
 const routerPutCars = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params
+
   const {
     brand,
     price,

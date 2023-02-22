@@ -9,8 +9,8 @@ let transporter = nodemailer.createTransport({
   auth: {
     // user: `${USER}`, // generated ethereal user
     // pass: `${PASS}`, // generated ethereal password
-    user: process.env.USSER, // generated ethereal user
-    pass: process.env.PASS, // generated ethereal password
+    user: USER, // generated ethereal user
+    pass: PASS, // generated ethereal password
   },
 });
 
