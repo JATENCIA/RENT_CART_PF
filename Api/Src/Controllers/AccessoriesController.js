@@ -12,12 +12,10 @@ const routerPostAccessories = async (req, res) => {
   validateCreate;
   const accessories = accessoriesSchema(req.body);
 
-
   accessories
     .save()
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
-
 };
 
 /**
@@ -80,7 +78,7 @@ const routerGetByidAccessories = (req, res) => {
  * @param res - The response object.
  */
 const routerPutAccessories = async (req, res) => {
-  const { id } = req.params
+  const { id } = req.params;
 
   const { name, price, description, image, discount, status } = req.body;
 
@@ -110,7 +108,6 @@ const routerDeleteAccessories = async (req, res) => {
     .populate("review", { description: 1, rate: 1 })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
-
 };
 
 module.exports = {
