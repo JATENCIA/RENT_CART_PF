@@ -3,7 +3,6 @@ import Footer from "../../Components/Footer/Footer";
 import NavBar from "../../Components/NavBar/NavBar";
 import styled from "styled-components";
 import Card from "react-bootstrap/Card";
-import CardGroup from "react-bootstrap/CardGroup";
 import "bootstrap/dist/css/bootstrap.min.css";
 function About() {
   return (
@@ -33,26 +32,12 @@ function About() {
           more recently with desktop publishing software like Aldus PageMaker
           including versions of Lorem Ipsum.
         </p>
-        <CardGroup style={{ width: '50rem', height:'13rem', margin: '30px', border: '1px solid black' }}>
-          <Card>
+          <Card style={{ width: '50%', height:'10rem', margin: '30px', border: '1px solid black' }}>
             <Card.Img
               variant="top"
-              src="https://images.unsplash.com/photo-1547038577-da80abbc4f19?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NXx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
+              src="https://ucarecdn.com/1d37eb94-1205-47a0-94dc-7c5315eb5244/logorentcar.jpg"
             />
           </Card>
-          <Card>
-            <Card.Img
-              variant="top"
-              src="https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8OXx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
-            />
-          </Card>
-          <Card>
-            <Card.Img
-              variant="top"
-              src="https://images.unsplash.com/photo-1511407397940-d57f68e81203?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Nnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
-            />
-          </Card>
-        </CardGroup>
       </ContainerStyled>
       <Footer />
     </React.Fragment>
