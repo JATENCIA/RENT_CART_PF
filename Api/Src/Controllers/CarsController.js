@@ -47,25 +47,12 @@ const routerGetCars = async (req, res) => {
 const routerPostCars = async (req, res) => {
   validateCreate;
   const car = carSchema(req.body);
-  const { eMail } = req.body;
-  console.log(eMail);
 
-  const user = await Users.find({ eMail: eMail });
+  car
+    .save()
+    .then((data) => res.status(200).json(data))
+    .catch((error) => res.status(500).json({ message: `${error}` }));
 
-  if (user.length) {
-    if (user[0].roll === "admin" || user[0].roll === "superAdmin") {
-      if (user[0].loading === "valid") {
-        car
-          .save()
-          .then((data) => res.status(200).json(data))
-          .catch((error) => res.status(500).json({ message: `${error}` }));
-      }
-    } else {
-      return res.status(201).json("you do not have access to this information");
-    }
-  } else {
-    return res.status(201).json(`eMail Not found`);
-  }
 };
 
 /**
@@ -93,6 +80,8 @@ const routerByidCars = (req, res) => {
  */
 
 const routerPutCars = async (req, res) => {
+  const { id } = req.params
+
   const {
     brand,
     price,
@@ -107,8 +96,7 @@ const routerPutCars = async (req, res) => {
     fuelType,
     typeOfBox,
     licensePlate,
-    id,
-    status
+    status,
   } = req.body;
 
   carSchema
@@ -129,7 +117,7 @@ const routerPutCars = async (req, res) => {
           fuelType,
           typeOfBox,
           licensePlate,
-          status
+          status,
         },
       }
     )
@@ -147,23 +135,14 @@ const routerPutCars = async (req, res) => {
  * @returns the carSchema.updateOne method.
  */
 const routerDeleteCars = async (req, res) => {
-  const { active, eMail } = req.body;
-  const user = await Users.findOne(car.eMail);
+  const { active } = req.body;
   const { id } = req.params;
 
-  if (user) {
-    if (user.roll === "superAdmin" && user.loading === "valid") {
-      carSchema
-        .updateOne({ _id: id }, { $set: { active } })
-        .populate("review", { description: 1, rate: 1 })
-        .then((data) => res.status(200).json(data))
-        .catch((error) => res.status(500).json({ message: `${error} ` }));
-    } else {
-      return res.status(201).json("you do not have access to this information");
-    }
-  } else {
-    return res.status(201).json(`${eMail} Not found`);
-  }
+  carSchema
+    .updateOne({ _id: id }, { $set: { active } })
+    .populate("review", { description: 1, rate: 1 })
+    .then((data) => res.status(200).json(data))
+    .catch((error) => res.status(500).json({ message: `${error} ` }));
 };
 module.exports = {
   routerGetCars,

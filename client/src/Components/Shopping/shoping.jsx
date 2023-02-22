@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./shoping.css";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
@@ -8,7 +8,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { acceso, postBilling, getAllCars, putCars} from "../../redux/actions/actions";
 
 export default function Details() {
-
+  const { isAuthenticated, user } = useAuth0();
+  const goBack = useNavigate();
   const dispatch = useDispatch();
   const acc = useSelector((state) => state.acceso);
 
@@ -290,9 +291,9 @@ export default function Details() {
           </div>
         </div>
         <div className="cbutondetail">
-          <Link to={`/home`} className="link">
-            <button> Go back </button>
-          </Link>
+          {/* <Link to={`/home`} className="link"> */}
+            <button onClick={() => goBack(-1)} > Go back </button>
+          {/* </Link> */}
           <div id="csepara"></div>
           <button id="confir" onClick={(e) => mercadoP(e)}>
             Validate{" "}

@@ -24,7 +24,8 @@ router.get("/:id", (req, res) => {
 });
 
 /* This is a put request that is updating the data from the database. */
-router.put("/", async (req, res) => {
+
+router.put("/:", async (req, res) => {
   routerPutAccessories(req, res);
 });
 

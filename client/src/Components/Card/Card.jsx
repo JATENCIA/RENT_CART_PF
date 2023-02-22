@@ -1,14 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import "./card.css";
 import { Link } from "react-router-dom";
 import { MdFavoriteBorder } from "react-icons/md";
+import { Rating } from "@mui/material";
 
+const labels = {
+  1: 'Useless',
+  2: 'Poor',
+  3: 'Ok',
+  4: 'Good',
+  5: 'Excellent',
+};
+
+function getLabelText(value) {
+  return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
+}
 const Card = ({ car }) => {
+  const [value, setValue] = useState(0);
+  const [hover, setHover] = useState(-1);
   return (
     <div className="cardd">
       <div></div>
       <div>
-        <div className="start">★★★☆☆</div>
+        <div className="start">
+        <Rating
+            name="half-rating-read"
+            value={value}
+            getLabelText={getLabelText}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+            onChangeActive={(event, newHover) => {
+              setHover(newHover);
+            }}
+          />
+          {value !== null && (
+            <div style={{marginTop:"0px" ,fontSize:"17px"}} sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</div>
+          )}
+        </div>
         <img className="img" src={car.image} alt={"No"} />
       </div>
 
