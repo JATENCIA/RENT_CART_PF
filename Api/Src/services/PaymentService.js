@@ -34,9 +34,9 @@ class PaymentService {
         installments: 1,
       },
       back_urls: {
-        failure: "/failure",
-        pending: "/pending",
-        success: "https://5a78-186-84-88-129.ngrok.io/payment/success",
+        failure: `${process.env.API_URL_BACK}/payment/success`,
+        pending: `${process.env.API_URL_BACK}/payment/success`,
+        success: `${process.env.API_URL_BACK}/payment/success`,
       },
     };
 
