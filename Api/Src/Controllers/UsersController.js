@@ -206,10 +206,16 @@ const routerByidUser = async (req, res) => {
  */
 const routerPutUser = async (req, res) => {
   const { id } = req.params;
-
-  const { name, lastName, kindOfPerson, eMail, location, telephone } = req.body;
-
-  let user = await Users.findById(id);
+  const {
+    name,
+    lastName,
+    kindOfPerson,
+    eMail,
+    location,
+    telephone,
+    active,
+    roll,
+  } = req.body;
 
   userSchema
     .updateOne(
@@ -222,6 +228,8 @@ const routerPutUser = async (req, res) => {
           eMail,
           location,
           telephone,
+          active,
+          roll,
         },
       }
     )
