@@ -24,6 +24,7 @@ class PaymentService {
           discount: shoppingcart.discount,
         },
       ],
+      external_reference: shoppingcart.eMail,
       payment_methods: {
         excluded_payment_types: [
           {
@@ -35,7 +36,7 @@ class PaymentService {
       back_urls: {
         failure: "/failure",
         pending: "/pending",
-        success: "https://f7b5-186-84-88-129.ngrok.io/payment/success",
+        success: "https://5a78-186-84-88-129.ngrok.io/payment/success",
       },
     };
 
