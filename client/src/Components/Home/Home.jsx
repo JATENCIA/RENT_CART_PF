@@ -31,6 +31,7 @@ console.log("-----",filt0);
 
   try {
     const { user } = useAuth0();
+    console.log(user);
     const allUsers = useSelector((state) => state.usersiD)
     const idUser = allUsers.find(element => element.eMail = user.email);
     localStorage.setItem("user", user.email +"|" + user.picture + "|" + idUser. _id);   

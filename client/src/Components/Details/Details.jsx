@@ -128,9 +128,8 @@ export default function Details() {
       "¬" +
       data;
 
-  localStorage.setItem("nombre", info);  
-  console.log(info);  
-  //-----------
+    localStorage.setItem("nombre", info);
+  }
 
   return (
     <>
