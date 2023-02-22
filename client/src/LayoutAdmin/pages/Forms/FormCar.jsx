@@ -4,6 +4,8 @@ import React from "react";
 import { Widget } from "@uploadcare/react-widget";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
+
 import {
   Button,
   FormControlLabel,
@@ -13,7 +15,6 @@ import {
   TextField,
 } from "@mui/material";
 import { postCar } from "../../../redux/actions/actions";
-import { Link } from "react-router-dom";
 
 export const FormCar = () => {
   const dispatch = useDispatch();

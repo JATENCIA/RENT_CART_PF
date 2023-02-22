@@ -93,9 +93,6 @@ const routerByidCars = (req, res) => {
  */
 
 const routerPutCars = async (req, res) => {
-  const { eMail } = req.body;
-  const user = await Users.findOne(car.eMail);
-  const { id } = req.params;
   const {
     brand,
     price,
@@ -110,45 +107,33 @@ const routerPutCars = async (req, res) => {
     fuelType,
     typeOfBox,
     licensePlate,
-    image,
+    id,
   } = req.body;
-  if (user.length) {
-    if (user.loading === "valid") {
-      if (user.roll === "admin" || user.roll === "superAdmin") {
-        carSchema
-          .updateOne(
-            { _id: id },
-            {
-              $set: {
-                brand,
-                price,
-                description,
-                fuelConsumption,
-                location,
-                colour,
-                discount,
-                doors,
-                line,
-                category,
-                fuelType,
-                typeOfBox,
-                licensePlate,
-                image,
-              },
-            }
-          )
-          .populate("review", { description: 1, rate: 1 })
-          .then((data) => res.json(data))
-          .catch((error) => res.json({ message: error }));
-      } else {
-        return res
-          .status(201)
-          .json("you do not have access to this information");
+
+  carSchema
+    .updateOne(
+      { _id: id },
+      {
+        $set: {
+          brand,
+          price,
+          description,
+          fuelConsumption,
+          location,
+          colour,
+          discount,
+          doors,
+          line,
+          category,
+          fuelType,
+          typeOfBox,
+          licensePlate,
+        },
       }
-    }
-  } else {
-    return res.status(201).json(`${eMail} Not found`);
-  }
+    )
+    .populate("review", { description: 1, rate: 1 })
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error }));
 };
 
 /**

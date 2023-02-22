@@ -19,9 +19,14 @@ router.post("/", async (req, res) => {
     const billing = billingSchema(req.body);
     const user = await Users.findById(billing.user);
     const car = await Cars.findById(billing.car);
-    const billings = await Billing.find({});
 
     const newBilling = await new Billing({
+
+      full_value: billing.full_value,
+      discount: billing.discount,
+      invoice_number: billing.invoice_number,
+      user: user._id,
+
       car: car._id,
       user: user._id,
       deadline: billing.deadline,
