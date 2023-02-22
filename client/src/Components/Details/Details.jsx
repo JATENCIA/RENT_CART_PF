@@ -259,9 +259,16 @@ export default function Details() {
             <button> Go back </button>
           </Link>
           <div id="separa"></div>
-          <Link to={`/shopping`} className="link">
+          {totalDays? <Link to={`/shopping`} className="link">
             <button onClick={(e) => addClic(e)}> Booking </button>
-          </Link>
+          </Link>:
+            <button onClick={() => Swal.fire({
+        title: 'Select dates!',                
+        icon: 'warning',
+        confirmButtonColor: '#e38e15',
+        confirmButtonText: 'Exit',
+      })}> Booking </button>
+          }
         </div>
         <br />
       </div>
