@@ -87,12 +87,12 @@ const routerGetByidAccessories = (req, res) => {
  * @param res - The response object.
  */
 const routerPutAccessories = async (req, res) => {
-  const { name, price, description, image, discount, id } = req.body;
+  const { name, price, description, image, discount, status, id } = req.body;
 
   accessoriesSchema
     .updateOne(
       { _id: id },
-      { $set: { name, price, description, image, discount } }
+      { $set: { name, price, description, image, discount, status } }
     )
     .populate("review", { description: 1, rate: 1 })
     .then((data) => res.json(data))
