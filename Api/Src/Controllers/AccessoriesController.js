@@ -12,20 +12,12 @@ const routerPostAccessories = async (req, res) => {
   validateCreate;
   const accessories = accessoriesSchema(req.body);
 
-  // const user = await Users.findOne(accessories.eMail);
 
-  // if (user && user.loading === "valid") {
-  //   if (user.roll === "admin" || user.roll === "superAdmin") {
   accessories
     .save()
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
-  //   } else {
-  //     return res.status(201).json("you do not have access to this information");
-  //   }
-  // } else {
-  //   return res.status(201).json(`${eMail} Not found`);
-  // }
+
 };
 
 /**
@@ -46,6 +38,7 @@ const routerGetAccessories = async (req, res) => {
       car: 1,
       user: 1,
       accessories: 1,
+      payment_status: 1,
     });
 
   try {
@@ -88,6 +81,7 @@ const routerGetByidAccessories = (req, res) => {
  */
 const routerPutAccessories = async (req, res) => {
   const { id } = req.params
+
   const { name, price, description, image, discount, status } = req.body;
 
   accessoriesSchema
@@ -109,22 +103,14 @@ const routerPutAccessories = async (req, res) => {
 const routerDeleteAccessories = async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
-  // const user = await Users.findOne(car.eMail);
 
-  // if (user) {
-  //   if (user.roll === "superAdmin" && user.loading === "valid") {
   accessoriesSchema
 
     .updateOne({ _id: id }, { $set: { status } })
     .populate("review", { description: 1, rate: 1 })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
-  //   } else {
-  //     return res.status(201).json("you do not have access to this information");
-  //   }
-  // } else {
-  //   return res.status(201).json(`${eMail} Not found`);
-  // }
+
 };
 
 module.exports = {
