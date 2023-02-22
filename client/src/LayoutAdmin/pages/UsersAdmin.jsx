@@ -56,11 +56,11 @@ function Users() {
 
   const peticionPut = async () => {
     await axios
-      .put(API_URL + userSeleccionado.id, userSeleccionado)
+      .put(API_URL + userSeleccionado._id, userSeleccionado)
       .then((response) => {
         var dataNew = data;
         dataNew.map((u) => {
-          if (userSeleccionado.id === u.id) {
+          if (userSeleccionado._id === u._id) {
             u.active = userSeleccionado.active;
           }
         });
