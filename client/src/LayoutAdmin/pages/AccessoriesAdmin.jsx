@@ -64,6 +64,7 @@ function AccessoriesAdmin() {
       .put(API_URL + accesorioSeleccionado._id, accesorioSeleccionado)
       .then((response) => {
         var dataNew = data;
+        console.log(dataNew);
         dataNew.map((accesorio) => {
           if (accesorioSeleccionado._id === accesorio._id) {
             accesorio.name = accesorioSeleccionado.name;

@@ -8,7 +8,7 @@ import {
   RiHome7Fill,
 } from "react-icons/ri";
 import { GiCarSeat } from "react-icons/gi";
-import { FaUsers, FaShoppingCart } from "react-icons/fa";
+import { FaUsers, FaShoppingBag } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 function Sidebar() {
@@ -32,7 +32,7 @@ function Sidebar() {
                 to="bookings"
                 className="flex text-2xl items-center gap-4  py-2 px-4 rounded-lg hover:bg-secondary-900 w-full"
               >
-                <FaShoppingCart className="text-primary" />
+                <FaShoppingBag className="text-primary" />
                 Bookings
               </Link>
             </li>

@@ -21,7 +21,7 @@ import {
   TablePagination,
 } from "@mui/material";
 
-const API_URL = `http://localhost:3001/cars/`;
+const API_URL = "http://localhost:3001/cars/";
 
 function CarsAdmin() {
   const dispatch = useDispatch();
@@ -94,10 +94,10 @@ function CarsAdmin() {
   };
 
   const peticionPut = async () => {
-    await axios.put(API_URL + carSelected.id, carSelected).then((response) => {
+    await axios.put(API_URL + carSelected._id, carSelected).then((response) => {
       var dataNew = data;
       dataNew.map((c) => {
-        if (carSelected.id === c.id) {
+        if (carSelected._id === c._id) {
           c.licensePlate = carSelected.licensePlate;
           c.brand = carSelected.brand;
           c.line = carSelected.line;

@@ -93,6 +93,7 @@ const routerByidCars = (req, res) => {
  */
 
 const routerPutCars = async (req, res) => {
+  const { id } = req.params
   const {
     brand,
     price,
@@ -107,7 +108,6 @@ const routerPutCars = async (req, res) => {
     fuelType,
     typeOfBox,
     licensePlate,
-    id,
     status,
   } = req.body;
 

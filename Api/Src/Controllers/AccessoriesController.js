@@ -87,7 +87,8 @@ const routerGetByidAccessories = (req, res) => {
  * @param res - The response object.
  */
 const routerPutAccessories = async (req, res) => {
-  const { name, price, description, image, discount, status, id } = req.body;
+  const { id } = req.params
+  const { name, price, description, image, discount, status } = req.body;
 
   accessoriesSchema
     .updateOne(
