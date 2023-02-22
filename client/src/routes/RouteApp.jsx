@@ -51,6 +51,7 @@ function RouteApp() {
         <Route exact path="register" element={<Register />} />
         <Route exact path="recover-password" element={<ForgetPassword />} />
         {/* Configuración de rutas del perfil de usuario*/}
+        {/* <Route element={<ProtectedRoute isAllowed={is Autentificated} />}>*/}
         <Route path="/profile" element={<LayoutProfile />}>
           {/* <Route index element={<MyDates />} /> */}
           <Route path="my-dates" element={<MyDates />} />

@@ -54,18 +54,18 @@ function AccessoriesAdmin() {
   };
 
   const peticionDelete = async () => {
-    await axios.delete(API_URL + accesorioSeleccionado.id).then((response) => {
-      setData(data.filter((a) => a.id !== accesorioSeleccionado.id));
+    await axios.delete(API_URL + accesorioSeleccionado._id).then((response) => {
+      setData(data.filter((a) => a._id !== accesorioSeleccionado._id));
     });
   };
 
   const peticionPut = async () => {
     await axios
-      .put(API_URL + accesorioSeleccionado.id, accesorioSeleccionado)
+      .put(API_URL + accesorioSeleccionado._id, accesorioSeleccionado)
       .then((response) => {
         var dataNew = data;
         dataNew.map((accesorio) => {
-          if (accesorioSeleccionado.id === accesorio.id) {
+          if (accesorioSeleccionado._id === accesorio._id) {
             accesorio.name = accesorioSeleccionado.name;
             accesorio.price = accesorioSeleccionado.price;
             accesorio.status = accesorioSeleccionado.status;

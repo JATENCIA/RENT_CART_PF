@@ -51,6 +51,11 @@ function NavBar() {
           ) : (
             ""
           )}
+          {isAuthenticated  ? (
+          <ListStyled to="/auth-admin">
+            DASHBOARD
+          </ListStyled>
+        ) : null}
         </NavStyled>
         {allBilling ? (
           <ListStyled to="/createReview" id="btnReview">
