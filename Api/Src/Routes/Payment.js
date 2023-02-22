@@ -18,12 +18,8 @@ router.get("/success", async (req, res) => {
     const users = await Users.findOne({ eMail });
     let id = users.billing[users.billing.length - 1];
     const billing = await Billing.find({ _id: id });
-    console.log(billing[0].payment_status);
     let payment_status = infoMercadoPago.status;
-    console.log(payment_status);
-    billing[0].payment_status = payment_status;
-    await Billing.updateOne({ _id: id }, { $set: billing[0].payment_status });
-    await billing.save();
+    await Billing.updateOne({ _id: id }, { $set: { payment_status } });
     res.status(200).json(infoMercadoPago);
   } catch (error) {
     res.status(500).send({ mensage: `${error}` });

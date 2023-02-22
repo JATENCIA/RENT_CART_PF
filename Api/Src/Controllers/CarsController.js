@@ -108,6 +108,7 @@ const routerPutCars = async (req, res) => {
     typeOfBox,
     licensePlate,
     id,
+    status,
   } = req.body;
 
   carSchema
@@ -128,6 +129,7 @@ const routerPutCars = async (req, res) => {
           fuelType,
           typeOfBox,
           licensePlate,
+          status,
         },
       }
     )
