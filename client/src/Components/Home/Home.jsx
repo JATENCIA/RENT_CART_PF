@@ -42,9 +42,27 @@ export default function Home() {
 
   var until = pag * carsPerPege;
   var since = until - carsPerPege;
-
   let carPag = arCar.slice(since, until);
-
+  let review = cars.map((e) => e.review);
+  let rate = review.map((e) => e.map((d) => d.rate));
+  console.log(rate)
+  const average = [];
+  for (let i in rate) {
+    // console.log(cars[i])
+    if (rate[i].length) {
+      let avg = Math.floor(
+        rate[i].reduce((previous, current) => (current += previous)) /
+          rate[i].length
+      );
+      average.push(avg);
+    } else {
+      average.push(0);
+    }
+  }
+  for ( let i  in average){
+    cars[i]['avg']= average[i] 
+  }
+  console.log(average)
   const paginado = (pageNumber) => {
     setPag(pageNumber);
   };
@@ -234,6 +252,7 @@ export default function Home() {
         {/* {
           carPag?.map((e) => {})
         } */}
+        {/* {console.log(review.map(e=>e.map(d=>d.rate)))} */}
         <Cards cars={carPag} ttFilt={arCar.length} />
         <Pagination total={arCar.length} paginate={paginate} />
       </div>
