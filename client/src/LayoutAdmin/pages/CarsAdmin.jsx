@@ -74,8 +74,8 @@ function CarsAdmin() {
     Swal.fire({
       title: "Are you sure you want to perform an action?",
       showDenyButton: true,
-      denyButtonText: "Cancel",
-      confirmButtonText: "Delete",
+      denyButtonText: "No",
+      confirmButtonText: "Yes",
     });
   };
 
@@ -382,7 +382,8 @@ function CarsAdmin() {
                         <Edit
                           className="cursor-pointer"
                           color="primary"
-                          onClick={() => selectCar(c, "Edit")}
+                          // onClick={() => selectCar(c, "Edit")}
+                          onClick={showAlertEdit}
                         />
                         &nbsp;&nbsp;&nbsp;
                         <Delete

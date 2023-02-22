@@ -18,15 +18,16 @@ import {
   Button,
 } from "@mui/material";
 
-const API_URL = `http://localhost:3001/users`;
+const API_URL = "http://localhost:3001/users/";
 
 function Users() {
   const dispatch = useDispatch();
-  const [users, setUsers] = useState([]);
+  const [data, setData] = useState([]);
   const [modalEdit, setModalEdit] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
   const [userSeleccionado, setUserSeleccionado] = useState({
     active: "",
+    roll: "",
   });
   function handleChange(e) {
     setUserSeleccionado({
@@ -49,8 +50,8 @@ function Users() {
   };
 
   const peticionDelete = async () => {
-    await axios.delete(API_URL + userSeleccionado.id).then((response) => {
-      setData(data.filter((u) => u.id !== userSeleccionado.id));
+    await axios.delete(API_URL + userSeleccionado._id).then((response) => {
+      setData(data.filter((u) => u._id !== userSeleccionado._id));
     });
   };
 
@@ -59,9 +60,10 @@ function Users() {
       .put(API_URL + userSeleccionado._id, userSeleccionado)
       .then((response) => {
         var dataNew = data;
-        dataNew.map((u) => {
-          if (userSeleccionado._id === u._id) {
-            u.active = userSeleccionado.active;
+        dataNew.map((user) => {
+          if (userSeleccionado._id === user._id) {
+            user.active = userSeleccionado.active;
+            user.roll = userSeleccionado.roll;
           }
         });
         setData(dataNew);
@@ -72,7 +74,7 @@ function Users() {
   const dataInfo = async () => {
     try {
       const { data } = await axios.get(API_URL);
-      setUsers(data);
+      setData(data);
     } catch (e) {
       console.log(e);
     }
@@ -108,6 +110,27 @@ function Users() {
           </RadioGroup>
         </fieldset>
         <br />
+        <fieldset>
+          <legend>Roll</legend>
+          <RadioGroup
+            row
+            name="roll"
+            value={userSeleccionado && userSeleccionado.roll}
+            style={{ marginLeft: "100px" }}
+            onChange={handleChange}
+          >
+            <FormControlLabel
+              value={"user"}
+              control={<Radio size="small" />}
+              label="User"
+            />
+            <FormControlLabel
+              value={"superAdmin"}
+              control={<Radio size="small" />}
+              label="SuperAdmin"
+            />
+          </RadioGroup>
+        </fieldset>
         <br />
         <div className="text-center pb-6">
           <Button variant="contained" color="success" onClick={peticionPut}>
@@ -163,8 +186,8 @@ function Users() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.length !== 0 ? (
-              users.map((u) => {
+            {data.length !== 0 ? (
+              data.map((u) => {
                 return (
                   <TableRow key={u.id}>
                     {/* <TableCell>{u._id}</TableCell> */}

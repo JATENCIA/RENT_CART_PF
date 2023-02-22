@@ -210,33 +210,34 @@ const routerByidUser = async (req, res) => {
  */
 const routerPutUser = async (req, res) => {
   const { id } = req.params;
-  const { name, lastName, kindOfPerson, eMail, location, telephone } =
+  const { name, lastName, kindOfPerson, eMail, location, telephone, active, roll } =
     req.body;
 
-  let user = await Users.findById(id);
+  // let user = await Users.findById(id);
 
-  if (user.loading === "valid") {
-    userSchema
-      .updateOne(
-        { _id: id },
-        {
-          $set: {
-            name,
-            lastName,
-            kindOfPerson,
-            eMail,
-            location,
-            telephone,
-            image,
-          },
-        }
-      )
-      .populate("review", { description: 1, rate: 1 })
-      .then((data) => res.json(data))
-      .catch((error) => res.status(500).json({ message: `${error} ` }));
-  } else {
-    return res.status.json("Login to see this information");
-  }
+  // if (user.loading === "valid") {
+  userSchema
+    .updateOne(
+      { _id: id },
+      {
+        $set: {
+          name,
+          lastName,
+          kindOfPerson,
+          eMail,
+          location,
+          telephone,
+          active,
+          roll
+        },
+      }
+    )
+    .populate("review", { description: 1, rate: 1 })
+    .then((data) => res.json(data))
+    .catch((error) => res.status(500).json({ message: `${error} ` }));
+  // } else {
+  //   return res.status.json("Login to see this information");
+  // }
 };
 
 /**

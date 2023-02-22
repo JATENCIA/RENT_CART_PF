@@ -57,6 +57,23 @@ function AccessoriesAdmin() {
     await axios.delete(API_URL + accesorioSeleccionado._id).then((response) => {
       setData(data.filter((a) => a._id !== accesorioSeleccionado._id));
     });
+    openCloseModalDelete();
+  };
+
+  const PutAccesories = async () => {
+    await axios
+      .put(API_URL + accesorioSeleccionado._id, accesorioSeleccionado)
+      .then((response) => {
+        var dataNew = data;
+        console.log(dataNew);
+        dataNew.map((accesorio) => {
+          if (accesorioSeleccionado._id === accesorio._id) {
+            accesorio.status = accesorioSeleccionado.status;
+          }
+        });
+        setData(dataNew);
+        openCloseModalDelete();
+      });
   };
 
   const peticionPut = async () => {
@@ -184,11 +201,27 @@ function AccessoriesAdmin() {
   const bodyDelete = (
     <div className="bg-white  pl-2 pr-2">
       <p className="text-center pt-12 pb-10 font-bold text-2xl ">
-        Are you sure you want to remove the accessory{" "}
-        <b>{accesorioSeleccionado && accesorioSeleccionado.name}</b> ?
+        To confirm if you want to deactivate the accessory{" "}
+        <b>{accesorioSeleccionado && accesorioSeleccionado.name}</b> select the
+        invalid option
       </p>
+      <fieldset>
+        <RadioGroup
+          row
+          name="status"
+          value={accesorioSeleccionado && accesorioSeleccionado.status}
+          style={{ marginLeft: "300px" }}
+          onChange={handleChange}
+        >
+          <FormControlLabel
+            value={"invalid"}
+            control={<Radio size="small" />}
+            label="Invalid"
+          />
+        </RadioGroup>
+      </fieldset>
       <div className="text-center pb-10 ">
-        <Button variant="contained" color="success" onClick={peticionDelete}>
+        <Button variant="contained" color="success" onClick={PutAccesories}>
           Yes
         </Button>
         <Button
