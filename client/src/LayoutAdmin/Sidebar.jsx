@@ -10,9 +10,11 @@ import {
 import { GiCarSeat } from "react-icons/gi";
 import { FaUsers, FaShoppingBag } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Sidebar() {
   //overflow-y-scroll
+  const { logout } = useAuth0();
   const [showSubMenu, setShowSubMenu] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   return (
@@ -120,7 +122,8 @@ function Sidebar() {
         <nav>
           <div className="flex flex-col">
             <Link
-              to="/"
+              to="#"
+              onClick={() => logout({ returnTo: window.location.origin })}
               className="flex text-2xl items-center gap-4 my-6 py-3 pl-5 rounded-lg hover:bg-secondary-900 hover:text-white transition-colors bg-primary"
             >
               <RiLogoutCircleRLine className="text-white  " />
