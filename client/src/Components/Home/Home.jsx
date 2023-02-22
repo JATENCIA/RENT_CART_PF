@@ -19,9 +19,16 @@ export default function Home() {
     dispatch(getAllCars());
     dispatch(getAllUser());
   }, [dispatch]);
-  const cars = useSelector((state) => state.cars);
+  
+//----status------
+const cars = useSelector((state) => state.cars);
+let filt0 = [];
+cars.map((objCar) => {
+  objCar.status==="valid"? filt0.push(objCar):null;
+});
+console.log("-----",filt0);
+//---------------
 
-  //----------------
   try {
     const { user } = useAuth0();
     const allUsers = useSelector((state) => state.usersiD)
@@ -31,7 +38,6 @@ export default function Home() {
   } catch (error) {
     console.log(error);
   }
-  //---------------
 
 
   // const API_URL = `http://localhost:3001/cars`;
@@ -48,7 +54,7 @@ export default function Home() {
 
   let [ordeno, setordeno] = useState("Ascending");
   let [indexo, setindexo] = useState("Brand");
-  let [arCar, setarCar] = useState(cars);
+  let [arCar, setarCar] = useState(filt0);
   let [xclude] = useState([[], [], [], [], []]);
   let ordenado = [];
 
@@ -65,14 +71,9 @@ export default function Home() {
   };
   useEffect(() => {
     paginado(1);
-  }, [cars]);
+  }, [filt0]);
 
-  //----status------
-  const filt0 = [];
-  cars.map((objCar) => {
-    objCar.status==="valid"? filt0.push(objCar):null;
-  });
-  console.log(filt0);
+ 
 
   //functions-------------------------------------
   function paginate(e, num) {
@@ -92,9 +93,9 @@ export default function Home() {
       ? ((arrayTemp = xclude[index].filter((dato) => dato != obj)),
         (xclude[index] = arrayTemp))
       : xclude[index].push(obj);
-
+    
     //----filter brand----
-    cars.map((objCar) => {
+    filt0.map((objCar) => {
       xclude[0].includes(objCar.brand) ? null : filt1.push(objCar);
     });
     //----filter category----
@@ -239,7 +240,7 @@ export default function Home() {
     <React.Fragment>
       <Search />
       <Filter
-        cars={cars}
+        cars={filt0}
         filterInHome={uddateForFilter}
         paginate={paginate}
         xclude={xclude}

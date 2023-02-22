@@ -13,9 +13,14 @@ export const ACCESO = "ACCESO"
 export const POST_BILLING = "POST_BILLING"
 export const GET_ALL_USER = "GET_ALL_USER"
 
-export const postBilling = (payload) => async () => { 
-    const billCreated = await axios.post("http://localhost:3001/billing", payload)
+export const putCars = (payload) => async () => { 
+    const billCreated = await axios.put("http://localhost:3001/cars", payload)
     console.log(billCreated)  
+}
+
+export const postBilling = (payload) => async () => { 
+  const billCreated = await axios.post("http://localhost:3001/billing", payload)
+  console.log(billCreated)  
 }
 
 export function getAllAccReview () {

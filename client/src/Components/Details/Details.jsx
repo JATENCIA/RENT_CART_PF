@@ -24,7 +24,7 @@ export default function Details() {
     let obj = e.target.className;
     let arrayLeno = selection;
     let arrayAux = [];
-
+  // ingresa o sale accesorio
     if (arrayLeno.includes(obj)) {
       Swal.fire({
         title: 'The article was excluded!',                
@@ -41,40 +41,30 @@ export default function Details() {
       setselection(arrayLeno);
     }
     setsw(sw + 1);
-    var data = "";
-    selection.map((name) => {
-      Accessories.map((accesor) => {
-        
-        accesor.name === name
-          ? (data +=
-              accesor.name + "|" +
-              accesor.price + "|" +
-              accesor._id + "|" +
-              "tru" + "|" +
-              accesor.discount + "|" +
-              "¬")
-          : null;
-      });
-    });
-
-    let info =
-      state.brand +
-      " - " +
-      state.line +
-      "|" +
-      state.price +
-      "|" +
-      state._id +
-      "|" +
-      "tru" +
-      "|" +
-      state.discount +
-      "¬" +
-      data;
-
-    localStorage.setItem("nombre", info);    
     
   }
+
+  //---------
+  var data = "";
+  selection.map((name) => {
+    Accessories.map((accesor) => {
+      
+      accesor.name === name
+        ? (data +=
+            accesor.name + "|" +
+            accesor.price + "|" +
+            accesor._id + "|" +
+            "tru" + "|" +
+            accesor.discount + "|" +
+            "¬")
+        : null;
+    });
+  });
+  let info =  state.brand +  " - " +   state.line +   "|" +   state.price +   "|" +   state._id +   "|" +   "tru" +   "|" +   state.discount +   "¬" +   data;
+
+  localStorage.setItem("nombre", info);  
+  console.log(info);  
+  //-----------
 
   return (
     <>

@@ -5,7 +5,7 @@ import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector, useDispatch } from "react-redux";
-import { acceso, postBilling } from "../../redux/actions/actions";
+import { acceso, postBilling, getAllCars, putCars} from "../../redux/actions/actions";
 
 export default function Details() {
 
@@ -87,17 +87,27 @@ export default function Details() {
           ? (dispatch(acceso(dataMP)),
             (document.getElementById("confir").innerText = "Pay bill"),
             (document.getElementById("Aprov").innerText = "✔️"),
-            setvalidate(1))
+            setvalidate(1),
+            dispatch(putCars(dataPutCar)),
+            dispatch(postBilling(newBillig)),
+            console.log(newBillig),
+            Swal.fire({
+              title:
+                "Invoice created and reservation confirmed",
+              icon: "warning",
+              confirmButtonColor: "#e38e15",
+            }))
           : Swal.fire({
               title:
                 "Must have at least one item selected and must be authenticated",
               icon: "warning",
               confirmButtonColor: "#e38e15",
             });
-        console.log(dataMP);
       } else {
         dataMP.price !== 0
-          ? (window.open(acc.data.url),
+          ? (
+            dispatch(getAllCars()),
+            window.open(acc.data.url),
             localStorage.setItem("nombre", ""),
             (document.getElementById("Aprov").innerText = ""),
             (document.getElementById("confir").innerText = "Validate"),
@@ -115,15 +125,6 @@ export default function Details() {
         confirmButtonColor: "#e38e15",
       });
     }
-  }
-  function Sendfra (){
-    // dispatch(postBilling(newBillig))
-    // Swal.fire({
-    //   title:
-    //     "The invoice was generated",
-    //   icon: "warning",
-    //   confirmButtonColor: "#e38e15",
-    // });
   }
 
   let concat = [],
@@ -166,7 +167,11 @@ export default function Details() {
     deadline:"22/02/2023",
     rentalDate:"20/02/2023"  
   };
-  console.log(newBillig,dataMP);
+
+  const dataPutCar = {
+    id:arr[0].split("|")[2],
+    status: "invalid"
+  };
   //-------------------------------------
 
   return (
