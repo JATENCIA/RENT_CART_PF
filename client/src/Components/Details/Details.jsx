@@ -29,10 +29,21 @@ export default function Details() {
     const checkEndDate = new Date(endDate)
     const fechaActual = new Date();
     if (checkStartDate < fechaActual) {
-      alert("The start date is before today");
+      Swal.fire({
+        title: "The start date is before today",                
+        icon: 'warning',
+        confirmButtonColor: '#e38e15',
+        confirmButtonText: 'Exit',
+      })
+      // alert("The start date is before today");
     } 
     else if (checkStartDate > checkEndDate) {
-      alert("The end date is before to the start date");
+      Swal.fire({
+        title: "The end date is before to the start date",                
+        icon: 'warning',
+        confirmButtonColor: '#e38e15',
+        confirmButtonText: 'Exit',
+      })
     } 
     else {
           const diffDays = moment(endDate).diff(moment(startDate), "days");
@@ -61,7 +72,16 @@ export default function Details() {
     let arrayLeno = selection;
     let arrayAux = [];
 
-    if (arrayLeno.includes(obj)) {
+    if(!totalDays){
+      Swal.fire({
+        title: 'Select a date for the reserve',                
+        icon: 'warning',
+        confirmButtonColor: '#e38e15',
+        confirmButtonText: 'Exit',
+      })
+    }
+
+    else if (arrayLeno.includes(obj)) {
       Swal.fire({
         title: 'The article was excluded!',                
         icon: 'warning',
