@@ -15,8 +15,12 @@ const routerPostBilling = async (req, res) => {
 
   const billing = await Billing.find({});
   /* Getting the last invoice number and adding 1 to it. */
-  let iNumber = Number(billing[billing.length - 1].invoice_number);
-  if (iNumber < 1) iNumber = 1000;
+  let iNumber = 0;
+  if (billing.length !== 0) {
+    iNumber = Number(billing[billing.length - 1].invoice_number);
+  }
+
+  if (iNumber < 1) iNumber = "1000";
   else {
     ++iNumber;
   }
