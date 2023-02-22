@@ -110,9 +110,9 @@ function Users() {
         <br />
         <br />
         <div className="text-center pb-6">
-          {/* <Button variant="contained" color="success" onClick={peticionPut}>
-          Edit
-        </Button> */}
+          <Button variant="contained" color="success" onClick={peticionPut}>
+            Edit
+          </Button>
           <Button
             variant="contained"
             color="error"
@@ -197,7 +197,7 @@ function Users() {
         </Table>
       </TableContainer>
       <Modal
-        className=" mt-40  w-[400px] h-[33%] top-0 left-0 right-0 fixed m-auto scroll-m-2  border-2 border-[#000]  "
+        className=" mt-40  w-[400px] h-[33%] top-0 left-0 right-0 fixed m-auto scroll-m-2  border-2"
         open={modalEdit}
         onClose={() => openCloseModalEdit()}
       >
@@ -205,7 +205,7 @@ function Users() {
       </Modal>
 
       <Modal
-        className=" mt-40  w-[700px] h-[33.5%] top-0 left-0 right-0 fixed m-auto scroll-m-2  border-2 border-[#000]  "
+        className=" mt-40  w-[700px] h-[33.5%] top-0 left-0 right-0 fixed m-auto scroll-m-2"
         open={modalDelete}
         onClose={() => openCloseModalDelete()}
       >

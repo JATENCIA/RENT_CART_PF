@@ -47,25 +47,25 @@ const routerGetCars = async (req, res) => {
 const routerPostCars = async (req, res) => {
   validateCreate;
   const car = carSchema(req.body);
-  const { eMail } = req.body;
-  console.log(eMail);
+  // const { eMail } = req.body;
+  // console.log(eMail);
 
-  const user = await Users.find({ eMail: eMail });
+  // const user = await Users.find({ eMail: eMail });
 
-  if (user.length) {
-    if (user[0].roll === "admin" || user[0].roll === "superAdmin") {
-      if (user[0].loading === "valid") {
-        car
-          .save()
-          .then((data) => res.status(200).json(data))
-          .catch((error) => res.status(500).json({ message: `${error}` }));
-      }
-    } else {
-      return res.status(201).json("you do not have access to this information");
-    }
-  } else {
-    return res.status(201).json(`eMail Not found`);
-  }
+  // if (user.length) {
+  //   if (user[0].roll === "admin" || user[0].roll === "superAdmin") {
+  //     if (user[0].loading === "valid") {
+  car
+    .save()
+    .then((data) => res.status(200).json(data))
+    .catch((error) => res.status(500).json({ message: `${error}` }));
+  //}
+  //   } else {
+  //     return res.status(201).json("you do not have access to this information");
+  //   }
+  // } else {
+  //   return res.status(201).json(`eMail Not found`);
+  // }
 };
 
 /**

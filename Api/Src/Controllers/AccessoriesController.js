@@ -12,20 +12,20 @@ const routerPostAccessories = async (req, res) => {
   validateCreate;
   const accessories = accessoriesSchema(req.body);
 
-  const user = await Users.findOne(accessories.eMail);
+  // const user = await Users.findOne(accessories.eMail);
 
-  if (user && user.loading === "valid") {
-    if (user.roll === "admin" || user.roll === "superAdmin") {
-      accessories
-        .save()
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error }));
-    } else {
-      return res.status(201).json("you do not have access to this information");
-    }
-  } else {
-    return res.status(201).json(`${eMail} Not found`);
-  }
+  // if (user && user.loading === "valid") {
+  //   if (user.roll === "admin" || user.roll === "superAdmin") {
+  accessories
+    .save()
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error }));
+  //   } else {
+  //     return res.status(201).json("you do not have access to this information");
+  //   }
+  // } else {
+  //   return res.status(201).json(`${eMail} Not found`);
+  // }
 };
 
 /**
