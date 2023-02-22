@@ -3,6 +3,7 @@ import { useLocation, Link } from "react-router-dom";
 import "./Details.css";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
+import moment from "moment";
 
 export default function Details() {
   const { state } = useLocation();
@@ -10,6 +11,41 @@ export default function Details() {
   const [sw, setsw] = useState(0);
   const [selection, setselection] = useState([]);
   const [Accessories, setAccessories] = useState([]);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [totalDays, setTotalDays] = useState("");
+
+  const handleStartDateChange = (e) => {
+    setStartDate(e.target.value);
+  };
+
+  const handleEndDateChange = async (e) => {
+    setEndDate(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const checkStartDate = new Date(startDate);
+    const checkEndDate = new Date(endDate)
+    const fechaActual = new Date();
+    if (checkStartDate < fechaActual) {
+      alert("The start date is before today");
+    } 
+    else if (checkStartDate > checkEndDate) {
+      alert("The end date is before to the start date");
+    } 
+    else {
+          const diffDays = moment(endDate).diff(moment(startDate), "days");
+    setTotalDays(diffDays);
+      // Aquí enviarías el formulario al servidor
+      console.log(fechaActual);
+      console.log(startDate);
+      console.log("Formulario enviado");
+
+    
+    }
+ 
+  };
 
   useEffect(() => {
     fetchMovies();
@@ -62,7 +98,7 @@ export default function Details() {
       " - " +
       state.line +
       "|" +
-      state.price +
+      (state.price * totalDays) +
       "|" +
       state._id +
       "|" +
@@ -80,6 +116,27 @@ export default function Details() {
       <NavBar />
       <div className="container1">
         <div className="container1a">
+        <div className="form-container" >
+        <form onSubmit={handleSubmit} className="form-date" >
+      <label htmlFor="start-date" className="form-label">Start date</label>
+      <input
+        type="date"
+        id="start-date"
+        name="start-date"
+        value={startDate}
+        onChange={handleStartDateChange}
+      />
+      <label htmlFor="end-date" className="form-label" >End date</label>
+      <input
+        type="date"
+        id="end-date"
+        name="end-date"
+        value={endDate}
+        onChange={handleEndDateChange}
+      />
+      {totalDays? <button type="submit" id="form-submit" >✅Checked</button>: <button type="submit" id="form-submit" >Check</button>}
+    </form>
+    </div>
           <div className="row1">
             <img src={state.image} alt="car" height="300px" />
             <div className="row1colum2">
@@ -183,7 +240,7 @@ export default function Details() {
           </Link>
           <div id="separa"></div>
           <Link to={`/shopping`} className="link">
-            <button> Booking </button>
+            <button onClick={(e) => addClic(e)}> Booking </button>
           </Link>
         </div>
         <br />
