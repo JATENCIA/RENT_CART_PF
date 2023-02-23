@@ -9,11 +9,12 @@ import { Filter } from "../filtro/Filter";
 import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
 import Search from "../Search/Search";
-// import axios from "axios";
+import axios from "axios";
 
 export default function Home() {
   // const [cars, setCars] = useState([]);
   const dispatch = useDispatch();
+  const cars = useSelector((state) => state.cars);
 
   useEffect(() => {
     dispatch(getAllCars());
@@ -21,20 +22,19 @@ export default function Home() {
   }, [dispatch]);
   
 //----status------
-const cars = useSelector((state) => state.cars);
 let filt0 = [];
 cars.map((objCar) => {
   objCar.status==="valid"? filt0.push(objCar):null;
 });
-console.log("-----",filt0);
 //---------------
 
   try {
     const { user } = useAuth0();
-    console.log(user);
     const allUsers = useSelector((state) => state.usersiD)
-    const idUser = allUsers.find(element => element.eMail = user.email);
-    localStorage.setItem("user", user.email +"|" + user.picture + "|" + idUser. _id);   
+    let idUser = "";
+    allUsers.map((uS)=>uS.eMail === user.email?idUser = uS._id:null)
+    //console.log(allUsers,idUser);
+    localStorage.setItem("user", user.email +"|" + user.picture + "|" + idUser);   
     
   } catch (error) {
     console.log(error);
@@ -42,16 +42,16 @@ console.log("-----",filt0);
 
 
   // const API_URL = `http://localhost:3001/cars`;
-
   // const infoApi = async () => {
   //   try {
   //     const { data } = await axios.get(API_URL);
 
-  //     // setarCar(data);
+  //     console.log("-----",data);
   //     // setCars(data);
   //   } catch (e) {
   //   }
   // };
+  // infoApi()
 
   let [ordeno, setordeno] = useState("Ascending");
   let [indexo, setindexo] = useState("Brand");
