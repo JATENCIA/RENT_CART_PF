@@ -55,6 +55,11 @@ const billingSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  qualified: {
+    type: String,
+    enum: ["valid", "invalid"],
+    default: "invalid",
+  },
 });
 
 module.exports = mongoose.model("Billings", billingSchema);

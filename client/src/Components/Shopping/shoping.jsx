@@ -83,14 +83,14 @@ export default function Details() {
     e.preventDefault();
     if (dniok) {
       if (Validate === 0) {
-        dataMP.price !== 0 && isAuthenticated
+        dataMP.price !== 0 && isAuthenticated && dataMP.eMail
           ? (dispatch(acceso(dataMP)),
             (document.getElementById("confir").innerText = "Pay bill"),
             (document.getElementById("Aprov").innerText = "✔️"),
             setvalidate(1),
             dispatch(putCars(dataPutCar)),
             dispatch(postBilling(newBillig)),
-            console.log(newBillig),
+            console.log("--------",newBillig),
             Swal.fire({
               title:
                 "Invoice created and reservation confirmed",
