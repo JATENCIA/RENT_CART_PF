@@ -4,6 +4,7 @@ export const GET_CAR_BY_ID = "GET_CAR_BY_ID"
 export const POST_CAR = "POST_CAR"
 export const POST_ACCESSORIES = "POST_ACCESSORIES"
 export const POST_USER = "POST_USER"
+export const POST_USER_LOGIN = "POST_USER_LOGIN"
 export const SEARCH = "SEARCH"
 export const GET_ALL_ACCESSORIES = "GET_ALL_ACCESSORIES"
 export const GET_ALL_BILLING = "GET_ALL_BILLING"
@@ -162,17 +163,17 @@ export const postUser = (payload) => async (dispatch) => {
     console.log(e)
   }
 }
-// export const postUserLogin = (payload) => async (dispatch) => {
-//   try {
-//     const loginUser = await axios.post(`http://localhost:3001/users/loading`, payload)
-//     return dispatch({
-//       type: "POST_USER_LOGIN",
-//       payload: loginUser
-//     })
-//   } catch (e) {
-//     console.log(e)
-//   }
-// }
+export const postUserLogin = (payload) => async (dispatch) => {
+  try {
+    const loginUser = await axios.post(`http://localhost:3001/users/loading`, payload)
+    return dispatch({
+      type: "POST_USER_LOGIN",
+      payload: loginUser
+    })
+  } catch (e) {
+    console.log(e)
+  }
+}
 
 export const setSearch = (payload) => {
   return {

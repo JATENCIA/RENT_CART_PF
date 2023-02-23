@@ -4,7 +4,8 @@ import NavBar from "../../../Components/NavBar/NavBar";
 import Footer from "../../../Components/Footer/Footer";
 import { LoginButton } from "../LoginButton";
 import validate from "./validate";
-// import {loginUser} from "../../../redux/actions/actions"
+import {useDispatch} from 'react-redux'
+import {postUserLogin} from "../../../redux/actions/actions"
 
 import {
   RiMailLine,
@@ -14,6 +15,7 @@ import {
 } from "react-icons/ri";
 
 function Login() {
+  const dispatch= useDispatch()
   const [showPassword, setShowPassword] = useState(false);
   const initialState = {
     email: "",
@@ -35,7 +37,7 @@ function Login() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    // dispatch(loginUser())
+    dispatch(postUserLogin())
     // navigate("/home");
   }
   return (
