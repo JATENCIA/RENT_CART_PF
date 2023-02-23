@@ -111,10 +111,17 @@ export const postUser = (payload) => async (dispatch) => {
 //   }
 // }
 
-export const setSearch = (payload) => {
-  return {
-    type: "SEARCH",
-    payload
+export function setSearch(location){
+  return async function (dispatch){
+      try{
+          var json = await axios.get(`http://localhost:3001/cars/${location}`);
+          return dispatch ({
+              type: SEARCH,
+              payload: json.data
+          })
+      } catch (error){
+          console.log(error)
+      }
   }
 }
 

@@ -2,7 +2,7 @@ const nodemailer= require('nodemailer');
 
 require("dotenv").config()
 const {
-    USER, PASS
+    USSER, PASS
   } = process.env;
 
 let transporter = nodemailer.createTransport({
@@ -10,7 +10,7 @@ let transporter = nodemailer.createTransport({
     port: 465,
     //secure: true, // true for 465, false for other ports
     auth: {
-      user: `${USER}`, // generated ethereal user
+      user: `${USSER}`, // generated ethereal user
       pass: `${PASS}`, // generated ethereal password
     },
   });

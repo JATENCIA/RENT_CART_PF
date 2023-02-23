@@ -37,11 +37,9 @@ const rootReducer = (state = initialState, action) => {
                 detailCar: action.payload
             }
         case SEARCH:
-            let search = []
-            search = state.cars?.filter((c) => c.location.toLowerCase().includes(action.payload.toLowerCase()))
-            return {
+            return{
                 ...state,
-                cars: [...search]
+                cars: action.payload
             }
         case POST_CAR:
             return {

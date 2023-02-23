@@ -8,6 +8,8 @@ const {
   routerDeleteCars,
 } = require("../Controllers/CarsController");
 
+const {routerLocation}=require('../Controllers/GetLocation')
+
 /* This is a post request that is being sent to the server. */
 router.post("/", (req, res) => {
   routerPostCars(req, res);
@@ -16,6 +18,16 @@ router.post("/", (req, res) => {
 /* This is a get request that is being sent to the server. */
 router.get("/", (req, res) => {
   routerGetCars(req, res);
+});
+
+router.get('/:location', async (req, res) => {
+  try{
+    const {location}=req.params;
+      const carLocatio= await routerLocation(location);
+      return res.send(carLocatio);
+  }catch (error) {
+      res.status(404).json(error.message);
+  };
 });
 
 /* This is a get request that is being sent to the server. */
