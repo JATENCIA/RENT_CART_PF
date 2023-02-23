@@ -7,13 +7,14 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import { useDispatch } from "react-redux";
 import axios from "axios";
-
+import { useLocalStorage } from "./useLocalStorage";
 
 const API_URL = `http://localhost:3001/users`;
 const Card = ({ car }) => {
   const dispatch = useDispatch();
   const [users, setUsers] = useState([]);
-  const [click, setClick] = useState(false);
+  const [click, setClick] =useState(false) ;
+  const [favorites, setFavorites] = useState([])
   const { user, isAuthenticated, isLoading } = useAuth0();
   const navigate = useNavigate()
 
@@ -28,10 +29,12 @@ const Card = ({ car }) => {
   useEffect(() => {
     dispatch(dataInfo);
   }, [dispatch]);
+  // console.log("u",users.map(u=>u.favorites))
   const onClick = () => {
     if (isAuthenticated && user) {
       if (!click) {
         setClick(true);
+        setFavorites([...users, car]);
       } else {
         setClick(false);
       }
@@ -45,6 +48,7 @@ const Card = ({ car }) => {
       // })
     }
   };
+  //console.log("favs" ,favorites)
   return (
     <div className="cardd">
       <div></div>
