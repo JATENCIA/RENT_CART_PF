@@ -22,7 +22,7 @@
   font-size: 75px;
   color: rgb(255, 255, 255);
   text-shadow: 5px 5px rgb(39, 37, 37);
-  
+
   font-weight: bolder;
 }
 .content button {
@@ -83,7 +83,7 @@
   font-size: larger;
   font-weight: light;
 }
-.roll{
+.roll {
   margin: 80px;
   display: flex;
   align-items: center;
@@ -92,7 +92,7 @@
   width: 800px;
   border-radius: 10px;
 }
-.roll h3{
+.roll h3 {
   text-shadow: 3px 3px rgb(36, 34, 34);
   font-size: 50px;
   font-weight: 100;
@@ -116,14 +116,14 @@
   border-radius: 50%;
   margin: 10px;
 }
-.process img:hover{
+.process img:hover {
   transform: scale(1.1);
 }
 .col-card {
   justify-content: center;
   align-content: center;
   align-items: start;
-  
+
   background: #445451;
   width: 13rem;
   padding-top: 25px;
@@ -169,7 +169,7 @@
 .team-text {
   margin: 150px;
 }
-.team-text h2{
+.team-text h2 {
   font-size: 60px;
   color: rgb(12, 112, 115);
   font-weight: 900;
@@ -179,7 +179,7 @@
   font-size: large;
   font-weight: light;
 }
-.team-profile-cards{
+.team-profile-cards {
   margin: 50px;
   display: flex;
   gap: 50px;
@@ -287,5 +287,4 @@
   right: 28px;
   z-index: 50;
   padding: 0.5rem;
-
 }

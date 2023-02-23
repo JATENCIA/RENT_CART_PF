@@ -1,4 +1,5 @@
 import React from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "../pages/NotFound/NotFound";
 import About from "../pages/About/About";
@@ -8,8 +9,9 @@ import Contact from "../pages/Contact/Contact";
 import FaqSection from "../pages/FaqSection/FaqSection";
 import Details from "../Components/Details/Details";
 import Shopping from "../Components/Shopping/shoping";
-import { MPButton } from '../Components/MercadoPago/MercadoPago';
-import CreateReview  from '../Components/Review/Review';
+import { MPButton } from "../Components/MercadoPago/MercadoPago";
+import CreateReview from "../Components/Review/Review";
+import ProtectedRoute from "../Components/Auth/ProtectedRoute";
 //Dashboard perfil de usuario
 import LayoutProfile from "../LayoutProfile/LayoutProfile";
 import MyDates from "../LayoutProfile/pages/MyDates";
@@ -34,6 +36,7 @@ import LoginAdmin from "../LayoutAdmin/Auth/LoginAdmin";
 import ForgetPasswordAdmin from "../LayoutAdmin/Auth/ForgetPasswordAdmin";
 
 function RouteApp() {
+  const { user, isAuthenticated, isLoading } = useAuth0();
   return (
     <>
       <Routes>
@@ -45,12 +48,16 @@ function RouteApp() {
         <Route exact path="detail/:id" element={<Details />} />
         <Route exact path="shopping" element={<Shopping />} />
         <Route exact path="createReview" element={<CreateReview />} />
-        <Route exact path="gopay" element={<MPButton />} />        
+        <Route exact path="gopay" element={<MPButton />} />
         {/* Configuración de rutas iniciar sesion */}
         <Route exact path="login" element={<Login />} />
         <Route exact path="register" element={<Register />} />
         <Route exact path="recover-password" element={<ForgetPassword />} />
         {/* Configuración de rutas del perfil de usuario*/}
+        <Route element={<ProtectedRoute isAllowed={!!isAuthenticated} />}>
+          <Route path="/profile" element={<LayoutProfile />} />
+        </Route>
+
         <Route path="/profile" element={<LayoutProfile />}>
           {/* <Route index element={<MyDates />} /> */}
           <Route path="my-dates" element={<MyDates />} />
@@ -63,7 +70,7 @@ function RouteApp() {
           <Route index element={<LoginAdmin />} />
           <Route path="recover-password" element={<ForgetPasswordAdmin />} />
         </Route>
-        <Route path="/auth-admin" element={<LayoutAdmin />}>
+        <Route path="/dashboard" element={<LayoutAdmin />}>
           <Route index element={<HomeAdmin />} />
           <Route path="users" element={<UsersAdmin />} />
           <Route path="cars" element={<CarsAdmin />} />

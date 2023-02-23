@@ -17,7 +17,7 @@ export default function LandingPage() {
   useEffect(() => {
     dispatch(getAllCars());
   }, [dispatch]);
-  
+
   useEffect(() => {
     const handleScrollButtonVisibility = () => {
       window.pageYOffset > 300 ? setShowButton(true) : setShowButton(false);
@@ -28,7 +28,7 @@ export default function LandingPage() {
     };
   }, []);
   const handleScrollToTop = () => {
-    window.scrollTo({top: 0, behavior: 'smooth'})
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
   return (
     <div className="main">
@@ -354,16 +354,13 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
-      {
-        showButton && (
+      {showButton && (
         <div className="scrollToTop">
-          <button
-          onClick={handleScrollToTop}
-          >
+          <button onClick={handleScrollToTop}>
             <BiChevronUpCircle />
           </button>
-        </div>)
-      }
+        </div>
+      )}
       <Footer />
     </div>
   );

@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import Swal from "sweetalert2";
 import { createTheme } from "@mui/material/styles";
 import "./Form.css";
+import { Link } from "react-router-dom";
 import {
   FormControlLabel,
   Radio,
@@ -14,7 +15,6 @@ import {
   Button,
 } from "@mui/material";
 import { postAccessories } from "../../../redux/actions/actions";
-import { Link } from "react-router-dom";
 
 export const FormAccessory = () => {
   const dispatch = useDispatch();
@@ -90,7 +90,7 @@ export const FormAccessory = () => {
   });
   return (
     <>
-      <Link to="/auth-admin/accessories">
+      <Link to="/dashboard/accessories">
         <button
           type="button"
           className="absolute top-20 right-4 flex px-6 py-2.5 bg-primary text-[#023047] font-bold  text-xs leading-tight uppercase rounded shadow-md hover:bg-[#219EBC] hover:shadow-lg focus:bg-[#219EBC] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg  duration-150 ease-in-out"

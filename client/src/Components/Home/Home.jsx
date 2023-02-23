@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllCars } from "../../redux/actions/actions";
+import { getAllCars,getAllUser } from "../../redux/actions/actions";
 import "./Home.css";
+import { useAuth0 } from "@auth0/auth0-react";
 import Cards from "../Cards/Cards";
 import Pagination from "../Pagination/Pagination";
 import { Filter } from "../filtro/Filter";
@@ -17,8 +18,29 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getAllCars());
+    dispatch(getAllUser());
   }, [dispatch]);
-  const cars = useSelector((state) => state.cars);
+  
+//----status------
+const cars = useSelector((state) => state.cars);
+let filt0 = [];
+cars.map((objCar) => {
+  objCar.status==="valid"? filt0.push(objCar):null;
+});
+console.log("-----",filt0);
+//---------------
+
+  try {
+    const { user } = useAuth0();
+    console.log(user);
+    const allUsers = useSelector((state) => state.usersiD)
+    const idUser = allUsers.find(element => element.eMail = user.email);
+    localStorage.setItem("user", user.email +"|" + user.picture + "|" + idUser. _id);   
+    
+  } catch (error) {
+    console.log(error);
+  }
+
 
   // const API_URL = `http://localhost:3001/cars`;
 
@@ -34,7 +56,7 @@ export default function Home() {
 
   let [ordeno, setordeno] = useState("Ascending");
   let [indexo, setindexo] = useState("Brand");
-  let [arCar, setarCar] = useState(cars);
+  let [arCar, setarCar] = useState(filt0);
   let [xclude] = useState([[], [], [], [], []]);
   let ordenado = [];
 
@@ -69,7 +91,9 @@ export default function Home() {
   };
   useEffect(() => {
     paginado(1);
-  }, [cars]);
+  }, [filt0]);
+
+ 
 
   //functions-------------------------------------
   function paginate(e, num) {
@@ -89,8 +113,9 @@ export default function Home() {
       ? ((arrayTemp = xclude[index].filter((dato) => dato != obj)),
         (xclude[index] = arrayTemp))
       : xclude[index].push(obj);
+    
     //----filter brand----
-    cars.map((objCar) => {
+    filt0.map((objCar) => {
       xclude[0].includes(objCar.brand) ? null : filt1.push(objCar);
     });
     //----filter category----
@@ -235,7 +260,7 @@ export default function Home() {
     <React.Fragment>
       <Search />
       <Filter
-        cars={cars}
+        cars={filt0}
         filterInHome={uddateForFilter}
         paginate={paginate}
         xclude={xclude}

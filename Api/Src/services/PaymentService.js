@@ -24,6 +24,7 @@ class PaymentService {
           discount: shoppingcart.discount,
         },
       ],
+      external_reference: shoppingcart.eMail,
       payment_methods: {
         excluded_payment_types: [
           {
@@ -33,9 +34,9 @@ class PaymentService {
         installments: 1,
       },
       back_urls: {
-        failure: "/failure",
-        pending: "/pending",
-        success: "/success",
+        failure: `${process.env.API_URL_BACK}/payment/success`,
+        pending: `${process.env.API_URL_BACK}/payment/success`,
+        success: `${process.env.API_URL_BACK}/payment/success`,
       },
     };
 

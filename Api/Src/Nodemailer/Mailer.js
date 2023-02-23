@@ -1,7 +1,6 @@
 const nodemailer = require("nodemailer");
-
 require("dotenv").config();
-const { USER, PASS } = process.env;
+const { USSER, PASS } = process.env;
 
 let transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -10,8 +9,8 @@ let transporter = nodemailer.createTransport({
   auth: {
     // user: `${USER}`, // generated ethereal user
     // pass: `${PASS}`, // generated ethereal password
-    user: process.env.USSER, // generated ethereal user
-    pass: process.env.PASS, // generated ethereal password
+    user: USSER, // generated ethereal user
+    pass: PASS, // generated ethereal password
   },
 });
 
