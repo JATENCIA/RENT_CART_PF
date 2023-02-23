@@ -2,13 +2,24 @@ import React, { useState } from "react";
 import "./Review.css";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import {useSelector, useDispatch } from "react-redux";
 
 export default function createReview () {
 const allBilling = (useSelector((state) => state.allbilling));
 const [current,setcurrent] = useState (0)
-let detail = allBilling[49] //--------------------------------------------------------------temporal
+//----------
+let detail = allBilling[1] //--------------------------------------------------------------temporal
+console.log(allBilling,"-----------");
+const { user } = useAuth0();
+let found = [];
+//allBilling.map((bill)=>{
+  //allBilling[49].user.eMail===user.email?found.push("bill"):null
+//})
+
+
+//---------
 const temp =[];
 temp.push (detail.car._id)
 temp.push (0)

@@ -191,11 +191,7 @@ const routerByidUser = async (req, res) => {
         accessories: 1,
       });
 
-    if (user.loading === "valid") {
-      return res.status(200).json(user);
-    } else {
-      return res.status.json("Login to see this information");
-    }
+    return res.status(200).json(user);
   } catch (error) {
     res.status(500).json(`Error ${error}`);
   }
@@ -210,12 +206,23 @@ const routerByidUser = async (req, res) => {
  */
 const routerPutUser = async (req, res) => {
   const { id } = req.params;
+
   const { name, lastName, kindOfPerson, eMail, location, telephone, active, roll } =
     req.body;
 
-  // let user = await Users.findById(id);
 
-  // if (user.loading === "valid") {
+  const {
+    name,
+    lastName,
+    kindOfPerson,
+    eMail,
+    location,
+    telephone,
+    active,
+    roll,
+  } = req.body;
+
+
   userSchema
     .updateOne(
       { _id: id },
@@ -235,9 +242,6 @@ const routerPutUser = async (req, res) => {
     .populate("review", { description: 1, rate: 1 })
     .then((data) => res.json(data))
     .catch((error) => res.status(500).json({ message: `${error} ` }));
-  // } else {
-  //   return res.status.json("Login to see this information");
-  // }
 };
 
 /**
@@ -251,15 +255,12 @@ const routerDeleteUser = async (req, res) => {
   const { active } = req.body;
 
   let user = await Users.findById(id);
-  if (user.loading === "valid" && user.roll === "superAdmin") {
-    userSchema
-      .updateOne({ _id: id }, { $set: { active } })
-      .populate("review", { description: 1, rate: 1 })
-      .then((data) => res.json(data))
-      .catch((error) => res.status(500).json({ message: `${error} ` }));
-  } else {
-    res.status(201).json("you do not have access to this information");
-  }
+
+  userSchema
+    .updateOne({ _id: id }, { $set: { active } })
+    .populate("review", { description: 1, rate: 1 })
+    .then((data) => res.json(data))
+    .catch((error) => res.status(500).json({ message: `${error} ` }));
 };
 
 /**
@@ -271,23 +272,17 @@ const routerPutRollUsers = async (req, res) => {
   const { id } = req.params;
   const { roll } = req.body;
 
-  let user = await Users.findById(id);
-
-  if (user.loading === "valid" && user.roll === "superAdmin") {
-    userSchema
-      .updateOne(
-        { _id: id },
-        {
-          $set: {
-            roll,
-          },
-        }
-      )
-      .then((data) => res.json(data))
-      .catch((error) => res.status(500).json({ message: `${error} ` }));
-  } else {
-    return res.status.json("you do not have access to this information");
-  }
+  userSchema
+    .updateOne(
+      { _id: id },
+      {
+        $set: {
+          roll,
+        },
+      }
+    )
+    .then((data) => res.json(data))
+    .catch((error) => res.status(500).json({ message: `${error} ` }));
 };
 
 module.exports = {

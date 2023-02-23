@@ -144,3 +144,37 @@
 #black2 {
   cursor: pointer;
 }
+
+.form-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 12%;
+  margin-bottom: 10px;
+}
+.form-date {
+  margin-bottom: 20px;
+  /* border: solid #ffb703 ; */
+  display: inline-block;
+  background-color: #023047;
+  border-radius: 10px;
+  padding: 1px;
+}
+
+.form-label {
+  color: white;
+  padding: 10px;
+}
+
+#form-submit {
+  /* background: white; */
+  background-color: #ffb703;
+  color: #003566;
+  margin-left: 2px;
+  border: solid 1px;
+}
+
+#form-submit:hover{
+  background-color: #ffb703;
+  color: #003566;
+  transition: 0.5s;
+}  

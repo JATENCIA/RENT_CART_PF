@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const billingSchema = mongoose.Schema({
   invoice_number: {
     type: String,
-    minLength: 4,
     unique: true,
     required: true,
   },
@@ -10,13 +9,6 @@ const billingSchema = mongoose.Schema({
   full_value: {
     type: Number,
     minLength: 0,
-    required: true,
-  },
-
-  invoice_number: {
-    type: String,
-    minLength: 4,
-    unique: true,
     required: true,
   },
 
@@ -58,9 +50,16 @@ const billingSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+
   rentalDate: {
     type: String,
     required: true,
+  },
+
+  qualified: {
+    type: String,
+    enum: ["valid", "invalid"],
+    default: "invalid",
   },
 });
 

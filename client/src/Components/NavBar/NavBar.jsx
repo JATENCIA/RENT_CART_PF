@@ -46,15 +46,12 @@ function NavBar() {
           <ListStyled to="/home">HOME</ListStyled>
           <ListStyled to="/about">ABOUT US</ListStyled>
           <ListStyled to="/contact">CONTACT</ListStyled>
-          <ListStyled to="/shopping">RESERVED</ListStyled>
-
-          {/* {isAuthenticated ? (
-            <Link to={`/profile`} className="link">
-              PROFILE
-            </Link>
+          {isAuthenticated ? (
+            <ListStyled to="/shopping">RESERVED</ListStyled>
           ) : (
             ""
-          )} */}
+          )}
+
           {isAuthenticated ? (
             <ListStyled to="/dashboard">DASHBOARD</ListStyled>
           ) : null}

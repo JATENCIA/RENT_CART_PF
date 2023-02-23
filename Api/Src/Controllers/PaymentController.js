@@ -1,3 +1,4 @@
+/* It creates a payment link for a user to pay for a subscription */
 class PaymentController {
   constructor(subscriptionService) {
     this.subscriptionService = subscriptionService;
