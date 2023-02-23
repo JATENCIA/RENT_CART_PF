@@ -10,15 +10,12 @@ export default function createReview () {
 const allBilling = (useSelector((state) => state.allbilling));
 const [current,setcurrent] = useState (0)
 //----------
-let detail = allBilling[1] //--------------------------------------------------------------temporal
-console.log(allBilling,"-----------");
+let detail = ""
 const { user } = useAuth0();
-let found = [];
-//allBilling.map((bill)=>{
-  //allBilling[49].user.eMail===user.email?found.push("bill"):null
-//})
-
-
+allBilling.map((bill)=>{
+  bill.user.eMail===user.email?detail = bill:null
+})
+console.log(detail);
 //---------
 const temp =[];
 temp.push (detail.car._id)
