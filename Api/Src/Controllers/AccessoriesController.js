@@ -109,22 +109,13 @@ const routerPutAccessories = async (req, res) => {
 const routerDeleteAccessories = async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
-  // const user = await Users.findOne(car.eMail);
 
-  // if (user) {
-  //   if (user.roll === "superAdmin" && user.loading === "valid") {
   accessoriesSchema
 
     .updateOne({ _id: id }, { $set: { status } })
     .populate("review", { description: 1, rate: 1 })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
-  //   } else {
-  //     return res.status(201).json("you do not have access to this information");
-  //   }
-  // } else {
-  //   return res.status(201).json(`${eMail} Not found`);
-  // }
 };
 
 module.exports = {
