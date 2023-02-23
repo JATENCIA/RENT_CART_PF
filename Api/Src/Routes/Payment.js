@@ -1,14 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
-const PaymentController = require("../Controllers/PaymentController");
-const PaymentService = require("../services/PaymentService");
-const PaymentInstance = new PaymentController(new PaymentService());
+const Cars = require("../Models/Cars");
+var nodemailer = require("nodemailer");
 const Users = require("../Models/Users");
 const Billing = require("../Models/Billing");
-var nodemailer = require("nodemailer");
-const Cars = require("../Models/Cars");
 const Accessories = require("../Models/Accessories");
+
+const PaymentService = require("../services/PaymentService");
+const PaymentController = require("../Controllers/PaymentController");
+const PaymentInstance = new PaymentController(new PaymentService());
 
 router.post("/", (req, res, next) => {
   PaymentInstance.getPaymentLink(req, res);
@@ -39,7 +40,7 @@ router.get("/success", async (req, res) => {
       transporter.sendMail(
         {
           from: '"RentCar" <info.grupo.rentcar@gmail.com>',
-          to: "atenciajaramillo@gmail.com",
+          to: "willjusi@gmail.com",
           subject: "Successful reservation !!!",
           text: `Dear user: ${users.name} Your reservation was scheduled
             \n Reservation data:
@@ -58,11 +59,11 @@ router.get("/success", async (req, res) => {
       );
 
       try {
-        res.status(200).redirect(`${process.env.API_URL_BACK}/cars`);
+        res.status(200).redirect(`${process.env.API_URL_BACK}/payment/success`);
       } catch (error) {
         res.status(400).send(`Error ${error}`);
       }
-    } else return res.redirect(`${process.env.API_URL_BACK}`);
+    } else return res.redirect(`http://localhost:5173/shopping`);
   } catch (error) {
     res.status(500).send({ mensage: `${error}` });
   }

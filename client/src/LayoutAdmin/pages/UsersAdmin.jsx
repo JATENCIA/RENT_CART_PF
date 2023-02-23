@@ -18,15 +18,16 @@ import {
   Button,
 } from "@mui/material";
 
-const API_URL = `http://localhost:3001/users`;
+const API_URL = "http://localhost:3001/users/";
 
 function Users() {
   const dispatch = useDispatch();
-  const [users, setUsers] = useState([]);
+  const [data, setData] = useState([]);
   const [modalEdit, setModalEdit] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
   const [userSeleccionado, setUserSeleccionado] = useState({
     active: "",
+    roll: "",
   });
   function handleChange(e) {
     setUserSeleccionado({
@@ -48,10 +49,25 @@ function Users() {
     caso === "Edit" ? openCloseModalEdit() : openCloseModalDelete();
   };
 
-  const peticionDelete = async () => {
-    await axios.delete(API_URL + userSeleccionado.id).then((response) => {
-      setData(data.filter((u) => u.id !== userSeleccionado.id));
-    });
+  // const peticionDelete = async () => {
+  //   await axios.delete(API_URL + userSeleccionado._id).then((response) => {
+  //     setData(data.filter((u) => u._id !== userSeleccionado._id));
+  //   });
+  // };
+  const PutUsers = async () => {
+    await axios
+      .put(API_URL + userSeleccionado._id, userSeleccionado)
+      .then((response) => {
+        var dataNew = data;
+        console.log(dataNew);
+        dataNew.map((user) => {
+          if (userSeleccionado._id === user._id) {
+            user.active = userSeleccionado.active;
+          }
+        });
+        setData(dataNew);
+        openCloseModalDelete();
+      });
   };
 
   const peticionPut = async () => {
@@ -59,9 +75,10 @@ function Users() {
       .put(API_URL + userSeleccionado._id, userSeleccionado)
       .then((response) => {
         var dataNew = data;
-        dataNew.map((u) => {
-          if (userSeleccionado._id === u._id) {
-            u.active = userSeleccionado.active;
+        dataNew.map((user) => {
+          if (userSeleccionado._id === user._id) {
+            user.active = userSeleccionado.active;
+            user.roll = userSeleccionado.roll;
           }
         });
         setData(dataNew);
@@ -72,7 +89,7 @@ function Users() {
   const dataInfo = async () => {
     try {
       const { data } = await axios.get(API_URL);
-      setUsers(data);
+      setData(data);
     } catch (e) {
       console.log(e);
     }
@@ -108,6 +125,27 @@ function Users() {
           </RadioGroup>
         </fieldset>
         <br />
+        <fieldset>
+          <legend>Roll</legend>
+          <RadioGroup
+            row
+            name="roll"
+            value={userSeleccionado && userSeleccionado.roll}
+            style={{ marginLeft: "100px" }}
+            onChange={handleChange}
+          >
+            <FormControlLabel
+              value={"user"}
+              control={<Radio size="small" />}
+              label="User"
+            />
+            <FormControlLabel
+              value={"superAdmin"}
+              control={<Radio size="small" />}
+              label="SuperAdmin"
+            />
+          </RadioGroup>
+        </fieldset>
         <br />
         <div className="text-center pb-6">
           <Button variant="contained" color="success" onClick={peticionPut}>
@@ -127,12 +165,28 @@ function Users() {
 
   const bodyDelete = (
     <div className="bg-white  pl-2 pr-2">
-      <p className="text-center pt-10 pb-12 font-bold text-2xl ">
-        Are you sure you want to remove the user{" "}
-        <b>{userSeleccionado && userSeleccionado.eMail}</b> ?
+      <p className="text-center pt-12 pb-10 font-bold text-2xl ">
+        To confirm if you want to deactivate the user{" "}
+        <b>{userSeleccionado && userSeleccionado.name}</b> select the invalid
+        option
       </p>
-      <div className="text-center pb-12 ">
-        <Button variant="contained" color="success" onClick={peticionDelete}>
+      <fieldset>
+        <RadioGroup
+          row
+          name="active"
+          value={userSeleccionado && userSeleccionado.active}
+          style={{ marginLeft: "300px" }}
+          onChange={handleChange}
+        >
+          <FormControlLabel
+            value={"invalid"}
+            control={<Radio size="small" />}
+            label="Invalid"
+          />
+        </RadioGroup>
+      </fieldset>
+      <div className="text-center pt-4 pb-4 ">
+        <Button variant="contained" color="success" onClick={PutUsers}>
           Yes
         </Button>
         <Button
@@ -163,8 +217,8 @@ function Users() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.length !== 0 ? (
-              users.map((u) => {
+            {data.length !== 0 ? (
+              data.map((u) => {
                 return (
                   <TableRow key={u.id}>
                     {/* <TableCell>{u._id}</TableCell> */}
@@ -205,7 +259,7 @@ function Users() {
       </Modal>
 
       <Modal
-        className=" mt-40  w-[700px] h-[33.5%] top-0 left-0 right-0 fixed m-auto scroll-m-2"
+        className=" mt-40  w-[700px] h-[33%] top-0 left-0 right-0 fixed m-auto scroll-m-2"
         open={modalDelete}
         onClose={() => openCloseModalDelete()}
       >
