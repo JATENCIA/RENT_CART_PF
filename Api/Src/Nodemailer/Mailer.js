@@ -1,29 +1,25 @@
-const nodemailer= require('nodemailer');
-
-require("dotenv").config()
-const {
-    USSER, PASS
-  } = process.env;
+const nodemailer = require("nodemailer");
+require("dotenv").config();
+const { USSER, PASS } = process.env;
 
 let transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    //secure: true, // true for 465, false for other ports
-    auth: {
-      user: `${USSER}`, // generated ethereal user
-      pass: `${PASS}`, // generated ethereal password
-    },
-  });
+  host: "smtp.gmail.com",
+  port: 465,
+  //secure: true, // true for 465, false for other ports
+  auth: {
+    // user: `${USER}`, // generated ethereal user
+    // pass: `${PASS}`, // generated ethereal password
+    user: USSER, // generated ethereal user
+    pass: PASS, // generated ethereal password
+  },
+});
 
-  transporter.verify().then(() => {
-    console.log('ready for send emails');
-  })
+transporter.verify().then(() => {
+  console.log("ready for send emails");
+});
 
-
-
-const eMail1= async (eMail) => {
-    
-    let mensaHTM= `
+const eMail1 = async (eMail) => {
+  let mensaHTM = `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -79,29 +75,28 @@ const eMail1= async (eMail) => {
     </body>
     </html>
     `;
-        let mensaje = {
-            from: '"RentCar" <info.grupo.rentcar@gmail.com>', // sender address
-            to: eMail, // list of receivers
-            subject: " Notificación", // Subject line
-            text: "USUARIO CREADO CORRECTAMENTE ", // plain text body
-            html: mensaHTM,
-            attachments: [
-                {
-                    filename:'RC1.jpg',
-                    path:'https://www.creativefabrica.com/wp-content/uploads/2020/09/04/Monogram-RC-Logo-V2-Graphics-5286908-1-1-580x386.jpg',
-                    cid:'RC1'
-                },
-                {
-                    filename:'Wp1.png',
-                    path:'https://cdn-icons-png.flaticon.com/512/124/124034.png?w=740&t=st=1676607760~exp=1676608360~hmac=278ee90ea3396c0ad101c4e8de087671ecf72c1d470ccb929d75cc0a40adb7d8',
-                    cid:'Wp1'
-                }
-            ]
-        };
+  let mensaje = {
+    from: '"RentCar" <info.grupo.rentcar@gmail.com>', // sender address
+    to: eMail, // list of receivers
+    subject: " Notificación", // Subject line
+    text: "USUARIO CREADO CORRECTAMENTE ", // plain text body
+    html: mensaHTM,
+    attachments: [
+      {
+        filename: "RC1.jpg",
+        path: "https://www.creativefabrica.com/wp-content/uploads/2020/09/04/Monogram-RC-Logo-V2-Graphics-5286908-1-1-580x386.jpg",
+        cid: "RC1",
+      },
+      {
+        filename: "Wp1.png",
+        path: "https://cdn-icons-png.flaticon.com/512/124/124034.png?w=740&t=st=1676607760~exp=1676608360~hmac=278ee90ea3396c0ad101c4e8de087671ecf72c1d470ccb929d75cc0a40adb7d8",
+        cid: "Wp1",
+      },
+    ],
+  };
 
-        const info= await transporter.sendMail(mensaje)
+  const info = await transporter.sendMail(mensaje);
 
-        console.log(info);
-
-}
-  module.exports = {eMail1}
+  console.log(info);
+};
+module.exports = { eMail1 };

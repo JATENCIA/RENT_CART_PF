@@ -47,25 +47,12 @@ const routerGetCars = async (req, res) => {
 const routerPostCars = async (req, res) => {
   validateCreate;
   const car = carSchema(req.body);
-  const { eMail } = req.body;
-  console.log(eMail);
 
-  const user = await Users.find({ eMail: eMail });
+  car
+    .save()
+    .then((data) => res.status(200).json(data))
+    .catch((error) => res.status(500).json({ message: `${error}` }));
 
-  if (user.length) {
-    if (user[0].roll === "admin" || user[0].roll === "superAdmin") {
-      if (user[0].loading === "valid") {
-        car
-          .save()
-          .then((data) => res.status(200).json(data))
-          .catch((error) => res.status(500).json({ message: `${error}` }));
-      }
-    } else {
-      return res.status(201).json("you do not have access to this information");
-    }
-  } else {
-    return res.status(201).json(`eMail Not found`);
-  }
 };
 
 /**
@@ -93,9 +80,8 @@ const routerByidCars = (req, res) => {
  */
 
 const routerPutCars = async (req, res) => {
-  const { eMail } = req.body;
-  const user = await Users.findOne(car.eMail);
-  const { id } = req.params;
+  const { id } = req.params
+
   const {
     brand,
     price,
@@ -110,42 +96,36 @@ const routerPutCars = async (req, res) => {
     fuelType,
     typeOfBox,
     licensePlate,
-    image,
+    status,
+    active
   } = req.body;
 
-  if (user && user.loading === "valid") {
-    if (user.roll === "admin" || user.roll === "superAdmin") {
-      carSchema
-        .updateOne(
-          { _id: id },
-          {
-            $set: {
-              brand,
-              price,
-              description,
-              fuelConsumption,
-              location,
-              colour,
-              discount,
-              doors,
-              line,
-              category,
-              fuelType,
-              typeOfBox,
-              licensePlate,
-              image,
-            },
-          }
-        )
-        .populate("review", { description: 1, rate: 1 })
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error }));
-    } else {
-      return res.status(201).json("you do not have access to this information");
-    }
-  } else {
-    return res.status(201).json(`${eMail} Not found`);
-  }
+  carSchema
+    .updateOne(
+      { _id: id },
+      {
+        $set: {
+          brand,
+          price,
+          description,
+          fuelConsumption,
+          location,
+          colour,
+          discount,
+          doors,
+          line,
+          category,
+          fuelType,
+          typeOfBox,
+          licensePlate,
+          status,
+          active
+        },
+      }
+    )
+    .populate("review", { description: 1, rate: 1 })
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error }));
 };
 
 /**
@@ -157,23 +137,14 @@ const routerPutCars = async (req, res) => {
  * @returns the carSchema.updateOne method.
  */
 const routerDeleteCars = async (req, res) => {
-  const { active, eMail } = req.body;
-  const user = await Users.findOne(car.eMail);
+  const { active } = req.body;
   const { id } = req.params;
 
-  if (user) {
-    if (user.roll === "superAdmin" && user.loading === "valid") {
-      carSchema
-        .updateOne({ _id: id }, { $set: { active } })
-        .populate("review", { description: 1, rate: 1 })
-        .then((data) => res.status(200).json(data))
-        .catch((error) => res.status(500).json({ message: `${error} ` }));
-    } else {
-      return res.status(201).json("you do not have access to this information");
-    }
-  } else {
-    return res.status(201).json(`${eMail} Not found`);
-  }
+  carSchema
+    .updateOne({ _id: id }, { $set: { active } })
+    .populate("review", { description: 1, rate: 1 })
+    .then((data) => res.status(200).json(data))
+    .catch((error) => res.status(500).json({ message: `${error} ` }));
 };
 module.exports = {
   routerGetCars,

@@ -18,7 +18,6 @@ const userSchema = mongoose.Schema({
   },
   dni: {
     type: Number,
-    require: false,
     unique: true,
     minLength: 7,
     maxLength: 10,
@@ -41,7 +40,6 @@ const userSchema = mongoose.Schema({
     type: String,
     unique: true,
     minLength: 9,
-    required: true,
   },
   roll: {
     type: String,

@@ -1,14 +1,15 @@
 const express = require("express");
+const {
+  routerPostBilling,
+  routerGetBilling,
+  routerGetByidBilling,
+  routerPutBilling,
+  routerDeleteBilling,
+} = require("../Controllers/BillingController");
 const router = express.Router();
-const Cars = require("../Models/Cars");
-const Users = require("../Models/Users");
-const Billing = require("../Models/Billing");
-const billingSchema = require("../Models/Billing");
-const Accessories = require("../Models/Accessories");
-const {validateCreate} = require('../Validators/Billing.js');
-const { eMail3 } = require('../Nodemailer/NodemailerBooking.js');
 
 /* This is a post request that is looking for the billing information. */
+<<<<<<< HEAD
 router.post("/", async (req, res) => {
   validateCreate
   try {
@@ -40,102 +41,30 @@ router.post("/", async (req, res) => {
     } catch (error) {
     res.status(500).send(`{messaje: ${error}}`);
   }
+=======
+router.post("/", (req, res) => {
+  routerPostBilling(req, res);
+>>>>>>> 3d82f09ae61d378f4bdfe490f653736bce3a5992
 });
 
 /* This is a get request that is looking for the billing information. */
-router.get("/", async (req, res) => {
-  const { invoice_number } = req.query;
-  try {
-    const billing = await Billing.find({})
-      .populate("user", {
-        name: 1,
-        lastName: 1,
-        eMail: 1,
-        telephone: 1,
-        dni: 1,
-      })
-      .populate("car", { licensePlate: 1, line: 1, price: 1 })
-      .populate("accessories", { name: 1, price: 1 });
-
-    if (invoice_number) {
-      let billing_invoice_number = billing.filter(
-        (billing) => billing.invoice_number === invoice_number
-      );
-
-      billing_invoice_number.length
-        ? res.status(200).json(billing_invoice_number)
-        : res.status(201).json("Not found");
-    } else res.status(200).json(billing);
-  } catch (error) {
-    res.status(500).json(`Error ${error}`);
-  }
+router.get("/", (req, res) => {
+  routerGetBilling(req, res);
 });
 
 /* This is a get request that is looking for the billing information. */
 router.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  try {
-    const billing = await Billing.findById(id)
-      .populate("user", {
-        name: 1,
-        lastName: 1,
-        eMail: 1,
-        telephone: 1,
-        dni: 1,
-      })
-      .populate("car", { licensePlate: 1, line: 1, price: 1 })
-      .populate("accessories", { name: 1, price: 1 });
-
-    billing ? res.status(200).json(billing) : res.status(201).json("Not found");
-  } catch (error) {
-    res.status(500).json(`Error ${error}`);
-  }
+  routerGetByidBilling(req, res);
 });
 
 /* This is a put request that is looking for the billing information. */
 router.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  const { full_value, discount, user, car, accessories } = req.body;
-  try {
-    const billing = await Billing.updateOne(
-      { _id: id },
-      {
-        $set: {
-          full_value,
-          discount,
-          user,
-          car,
-          accessories,
-        },
-      }
-    )
-      .populate("user", {
-        name: 1,
-        lastName: 1,
-        eMail: 1,
-        telephone: 1,
-        dni: 1,
-      })
-      .populate("car", { licensePlate: 1, line: 1, price: 1 })
-      .populate("accessories", { name: 1, price: 1 });
-
-    billing
-      ? res.status(200).json(billing)
-      : res.status(201).json("Not update");
-  } catch (error) {
-    res.status(500).json(`Error ${error}`);
-  }
+  routerPutBilling(req, res);
 });
 
 /* This is a delete request that is looking for the billing information. */
 router.delete("/:id", (req, res) => {
-  const { id } = req.params;
-  const { active } = req.body;
-  billingSchema
-    .updateOne({ _id: id }, { $set: { active } })
-    .populate("review", { description: 1, rate: 1 })
-    .then((data) => res.json(data))
-    .catch((error) => res.status(500).json({ message: `${error} ` }));
+  routerDeleteBilling(req, res);
 });
 
 module.exports = router;

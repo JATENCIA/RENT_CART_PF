@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllCars } from "../../redux/actions/actions";
+import { getAllCars,getAllUser } from "../../redux/actions/actions";
 import "./Home.css";
+<<<<<<< HEAD
 // import Cards from "../Cards/Cards";
 import Card from "../Card/Card";
+=======
+import { useAuth0 } from "@auth0/auth0-react";
+import Cards from "../Cards/Cards";
+>>>>>>> 3d82f09ae61d378f4bdfe490f653736bce3a5992
 import Pagination from "../Pagination/Pagination";
 import { Filter } from "../filtro/Filter";
 import Footer from "../Footer/Footer";
@@ -14,12 +19,32 @@ import Search from "../Search/Search";
 export default function Home() {
   // const [cars, setCars] = useState([]);
   const dispatch = useDispatch();
-  const cars = useSelector((state) => state.cars);
 
   useEffect(() => {
     dispatch(getAllCars());
+    dispatch(getAllUser());
   }, [dispatch]);
   
+//----status------
+const cars = useSelector((state) => state.cars);
+let filt0 = [];
+cars.map((objCar) => {
+  objCar.status==="valid"? filt0.push(objCar):null;
+});
+console.log("-----",filt0);
+//---------------
+
+  try {
+    const { user } = useAuth0();
+    console.log(user);
+    const allUsers = useSelector((state) => state.usersiD)
+    const idUser = allUsers.find(element => element.eMail = user.email);
+    localStorage.setItem("user", user.email +"|" + user.picture + "|" + idUser. _id);   
+    
+  } catch (error) {
+    console.log(error);
+  }
+
 
   // const API_URL = `http://localhost:3001/cars`;
 
@@ -30,31 +55,31 @@ export default function Home() {
   //     // setarCar(data);
   //     // setCars(data);
   //   } catch (e) {
-  //     console.log(e);
   //   }
   // };
 
   let [ordeno, setordeno] = useState("Ascending");
   let [indexo, setindexo] = useState("Brand");
-  let [arCar, setarCar] = useState(cars);
+  let [arCar, setarCar] = useState(filt0);
   let [xclude] = useState([[], [], [], [], []]);
   let ordenado = [];
-  
+
   let [pag, setPag] = useState(1);
-  const[carsPerPege]=useState(6);
-  
+  const [carsPerPege] = useState(6);
+
   var until = pag * carsPerPege;
   var since = until - carsPerPege;
 
   let carPag = arCar.slice(since, until);
 
-  const paginado=pageNumber => {
-    setPag(pageNumber)
-  }
+  const paginado = (pageNumber) => {
+    setPag(pageNumber);
+  };
   useEffect(() => {
     paginado(1);
-  }, [cars]);
+  }, [filt0]);
 
+ 
 
   //functions-------------------------------------
   function paginate(e, num) {
@@ -74,9 +99,9 @@ export default function Home() {
       ? ((arrayTemp = xclude[index].filter((dato) => dato != obj)),
         (xclude[index] = arrayTemp))
       : xclude[index].push(obj);
+    
     //----filter brand----
-    cars.map((objCar) => {
-      console.log(objCar, "fff");
+    filt0.map((objCar) => {
       xclude[0].includes(objCar.brand) ? null : filt1.push(objCar);
     });
     //----filter category----
@@ -104,22 +129,20 @@ export default function Home() {
   function ordenate2(e) {
     setindexo(e.target.value);
   }
-  function cleanFilters (e){
+  function cleanFilters(e) {
     e.preventDefault();
     Swal.fire({
-      title: 'you want to clean the filters?',                
-      icon: 'warning',
+      title: "you want to clean the filters?",
+      icon: "warning",
       showCancelButton: true,
-      cancelButtonColor: '#e38e15',
-      confirmButtonColor: '#e38e15',
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'No'
-  }).then((result) => {
-    if (result.isConfirmed) { 
-      
-      } 
-  })
-
+      cancelButtonColor: "#e38e15",
+      confirmButtonColor: "#e38e15",
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
+      }
+    });
   }
 
   //---------------ordenate-------------------------------
@@ -207,19 +230,24 @@ export default function Home() {
   }
 
 
-
   return (
     <React.Fragment>
       
       <Search />
       <Filter
-        cars={cars}
+        cars={filt0}
         filterInHome={uddateForFilter}
         paginate={paginate}
         xclude={xclude}
       />
 
-      <div className="Filteredout"> <div>Filtered out</div> <div id="linpFilter" on onClick={(e)=>cleanFilters(e)}>🗑️</div>  </div>
+      <div className="Filteredout">
+        {" "}
+        <div>Filtered out</div>{" "}
+        <div id="linpFilter" on onClick={(e) => cleanFilters(e)}>
+          🗑️
+        </div>{" "}
+      </div>
       <NavBar />
       <div className="homen">
         {/* {

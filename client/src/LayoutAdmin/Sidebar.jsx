@@ -8,17 +8,19 @@ import {
   RiHome7Fill,
 } from "react-icons/ri";
 import { GiCarSeat } from "react-icons/gi";
-import { FaUsers, FaShoppingCart } from "react-icons/fa";
+import { FaUsers, FaShoppingBag } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Sidebar() {
   //overflow-y-scroll
+  const { logout } = useAuth0();
   const [showSubMenu, setShowSubMenu] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   return (
     <>
       <div
-        className={`xl:h-[100vh]  fixed xl:static w-[50%] md:w-[40%] lg:w-[30%] xl:w-auto h-full top-0 bg-secondary-100 p-4 flex flex-col justify-between z-50 ${
+        className={`xl:h-[100vh]  fixed xl:static w-[50%] md:w-[40%] lg:w-[30%] xl:w-auto h-full  top-0 bg-secondary-100 p-4 flex flex-col justify-between z-50  ${
           showMenu ? "left-0" : "-left-full"
         } transition-all`}
       >
@@ -32,7 +34,7 @@ function Sidebar() {
                 to="bookings"
                 className="flex text-2xl items-center gap-4  py-2 px-4 rounded-lg hover:bg-secondary-900 w-full"
               >
-                <FaShoppingCart className="text-primary" />
+                <FaShoppingBag className="text-primary" />
                 Bookings
               </Link>
             </li>
@@ -108,7 +110,7 @@ function Sidebar() {
             </li> */}
             <li>
               <Link
-                to="/"
+                to="/home"
                 className="flex text-2xl items-center gap-4  py-2 px-4 rounded-lg hover:bg-secondary-900 w-full"
               >
                 <RiHome7Fill className="text-primary" />
@@ -120,7 +122,8 @@ function Sidebar() {
         <nav>
           <div className="flex flex-col">
             <Link
-              to="/"
+              to="#"
+              onClick={() => logout({ returnTo: window.location.origin })}
               className="flex text-2xl items-center gap-4 my-6 py-3 pl-5 rounded-lg hover:bg-secondary-900 hover:text-white transition-colors bg-primary"
             >
               <RiLogoutCircleRLine className="text-white  " />

@@ -55,10 +55,10 @@ const routerPostUser = async (req, res) => {
       lastName: user.lastName,
       telephone: user.telephone,
     });
-    
+
     const saveUser = await newUser.save();
     res.status(200).json(saveUser);
-    eMail1(user.eMail)
+    eMail1(user.eMail);
   } catch (error) {
     res.status(500).send(`{messaje: ${error}}`);
   }
@@ -136,45 +136,28 @@ const routerGetUsers = async (req, res) => {
     const { dni } = req.query;
     const { eMail, password } = req.body;
     const user = await Users.findOne({ eMail });
-
-    let equal;
-    if (user) {
-      if (user.roll === "admin" || user.roll === "superAdmin") {
-        equal = bcryptjs.compareSync(password, user.password);
-      } else {
-        return res
-          .status(201)
-          .json("you do not have access to this information");
-      }
+    const users = await userSchema
+      .find()
+      .populate("review", { description: 1, rate: 1, car: 1 })
+      .populate("reviewAccesories", {
+        description: 1,
+        rate: 1,
+        accessories: 1,
+      })
+      .populate("billing", {
+        invoice_number: 1,
+        full_value: 1,
+        discount: 1,
+        car: 1,
+        accessories: 1,
+      });
+    if (dni) {
+      let userDni = users.filter((user) => user.dni === Number(dni));
+      userDni.length
+        ? res.status(200).json(userDni)
+        : res.status(201).json("Not found");
     } else {
-      return res.status(201).json(`${eMail} Not found`);
-    }
-    if (equal) {
-      const users = await userSchema
-        .find()
-        .populate("review", { description: 1, rate: 1, car: 1 })
-        .populate("reviewAccesories", {
-          description: 1,
-          rate: 1,
-          accessories: 1,
-        })
-        .populate("billing", {
-          invoice_number: 1,
-          full_value: 1,
-          discount: 1,
-          car: 1,
-          accessories: 1,
-        });
-      if (dni) {
-        let userDni = users.filter((user) => user.dni === Number(dni));
-        userDni.length
-          ? res.status(200).json(userDni)
-          : res.status(201).json("Not found");
-      } else {
-        res.status(200).json(users);
-      }
-    } else {
-      return res.status(201).json("Incorrect password");
+      res.status(200).json(users);
     }
   } catch (error) {
     res.status(500).json(`Error ${error}`);
@@ -208,11 +191,7 @@ const routerByidUser = async (req, res) => {
         accessories: 1,
       });
 
-    if (user.loading === "valid") {
-      return res.status(200).json(user);
-    } else {
-      return res.status.json("Login to see this information");
-    }
+    return res.status(200).json(user);
   } catch (error) {
     res.status(500).json(`Error ${error}`);
   }
@@ -227,33 +206,37 @@ const routerByidUser = async (req, res) => {
  */
 const routerPutUser = async (req, res) => {
   const { id } = req.params;
-  const { name, lastName, kindOfPerson, eMail, location, telephone, image } =
-    req.body;
 
-  let user = await Users.findById(id);
+  const {
+    name,
+    lastName,
+    kindOfPerson,
+    eMail,
+    location,
+    telephone,
+    active,
+    roll,
+  } = req.body;
 
-  if (user.loading === "valid") {
-    userSchema
-      .updateOne(
-        { _id: id },
-        {
-          $set: {
-            name,
-            lastName,
-            kindOfPerson,
-            eMail,
-            location,
-            telephone,
-            image,
-          },
-        }
-      )
-      .populate("review", { description: 1, rate: 1 })
-      .then((data) => res.json(data))
-      .catch((error) => res.status(500).json({ message: `${error} ` }));
-  } else {
-    return res.status.json("Login to see this information");
-  }
+  userSchema
+    .updateOne(
+      { _id: id },
+      {
+        $set: {
+          name,
+          lastName,
+          kindOfPerson,
+          eMail,
+          location,
+          telephone,
+          active,
+          roll,
+        },
+      }
+    )
+    .populate("review", { description: 1, rate: 1 })
+    .then((data) => res.json(data))
+    .catch((error) => res.status(500).json({ message: `${error} ` }));
 };
 
 /**
@@ -267,15 +250,12 @@ const routerDeleteUser = async (req, res) => {
   const { active } = req.body;
 
   let user = await Users.findById(id);
-  if (user.loading === "valid" && user.roll === "superAdmin") {
-    userSchema
-      .updateOne({ _id: id }, { $set: { active } })
-      .populate("review", { description: 1, rate: 1 })
-      .then((data) => res.json(data))
-      .catch((error) => res.status(500).json({ message: `${error} ` }));
-  } else {
-    res.status(201).json("you do not have access to this information");
-  }
+
+  userSchema
+    .updateOne({ _id: id }, { $set: { active } })
+    .populate("review", { description: 1, rate: 1 })
+    .then((data) => res.json(data))
+    .catch((error) => res.status(500).json({ message: `${error} ` }));
 };
 
 /**
@@ -287,23 +267,17 @@ const routerPutRollUsers = async (req, res) => {
   const { id } = req.params;
   const { roll } = req.body;
 
-  let user = await Users.findById(id);
-
-  if (user.loading === "valid" && user.roll === "superAdmin") {
-    userSchema
-      .updateOne(
-        { _id: id },
-        {
-          $set: {
-            roll,
-          },
-        }
-      )
-      .then((data) => res.json(data))
-      .catch((error) => res.status(500).json({ message: `${error} ` }));
-  } else {
-    return res.status.json("you do not have access to this information");
-  }
+  userSchema
+    .updateOne(
+      { _id: id },
+      {
+        $set: {
+          roll,
+        },
+      }
+    )
+    .then((data) => res.json(data))
+    .catch((error) => res.status(500).json({ message: `${error} ` }));
 };
 
 module.exports = {
