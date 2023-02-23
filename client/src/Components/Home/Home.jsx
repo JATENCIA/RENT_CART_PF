@@ -11,6 +11,7 @@ import Search from "../Search/Search";
 // import axios from "axios";
 
 export default function Home() {
+  console.log(localStorage)
   // const [cars, setCars] = useState([]);
   const dispatch = useDispatch();
 
@@ -45,7 +46,7 @@ export default function Home() {
   let carPag = arCar.slice(since, until);
   let review = cars.map((e) => e.review);
   let rate = review.map((e) => e.map((d) => d.rate));
-  console.log(rate)
+  // console.log(rate)
   const average = [];
   for (let i in rate) {
     // console.log(cars[i])
@@ -62,7 +63,7 @@ export default function Home() {
   for ( let i  in average){
     cars[i]['avg']= average[i] 
   }
-  console.log(average)
+  // console.log(average)
   const paginado = (pageNumber) => {
     setPag(pageNumber);
   };

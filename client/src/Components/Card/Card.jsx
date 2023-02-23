@@ -1,33 +1,60 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./card.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { Rating } from "@mui/material";
+import { useAuth0 } from "@auth0/auth0-react";
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import { useDispatch } from "react-redux";
+import axios from "axios";
 
+
+const API_URL = `http://localhost:3001/users`;
 const Card = ({ car }) => {
-  const [click, setClick] = useState(false)
+  const dispatch = useDispatch();
+  const [users, setUsers] = useState([]);
+  const [click, setClick] = useState(false);
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  const navigate = useNavigate()
 
+  const dataInfo = async () => {
+    try {
+      const { data } = await axios.get(API_URL);
+      setUsers(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    dispatch(dataInfo);
+  }, [dispatch]);
   const onClick = () => {
-    if(!click){
-      
-      setClick(true)
+    if (isAuthenticated && user) {
+      if (!click) {
+        setClick(true);
+      } else {
+        setClick(false);
+      }
+    } else { 
+      navigate("/login")
+      // Swal.fire({
+      //   title: 'Error!',
+      //   text: 'You need to log in,do you want to continue',
+      //   icon: 'error',
+      //   confirmButtonText: 'Cool'
+      // })
     }
-    else {
-      setClick(false)
-    }
-  }
+  };
   return (
     <div className="cardd">
       <div></div>
       <div>
         <div className="start">
-        <Rating
-            name="half-rating-read"
-            value={car.avg}
-            readOnly
-          />
+          <Rating name="half-rating-read" value={car.avg} readOnly />
           {car.avg !== null && (
-            <div style={{marginTop:"0px" ,fontSize:"17px"}} sx={{ ml: 2 }}>{"("+car.avg+")"}</div>
+            <div style={{ marginTop: "0px", fontSize: "17px" }} sx={{ ml: 2 }}>
+              {"(" + car.avg + ")"}
+            </div>
           )}
         </div>
         <img className="img" src={car.image} alt={"No"} />
@@ -60,7 +87,11 @@ const Card = ({ car }) => {
       <div>
         <div id="heart" className="heart">
           <span className="icon" onClick={onClick}>
-            {click? <MdFavorite className="heart-border"/> :<MdFavoriteBorder className="heart-fill"/>}
+            {click ? (
+              <MdFavorite className="heart-border" />
+            ) : (
+              <MdFavoriteBorder className="heart-fill" />
+            )}
           </span>
         </div>
       </div>
