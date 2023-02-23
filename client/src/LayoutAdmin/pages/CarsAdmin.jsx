@@ -87,12 +87,24 @@ function CarsAdmin() {
     setCarSelected(c);
     caso === "Edit" ? openCloseModalEdit() : openCloseModalDelete();
   }
-  const peticionDelete = async () => {
-    await axios.delete(API_URL + carSelected.id).then((response) => {
-      setData(data.filter((c) => c.id !== carSelected.id));
+  // const peticionDelete = async () => {
+  //   await axios.delete(API_URL + carSelected.id).then((response) => {
+  //     setData(data.filter((c) => c.id !== carSelected.id));
+  //   });
+  // };
+  const PutCars = async () => {
+    await axios.put(API_URL + carSelected._id, carSelected).then((response) => {
+      var dataNew = data;
+      console.log(dataNew);
+      dataNew.map((c) => {
+        if (carSelected._id === c._id) {
+          c.active = carSelected.active;
+        }
+      });
+      setData(dataNew);
+      openCloseModalDelete();
     });
   };
-
   const peticionPut = async () => {
     await axios.put(API_URL + carSelected._id, carSelected).then((response) => {
       var dataNew = data;
@@ -309,12 +321,28 @@ function CarsAdmin() {
 
   const bodyDelete = (
     <div className="bg-white  pl-2 pr-2">
-      <p className="text-center pt-10 pb-10 font-bold text-2xl ">
-        Are you sure you want to remove the car{" "}
-        <b>{carSelected && carSelected.licensePlate}</b> ?
+      <p className="text-center pt-12 pb-10 font-bold text-2xl ">
+        To confirm if you want to deactivate the car{" "}
+        <b>{carSelected && carSelected.licensePlate}</b> select the invalid
+        option
       </p>
-      <div className="text-center pb-10 ">
-        <Button variant="contained" color="success" onClick={peticionDelete}>
+      <fieldset>
+        <RadioGroup
+          row
+          name="active"
+          value={carSelected && carSelected.active}
+          style={{ marginLeft: "300px" }}
+          onChange={handleChange}
+        >
+          <FormControlLabel
+            value={"invalid"}
+            control={<Radio size="small" />}
+            label="Invalid"
+          />
+        </RadioGroup>
+      </fieldset>
+      <div className="text-center pt-4 pb-4 ">
+        <Button variant="contained" color="success" onClick={PutCars}>
           Yes
         </Button>
         <Button
@@ -382,8 +410,7 @@ function CarsAdmin() {
                         <Edit
                           className="cursor-pointer"
                           color="primary"
-                          // onClick={() => selectCar(c, "Edit")}
-                          onClick={showAlertEdit}
+                          onClick={() => selectCar(c, "Edit")}
                         />
                         &nbsp;&nbsp;&nbsp;
                         <Delete
@@ -411,7 +438,7 @@ function CarsAdmin() {
         </Modal>
 
         <Modal
-          className=" mt-40  w-[700px] h-[27%] top-0 left-0 right-0 fixed m-auto scroll-m-2  border-2 border-[#000]  "
+          className=" mt-40  w-[700px] h-[33%] top-0 left-0 right-0 fixed m-auto scroll-m-2"
           open={modalDelete}
           onClose={() => openCloseModalDelete()}
         >

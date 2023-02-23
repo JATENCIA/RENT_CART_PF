@@ -53,12 +53,12 @@ function AccessoriesAdmin() {
     caso === "Edit" ? openCloseModalEdit() : openCloseModalDelete();
   };
 
-  const peticionDelete = async () => {
-    await axios.delete(API_URL + accesorioSeleccionado._id).then((response) => {
-      setData(data.filter((a) => a._id !== accesorioSeleccionado._id));
-    });
-    openCloseModalDelete();
-  };
+  // const peticionDelete = async () => {
+  //   await axios.delete(API_URL + accesorioSeleccionado._id).then((response) => {
+  //     setData(data.filter((a) => a._id !== accesorioSeleccionado._id));
+  //   });
+  //   openCloseModalDelete();
+  // };
 
   const PutAccesories = async () => {
     await axios
@@ -220,7 +220,7 @@ function AccessoriesAdmin() {
           />
         </RadioGroup>
       </fieldset>
-      <div className="text-center pb-10 ">
+      <div className="text-center pt-4 pb-4 ">
         <Button variant="contained" color="success" onClick={PutAccesories}>
           Yes
         </Button>
@@ -301,7 +301,7 @@ function AccessoriesAdmin() {
         </Modal>
 
         <Modal
-          className=" mt-40  w-[700px] h-[33%] top-0 left-0 right-0 fixed m-auto scroll-m-2  border-2 border-[#000]  "
+          className=" mt-40  w-[700px] h-[33%] top-0 left-0 right-0 fixed m-auto scroll-m-2"
           open={modalDelete}
           onClose={() => openCloseModalDelete()}
         >
