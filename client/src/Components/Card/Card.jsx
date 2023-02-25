@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { Rating } from "@mui/material";
 import { useAuth0 } from "@auth0/auth0-react";
-import Swal from 'sweetalert2/dist/sweetalert2.js'
+import Swal from "sweetalert2/dist/sweetalert2.js";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { useLocalStorage } from "./useLocalStorage";
@@ -13,10 +13,10 @@ const API_URL = `http://localhost:3001/users`;
 const Card = ({ car }) => {
   const dispatch = useDispatch();
   const [users, setUsers] = useState([]);
-  const [click, setClick] =useState(false) ;
-  const [favorites, setFavorites] = useState([])
+  const [click, setClick] = useState(false);
+  const [favorites, setFavorites] = useState([]);
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const dataInfo = async () => {
     try {
@@ -34,18 +34,28 @@ const Card = ({ car }) => {
     if (isAuthenticated && user) {
       if (!click) {
         setClick(true);
-        setFavorites([...users, car]);
+        setFavorites([...favorites, car]);
       } else {
         setClick(false);
       }
-    } else { 
-      navigate("/login")
-      // Swal.fire({
-      //   title: 'Error!',
-      //   text: 'You need to log in,do you want to continue',
-      //   icon: 'error',
-      //   confirmButtonText: 'Cool'
-      // })
+    } else {
+      Swal.fire({
+        title: "Error!",
+        text: "You need to log in, do you want to continue",
+        icon: "alert",
+        imageUrl: "https://img.freepik.com/free-icon/delivery-truck_318-899830.jpg?size=338&ext=jpg&ga=GA1.1.1431584519.1677284003&semt=robertav1",
+        imageWidth: 200,
+        imageHeight: 200,
+        imageAlt: "Custom image",
+        showCancelButton: true,
+        cancelButtonText: "I prefer later",
+        confirmButtonText: "Cool",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login");
+          // Swal.fire("Deleted", "Your field has been deleted", "success");
+        }
+      });
     }
   };
   //console.log("favs" ,favorites)
@@ -79,16 +89,6 @@ const Card = ({ car }) => {
       </div>
 
       <div className="cardPart3">
-        <div></div>
-        <div className="Desc">discount</div>
-        <div className="DescVal">{car.discount}%</div>
-        <div></div>
-        <Link to={`/detail/${car.licensePlate}`} state={car} className="link">
-          <button> Details </button>
-        </Link>
-        <div></div>
-      </div>
-      <div>
         <div id="heart" className="heart">
           <span className="icon" onClick={onClick}>
             {click ? (
@@ -98,6 +98,13 @@ const Card = ({ car }) => {
             )}
           </span>
         </div>
+        <div className="Desc">discount</div>
+        <div className="DescVal">{car.discount}%</div>
+        <div></div>
+        <Link to={`/detail/${car.licensePlate}`} state={car} className="link">
+          <button> Details </button>
+        </Link>
+        <div></div>
       </div>
     </div>
   );

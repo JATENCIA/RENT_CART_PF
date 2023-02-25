@@ -63,6 +63,9 @@
   font-size: 150%;
   text-align: right;
   cursor: pointer;
+  width:fit-content;
+  height: fit-content;
+  margin-left: 20px;
 }
 .heart-fill {
   color: #ff3252;

@@ -8,7 +8,7 @@ function ForgetPassword() {
   return (
     <React.Fragment>
       <NavBar />
-      <div className="mt-[90px] mr-10 flex justify-end items-center  mb-[30px]  ">
+      <div className="mt-[90px] mr-10 flex justify-center items-center  mb-[30px]  ">
         <div className="bg-secondary-100 p-8 rounded-xl  w-auto lg:w-[450px]">
           <h1 className="text-center text-3xl uppercase font-bold tracking-[5px] text-white mb-8">
             Recover <span className="text-primary">password</span>
@@ -31,7 +31,7 @@ function ForgetPassword() {
               </button>
             </div>
           </form>
-          <div className="flex  flex-col items-center gap-4">
+          <div className="flex  flex-col items-center text-white gap-4">
             <span className="flex items-center gap-2">
               Already have an account?
               <Link

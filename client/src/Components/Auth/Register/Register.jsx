@@ -59,7 +59,7 @@ function Register() {
   return (
     <React.Fragment>
       <NavBar />
-      <div className="mt-[90px] mr-10 flex justify-end items-center  mb-[30px]  ">
+      <div className="mt-[90px] mr-10 flex justify-center items-center  mb-[30px]  ">
         <div className="bg-secondary-100 p-6 rounded-xl  w-auto lg:w-[450px]">
           <h1 className="text-center text-3xl uppercase font-bold tracking-[5px] text-white mb-6">
             Create <span className="text-primary">account</span>
@@ -201,7 +201,7 @@ function Register() {
               </button>
             </div>
           </form>
-          <span className="flex items-center gap-2 justify-center">
+          <span className="flex items-center text-white gap-2 justify-center">
             Already have an account?
             <Link
               to="/login"
