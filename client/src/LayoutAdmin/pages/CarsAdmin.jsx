@@ -90,7 +90,7 @@ function CarsAdmin() {
       console.log(dataNew);
       dataNew.map((c) => {
         if (carSelected._id === c._id) {
-          c.active = carSelected.active;
+          c.status = carSelected.status;
         }
       });
       setData(dataNew);
@@ -335,8 +335,8 @@ function CarsAdmin() {
       <fieldset>
         <RadioGroup
           row
-          name="active"
-          value={carSelected && carSelected.active}
+          name="status"
+          value={carSelected && carSelected.status}
           style={{ marginLeft: "300px" }}
           onChange={handleChange}
         >
