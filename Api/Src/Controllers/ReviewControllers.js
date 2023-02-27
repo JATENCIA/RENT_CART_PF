@@ -12,26 +12,32 @@ const { validateReview } = require("../Assistant/reviewAssistant");
  * @param res - The response object.
  */
 const routerPostReview = async (req, res) => {
-  validateCreate;
-  validateReview(req, res);
   try {
-    const review = reviewSchema(req.body);
-    const user = await Users.findById(review.user);
-    const car = await Cars.findById(review.car);
+    validateCreate;
+    let boolean = await validateReview(req, res);
+    if (boolean === true) {
+      const review = reviewSchema(req.body);
+      const user = await Users.findById(review.user);
+      const car = await Cars.findById(review.car);
 
-    const newReview = new Review({
-      description: review.description,
-      rate: review.rate,
-      user: user._id,
-      car: car._id,
-    });
+      const newReview = new Review({
+        description: review.description,
+        rate: review.rate,
+        user: user._id,
+        car: car._id,
+      });
 
-    const saveReview = await newReview.save();
-    user.review = user.review.concat(saveReview._id);
-    await user.save();
-    car.review = car.review.concat(saveReview._id);
-    await car.save();
-    res.status(200).json(saveReview);
+      const saveReview = await newReview.save();
+      user.review = user.review.concat(saveReview._id);
+      await user.save();
+      car.review = car.review.concat(saveReview._id);
+      await car.save();
+      res.status(200).json(saveReview);
+    } else {
+      res
+        .status(201)
+        .json("Sorry, you can't make more comments about this vehicle.");
+    }
   } catch (error) {
     res.status(500).send({ messaje: `${error}` });
   }
