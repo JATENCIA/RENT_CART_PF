@@ -11,7 +11,7 @@ import Details from "../Components/Details/Details";
 import Shopping from "../Components/Shopping/shoping";
 import { MPButton } from "../Components/MercadoPago/MercadoPago";
 import CreateReview from "../Components/Review/Review";
-import ProtectedRoute from "../Components/Auth/ProtectedRoute";
+import ProtectedRoute from "../Components/Auth0/ProtectedRoute";
 //Dashboard perfil de usuario
 import LayoutProfile from "../LayoutProfile/LayoutProfile";
 import MyDates from "../LayoutProfile/pages/MyDates";
@@ -19,9 +19,11 @@ import Bookings from "../LayoutProfile/pages/Bookings";
 import Favorites from "../LayoutProfile/pages/Favorites";
 import Reviews from "../LayoutProfile/pages/Reviews";
 // Login
-import Login from "../Components/Auth/Login/Login";
-import Register from "../Components/Auth/Register/Register";
-import ForgetPassword from "../Components/Auth/ForgetPassword/ForgetPassword";
+import Login from "../Components/Auth0/Login/Login";
+import Register from "../Components/Auth0/Register/Register";
+import ForgetPassword from "../Components/Auth0/ForgetPassword/ForgetPassword";
+import Auth from "../Components/Auth/Auth";
+
 // Dashboard Admin
 import LayoutAdmin from "../LayoutAdmin/LayoutAdmin";
 import HomeAdmin from "../LayoutAdmin/pages/HomeAdmin";
@@ -43,6 +45,7 @@ function RouteApp() {
         <Route exact path="/" element={<LandingPage />} />
         <Route exact path="about" element={<About />} />
         <Route exact path="home" element={<Home />} />
+        <Route exact path="/auth" component={<Auth />} />
         <Route exact path="contact" element={<Contact />} />
         <Route exact path="faq" element={<FaqSection />} />
         <Route exact path="detail/:id" element={<Details />} />
@@ -66,10 +69,10 @@ function RouteApp() {
           <Route path="reviews" element={<Reviews />} />
         </Route>
         {/* Configuración de rutas del Dashboard */}
-        <Route path="/auth" element={<LayoutAuth />}>
+        {/* <Route path="/auth" element={<LayoutAuth />}>
           <Route index element={<LoginAdmin />} />
           <Route path="recover-password" element={<ForgetPasswordAdmin />} />
-        </Route>
+        </Route> */}
         <Route path="/dashboard" element={<LayoutAdmin />}>
           <Route index element={<HomeAdmin />} />
           <Route path="users" element={<UsersAdmin />} />
