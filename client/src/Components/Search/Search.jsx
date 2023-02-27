@@ -10,7 +10,6 @@ function Search() {
   function handleLocation(e) {
     e.preventDefault();
     setLocation(e.target.value);
-    console.log(e.target.value);
   }
   function handleSubmit(e) {
     e.preventDefault();
