@@ -2,13 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllCars,getAllUser } from "../../redux/actions/actions";
 import "./Home.css";
-<<<<<<< HEAD
-// import Cards from "../Cards/Cards";
-import Card from "../Card/Card";
-=======
 import { useAuth0 } from "@auth0/auth0-react";
 import Cards from "../Cards/Cards";
->>>>>>> 3d82f09ae61d378f4bdfe490f653736bce3a5992
 import Pagination from "../Pagination/Pagination";
 import { Filter } from "../filtro/Filter";
 import Footer from "../Footer/Footer";
@@ -229,10 +224,21 @@ console.log("-----",filt0);
     });
   }
 
+  //----------------------------------------------
+  // var until = pag * 6;
+  // var since = until - 6;
+
+  // let carPag = arCar.slice(since, until);
+
+  // const paginado=pageNumber => {
+  //   setPag(pageNumber)
+  // }
+  // useEffect(() => {
+  //   paginado(1);
+  // }, [cars]);
 
   return (
     <React.Fragment>
-      
       <Search />
       <Filter
         cars={filt0}
@@ -253,17 +259,7 @@ console.log("-----",filt0);
         {/* {
           carPag?.map((e) => {})
         } */}
-        {/* <Cards cars={carPag} ttFilt={arCar.length} /> */}
-        <div>
-          { carPag?.map(el => {
-            return(
-              <div key={el._id}>
-        <Card image={el.image} brand={el.brand} line={el.line} category={el.category} typeOfBox={el.typeOfBox} doors={el.doors} fuelType={el.fuelType} price={el.price} location={el.location} discount={el.discount} licensePlate={el.licensePlate}/>
-        </div>
-            );
-          })
-        }
-        </div>
+        <Cards cars={carPag} ttFilt={arCar.length} />
         <Pagination total={arCar.length} paginate={paginate} />
       </div>
       <div className="ordenado">
