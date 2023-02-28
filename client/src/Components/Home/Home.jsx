@@ -9,11 +9,13 @@ import { Filter } from "../filtro/Filter";
 import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
 import Search from "../Search/Search";
-// import axios from "axios";
+import axios from "axios";
 
 export default function Home() {
+  //console.log(localStorage)
   // const [cars, setCars] = useState([]);
   const dispatch = useDispatch();
+  const cars = useSelector((state) => state.cars);
 
   useEffect(() => {
     dispatch(getAllCars());
@@ -21,20 +23,20 @@ export default function Home() {
   }, [dispatch]);
   
 //----status------
-const cars = useSelector((state) => state.cars);
 let filt0 = [];
 cars.map((objCar) => {
   objCar.status==="valid"? filt0.push(objCar):null;
 });
-console.log("-----",filt0);
 //---------------
 
   try {
     const { user } = useAuth0();
-    console.log(user);
+
     const allUsers = useSelector((state) => state.usersiD)
-    const idUser = allUsers.find(element => element.eMail = user.email);
-    localStorage.setItem("user", user.email +"|" + user.picture + "|" + idUser. _id);   
+    let idUser = "";
+    allUsers.map((uS)=>uS.eMail === user.email?idUser = uS._id:null)
+    //console.log(allUsers,idUser);
+    localStorage.setItem("user", user.email +"|" + user.picture + "|" + idUser);   
     
   } catch (error) {
     console.log(error);
@@ -42,16 +44,16 @@ console.log("-----",filt0);
 
 
   // const API_URL = `http://localhost:3001/cars`;
-
   // const infoApi = async () => {
   //   try {
   //     const { data } = await axios.get(API_URL);
 
-  //     // setarCar(data);
+  //     console.log("-----",data);
   //     // setCars(data);
   //   } catch (e) {
   //   }
   // };
+  // infoApi()
 
   let [ordeno, setordeno] = useState("Ascending");
   let [indexo, setindexo] = useState("Brand");
@@ -64,9 +66,27 @@ console.log("-----",filt0);
 
   var until = pag * carsPerPege;
   var since = until - carsPerPege;
-
   let carPag = arCar.slice(since, until);
-
+  let review = cars.map((e) => e.review);
+  let rate = review.map((e) => e.map((d) => d.rate));
+  // console.log(rate)
+  const average = [];
+  for (let i in rate) {
+    // console.log(cars[i])
+    if (rate[i].length) {
+      let avg = Math.floor(
+        rate[i].reduce((previous, current) => (current += previous)) /
+          rate[i].length
+      );
+      average.push(avg);
+    } else {
+      average.push(0);
+    }
+  }
+  for ( let i  in average){
+    cars[i]['avg']= average[i] 
+  }
+  // console.log(average)
   const paginado = (pageNumber) => {
     setPag(pageNumber);
   };
@@ -259,6 +279,7 @@ console.log("-----",filt0);
         {/* {
           carPag?.map((e) => {})
         } */}
+        {/* {console.log(review.map(e=>e.map(d=>d.rate)))} */}
         <Cards cars={carPag} ttFilt={arCar.length} />
         <Pagination total={arCar.length} paginate={paginate} />
       </div>
