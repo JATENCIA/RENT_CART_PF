@@ -12,6 +12,7 @@ export const GET_ALL_ACCREVIEW = "GET_ALL_ACCREVIEW"
 export const ACCESO = "ACCESO"
 export const POST_BILLING = "POST_BILLING"
 export const GET_ALL_USER = "GET_ALL_USER"
+export const GET_AP_FILTER = "GET_AP_FILTER"
 
 export const putCars = (payload) => async () => { 
     const billCreated = await axios.put("http://localhost:3001/cars", payload)
@@ -162,17 +163,6 @@ export const postUser = (payload) => async (dispatch) => {
     console.log(e)
   }
 }
-// export const postUserLogin = (payload) => async (dispatch) => {
-//   try {
-//     const loginUser = await axios.post(`http://localhost:3001/users/loading`, payload)
-//     return dispatch({
-//       type: "POST_USER_LOGIN",
-//       payload: loginUser
-//     })
-//   } catch (e) {
-//     console.log(e)
-//   }
-// }
 
 export const setSearch = (payload) => {
   return {
@@ -181,3 +171,9 @@ export const setSearch = (payload) => {
   }
 }
 
+export const getApFilter = (payload) => {
+  return {
+    type: "GET_AP_FILTER",
+    payload: payload
+  }
+}
