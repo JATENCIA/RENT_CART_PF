@@ -1,4 +1,4 @@
-import { GET_ALL_USER,GET_ALL_CARS, GET_CAR_BY_ID, POST_CAR, POST_ACCESSORIES, POST_USER, SEARCH,GET_ALL_ACCESSORIES, ACCESO,GET_ALL_BILLING,GET_ALL_CARREVIEW,GET_ALL_ACCREVIEW} from '../actions/actions'
+import { GET_AP_FILTER,GET_ALL_USER,GET_ALL_CARS, GET_CAR_BY_ID, POST_CAR, POST_ACCESSORIES, POST_USER, SEARCH,GET_ALL_ACCESSORIES, ACCESO,GET_ALL_BILLING,GET_ALL_CARREVIEW,GET_ALL_ACCREVIEW} from '../actions/actions'
 
 const initialState = {
     cars: [],
@@ -32,7 +32,7 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 cars: action.payload,
-                allCars: action.payoad
+                allCars: action.payload
             }
 
         case GET_ALL_ACCREVIEW:
@@ -65,10 +65,16 @@ const rootReducer = (state = initialState, action) => {
             }
         case SEARCH:
             let search = []
-            search = state.cars?.filter((c) => c.location.toLowerCase().includes(action.payload.toLowerCase()))
+            search = state.allCars?.filter((c) => c.location.toLowerCase().includes(action.payload.toLowerCase()));
             return {
                 ...state,
                 cars: [...search]
+            }
+        
+            case GET_AP_FILTER:
+            return {
+                ...state,
+                cars: action.payload
             }
         case POST_CAR:
             return {

@@ -28,15 +28,17 @@ function NavBar() {
   //-----------------------reviw
   useEffect(() => {
     dispatch(getAllBilling());
-    dispatch(getAllCarReview());
-    dispatch(getAllAccReview());
   }, [dispatch]);
+  let Exist=false;
   const allBilling = useSelector((state) => state.allbilling);
-  const allCarReview = useSelector((state) => state.allcarreview);
-  const allAccreview = useSelector((state) => state.allaccreview);
-  //console.log(allBilling);
-  //console.log(allCarReview);
-  //console.log(allAccreview);
+try {
+  allBilling.map((bill)=>{
+    bill.user.eMail===user.email? Exist = true:null
+  })
+  
+} catch (error) {
+}
+
   //----------------------------
   return (
     <>
@@ -56,7 +58,7 @@ function NavBar() {
             <ListStyled to="/dashboard">DASHBOARD</ListStyled>
           ) : null}
         </NavStyled>
-        {allBilling ? (
+        {allBilling && Exist? (
           <ListStyled to="/createReview" id="btnReview">
             REVIEW PENDING
           </ListStyled>

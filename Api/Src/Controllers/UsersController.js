@@ -206,6 +206,7 @@ const routerByidUser = async (req, res) => {
  */
 const routerPutUser = async (req, res) => {
   const { id } = req.params;
+
   const {
     name,
     lastName,
