@@ -1,7 +1,11 @@
-import React, { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import { NavLink, Outlet, Link } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import decode from "jwt-decode";
+import * as actionType from "../../redux/actions/actions";
+
 import {
   RiArrowDownSLine,
   RiLogoutCircleRLine,
@@ -12,8 +16,8 @@ import { Menu, MenuItem, MenuButton } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/index.css";
 import "@szhsin/react-menu/dist/transitions/slide.css";
 import { useSelector, useDispatch } from "react-redux";
-import { LoginButton } from "../Auth/LoginButton";
-import { LogoutButton } from "../Auth/LogoutButton";
+import { LoginButton } from "../Auth0/LoginButton";
+import { LogoutButton } from "../Auth0/LogoutButton";
 import {
   getAllBilling,
   getAllCarReview,
@@ -23,25 +27,37 @@ import "./NavBar.css";
 
 function NavBar() {
   const { isAuthenticated, user, logout } = useAuth0();
+  // const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const dispatch = useDispatch();
+  const location = useLocation();
+  // const navigate = useNavigate();
 
   //-----------------------reviw
+  // const logout = () => {
+  //   dispatch({ type: actionType.LOGOUT });
+
+  //   navigate.push("/auth");
+
+  //   setUser(null);
+  // };
+
   useEffect(() => {
     dispatch(getAllBilling());
-  }, [dispatch]);
-  let Exist=false;
-  const allBilling = useSelector((state) => state.allbilling);
-try {
-  allBilling.map((bill)=>{
-    bill.user.eMail===user.email? Exist = true:null
-  })
-  
-} catch (error) {
-  console.log(error);
-}
+    dispatch(getAllCarReview());
+    dispatch(getAllAccReview());
 
-  console.log(Exist,"**********")
-  //----------------------------
+    // const token = user?.token;
+    // if (token) {
+    //   const decodedToken = decode(token);
+    //   if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    // }
+    // setUser(JSON.parse(localStorage.getItem("profile")));
+  }, [dispatch, location]);
+
+  const allBilling = useSelector((state) => state.allbilling);
+  const allCarReview = useSelector((state) => state.allcarreview);
+  const allAccreview = useSelector((state) => state.allaccreview);
+
   return (
     <>
       <ContainerStyled>
@@ -50,17 +66,17 @@ try {
           <ListStyled to="/home">HOME</ListStyled>
           <ListStyled to="/about">ABOUT US</ListStyled>
           <ListStyled to="/contact">CONTACT</ListStyled>
-          {isAuthenticated ? (
-            <ListStyled to="/shopping">RESERVED</ListStyled>
-          ) : (
-            ""
-          )}
-
-          {isAuthenticated ? (
-            <ListStyled to="/dashboard">DASHBOARD</ListStyled>
-          ) : null}
         </NavStyled>
-        {allBilling && Exist? (
+        {isAuthenticated ? (
+          <ListStyled to="/shopping">RESERVED</ListStyled>
+        ) : (
+          ""
+        )}
+
+        {isAuthenticated ? (
+          <ListStyled to="/dashboard">DASHBOARD</ListStyled>
+        ) : null}
+        {allBilling ? (
           <ListStyled to="/createReview" id="btnReview">
             REVIEW PENDING
           </ListStyled>
@@ -133,11 +149,47 @@ try {
                 </MenuItem>
               </Menu>
             </nav>
-            {/* <LogoutButton /> */}
           </>
         ) : (
-          <LoginButton />
+          <Link to="/login">
+            <button >Login</button>
+          </Link>
         )}
+        {/* <AppBar className={classes.appBar} position="static" color="inherit">
+          <Toolbar className={classes.toolbar}> */}
+        {/* {user?.result ? (
+          <div className={classes.profile}>
+            <Avatar
+              className={classes.purple}
+              alt={user?.result.name}
+              src={user?.result.imageUrl}
+            >
+              {user?.result.name.charAt(0)}
+            </Avatar>
+            <Typography className={classes.userName} variant="h6">
+              {user?.result.name}
+            </Typography>
+            <Button
+              variant="contained"
+              className={classes.logout}
+              color="secondary"
+              onClick={logout}
+            >
+              Logout2
+            </Button>
+          </div>
+        ) : (
+          <Button
+            component={Link}
+            to="/auth"
+            variant="contained"
+            color="primary"
+          >
+            Sign In2
+          </Button>
+        )} */}
+        {/* </Toolbar> */}
+        {/* </AppBar> */}
       </ContainerStyled>
       <Outlet />
     </>

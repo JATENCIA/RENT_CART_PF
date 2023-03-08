@@ -116,11 +116,11 @@ function Login() {
             >
               Did you forget your password?
             </Link>
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-2 text-primary">
               You do not have an account?
               <Link
                 to="/register"
-                className="text-primary hover:text-gray-100 transition-colors"
+                className="hover:text-primary transition-colors"
               >
                 Sign up
               </Link>

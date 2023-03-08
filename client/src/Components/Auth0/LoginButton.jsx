@@ -6,14 +6,14 @@ export const LoginButton = () => {
 
   return (
     <button
-      // className="flex items-center py-3 px-4 gap-4 bg-secondary-900 w-full justify-center rounded-full mb-8 text-gray-100"
+      className="flex items-center py-2 px-4 gap-4 bg-secondary-900 w-full justify-center rounded-full mb-8 text-gray-100"
       onClick={() => loginWithPopup()}
     >
-      {/* <img
+      <img
         src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png"
-        className="w-4 h4"
-      /> */}
-      Login
+        className="w-4 h-4 items-center"
+      />
+      LOG IN WITH GOOGLE
     </button>
   );
 };
