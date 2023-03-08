@@ -32,20 +32,20 @@ function ForgetPassword() {
             </div>
           </form>
           <div className="flex  flex-col items-center gap-4">
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-2 text-primary">
               Already have an account?
               <Link
                 to="/login"
-                className="text-primary hover:text-gray-100 transition-colors"
+                className="hover:text-primary transition-colors"
               >
                 Log in
               </Link>
             </span>
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-2 text-primary">
               You do not have an account?
               <Link
                 to="/register"
-                className="text-primary hover:text-gray-100 transition-colors"
+                className="hover:text-primary transition-colors"
               >
                 Sign up
               </Link>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllCars,getAllUser } from "../../redux/actions/actions";
+import { getAllCars, getAllUser } from "../../redux/actions/actions";
 import "./Home.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import Cards from "../Cards/Cards";
@@ -21,27 +21,28 @@ export default function Home() {
     dispatch(getAllCars());
     dispatch(getAllUser());
   }, [dispatch]);
-  
-//----status------
-let filt0 = [];
-cars.map((objCar) => {
-  objCar.status==="valid"? filt0.push(objCar):null;
-});
-//---------------
+
+  //----status------
+  let filt0 = [];
+  cars.map((objCar) => {
+    objCar.status === "valid" ? filt0.push(objCar) : null;
+  });
+  //---------------
 
   try {
     const { user } = useAuth0();
 
-    const allUsers = useSelector((state) => state.usersiD)
+    const allUsers = useSelector((state) => state.usersiD);
     let idUser = "";
-    allUsers.map((uS)=>uS.eMail === user.email?idUser = uS._id:null)
+    allUsers.map((uS) => (uS.eMail === user.email ? (idUser = uS._id) : null));
     //console.log(allUsers,idUser);
-    localStorage.setItem("user", user.email +"|" + user.picture + "|" + idUser);   
-    
+    localStorage.setItem(
+      "user",
+      user.email + "|" + user.picture + "|" + idUser
+    );
   } catch (error) {
     console.log(error);
   }
-
 
   // const API_URL = `http://localhost:3001/cars`;
   // const infoApi = async () => {
@@ -83,8 +84,8 @@ cars.map((objCar) => {
       average.push(0);
     }
   }
-  for ( let i  in average){
-    cars[i]['avg']= average[i] 
+  for (let i in average) {
+    cars[i]["avg"] = average[i];
   }
   // console.log(average)
   const paginado = (pageNumber) => {
@@ -93,8 +94,6 @@ cars.map((objCar) => {
   useEffect(() => {
     paginado(1);
   }, [filt0]);
-
- 
 
   //functions-------------------------------------
   function paginate(e, num) {
@@ -114,7 +113,7 @@ cars.map((objCar) => {
       ? ((arrayTemp = xclude[index].filter((dato) => dato != obj)),
         (xclude[index] = arrayTemp))
       : xclude[index].push(obj);
-    
+
     //----filter brand----
     filt0.map((objCar) => {
       xclude[0].includes(objCar.brand) ? null : filt1.push(objCar);

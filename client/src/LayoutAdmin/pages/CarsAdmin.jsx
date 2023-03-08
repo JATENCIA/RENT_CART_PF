@@ -70,14 +70,6 @@ function CarsAdmin() {
   const openCloseModalEdit = () => {
     setModalEdit(!modalEdit);
   };
-  const showAlertEdit = () => {
-    Swal.fire({
-      title: "Are you sure you want to perform an action?",
-      showDenyButton: true,
-      denyButtonText: "No",
-      confirmButtonText: "Yes",
-    });
-  };
 
   const openCloseModalDelete = () => {
     setModalDelete(!modalDelete);
@@ -98,11 +90,18 @@ function CarsAdmin() {
       console.log(dataNew);
       dataNew.map((c) => {
         if (carSelected._id === c._id) {
-          c.active = carSelected.active;
+          c.status = carSelected.status;
         }
       });
       setData(dataNew);
       openCloseModalDelete();
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "The car has been deactivated successfully",
+        showConfirmButton: false,
+        timer: 3000,
+      });
     });
   };
   const peticionPut = async () => {
@@ -129,6 +128,13 @@ function CarsAdmin() {
       });
       setData(dataNew);
       openCloseModalEdit();
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "The car has been successfully modified",
+        showConfirmButton: false,
+        timer: 3000,
+      });
     });
   };
 
@@ -329,8 +335,8 @@ function CarsAdmin() {
       <fieldset>
         <RadioGroup
           row
-          name="active"
-          value={carSelected && carSelected.active}
+          name="status"
+          value={carSelected && carSelected.status}
           style={{ marginLeft: "300px" }}
           onChange={handleChange}
         >
