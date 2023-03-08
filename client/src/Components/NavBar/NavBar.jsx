@@ -55,9 +55,15 @@ function NavBar() {
   }, [dispatch, location]);
 
   const allBilling = useSelector((state) => state.allbilling);
-  const allCarReview = useSelector((state) => state.allcarreview);
-  const allAccreview = useSelector((state) => state.allaccreview);
+try {
+  allBilling.map((bill)=>{
+    bill.user.eMail===user.email? Exist = true:null
+  })
+  
+} catch (error) {
+}
 
+  //----------------------------
   return (
     <>
       <ContainerStyled>

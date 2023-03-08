@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllCars,getAllUser, getApFilter } from "../../redux/actions/actions";
+import { getAllCars, getAllUser } from "../../redux/actions/actions";
 import "./Home.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import Cards from "../Cards/Cards";
@@ -12,40 +12,49 @@ import Search from "../Search/Search";
 import axios from "axios";
 
 export default function Home() {
+  //console.log(localStorage)
   // const [cars, setCars] = useState([]);
   const dispatch = useDispatch();
   const cars = useSelector((state) => state.cars);
-  const allCars = useSelector((state) => state.allCars);
 
   useEffect(() => {
     dispatch(getAllCars());
     dispatch(getAllUser());
   }, [dispatch]);
-  
-//----status------
-let filt0 = [];
-cars.map((objCar) => {
-  objCar.status==="valid"? filt0.push(objCar):null;
-});
-let iconFilter = [];
-allCars.map((objCar) => {
-  objCar.status==="valid"? iconFilter.push(objCar):null;
-});
-//---------------
+
+  //----status------
+  let filt0 = [];
+  cars.map((objCar) => {
+    objCar.status === "valid" ? filt0.push(objCar) : null;
+  });
+  //---------------
 
   try {
     const { user } = useAuth0();
 
-    const allUsers = useSelector((state) => state.usersiD)
+    const allUsers = useSelector((state) => state.usersiD);
     let idUser = "";
-    allUsers.map((uS)=>uS.eMail === user.email?idUser = uS._id:null)
-    localStorage.setItem("user", user.email +"|" + user.picture + "|" + idUser);   
-    
+    allUsers.map((uS) => (uS.eMail === user.email ? (idUser = uS._id) : null));
+    //console.log(allUsers,idUser);
+    localStorage.setItem(
+      "user",
+      user.email + "|" + user.picture + "|" + idUser
+    );
   } catch (error) {
-    
+    console.log(error);
   }
 
+  // const API_URL = `http://localhost:3001/cars`;
+  // const infoApi = async () => {
+  //   try {
+  //     const { data } = await axios.get(API_URL);
 
+  //     console.log("-----",data);
+  //     // setCars(data);
+  //   } catch (e) {
+  //   }
+  // };
+  // infoApi()
 
   let [ordeno, setordeno] = useState("Ascending");
   let [indexo, setindexo] = useState("Brand");
@@ -61,8 +70,10 @@ allCars.map((objCar) => {
   let carPag = arCar.slice(since, until);
   let review = cars.map((e) => e.review);
   let rate = review.map((e) => e.map((d) => d.rate));
+  // console.log(rate)
   const average = [];
   for (let i in rate) {
+    // console.log(cars[i])
     if (rate[i].length) {
       let avg = Math.floor(
         rate[i].reduce((previous, current) => (current += previous)) /
@@ -73,17 +84,16 @@ allCars.map((objCar) => {
       average.push(0);
     }
   }
-  for ( let i  in average){
-    cars[i]['avg']= average[i] 
+  for (let i in average) {
+    cars[i]["avg"] = average[i];
   }
+  // console.log(average)
   const paginado = (pageNumber) => {
     setPag(pageNumber);
   };
   useEffect(() => {
     paginado(1);
   }, [filt0]);
-
- 
 
   //functions-------------------------------------
   function paginate(e, num) {
@@ -103,9 +113,9 @@ allCars.map((objCar) => {
       ? ((arrayTemp = xclude[index].filter((dato) => dato != obj)),
         (xclude[index] = arrayTemp))
       : xclude[index].push(obj);
-    
+
     //----filter brand----
-    iconFilter.map((objCar) => {
+    filt0.map((objCar) => {
       xclude[0].includes(objCar.brand) ? null : filt1.push(objCar);
     });
     //----filter category----
@@ -124,8 +134,7 @@ allCars.map((objCar) => {
     filt4.map((objCar) => {
       xclude[4].includes(objCar.discount) ? null : filt5.push(objCar);
     });
-    dispatch(getApFilter(filt5));
-    console.log(filt5);
+    //setarCar(filt5);
   }
 
   function ordenate(e) {
@@ -251,7 +260,7 @@ allCars.map((objCar) => {
     <React.Fragment>
       <Search />
       <Filter
-        cars={iconFilter}
+        cars={filt0}
         filterInHome={uddateForFilter}
         paginate={paginate}
         xclude={xclude}
@@ -266,6 +275,10 @@ allCars.map((objCar) => {
       </div>
       <NavBar />
       <div className="homen">
+        {/* {
+          carPag?.map((e) => {})
+        } */}
+        {/* {console.log(review.map(e=>e.map(d=>d.rate)))} */}
         <Cards cars={carPag} ttFilt={arCar.length} />
         <Pagination total={arCar.length} paginate={paginate} />
       </div>
@@ -295,4 +308,3 @@ allCars.map((objCar) => {
     </React.Fragment>
   );
 }
-

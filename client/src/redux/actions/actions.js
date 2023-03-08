@@ -1,21 +1,18 @@
-import axios from "axios";
-import * as api from "../../Api/index";
-
-export const GET_ALL_CARS = "GET_ALL_CARS";
-export const GET_CAR_BY_ID = "GET_CAR_BY_ID";
-export const POST_CAR = "POST_CAR";
-export const POST_ACCESSORIES = "POST_ACCESSORIES";
-export const POST_USER = "POST_USER";
-export const SEARCH = "SEARCH";
-export const GET_ALL_ACCESSORIES = "GET_ALL_ACCESSORIES";
-export const GET_ALL_BILLING = "GET_ALL_BILLING";
-export const GET_ALL_CARREVIEW = "GET_ALL_CARREVIEW";
-export const GET_ALL_ACCREVIEW = "GET_ALL_ACCREVIEW";
-export const ACCESO = "ACCESO";
-export const POST_BILLING = "POST_BILLING";
-export const GET_ALL_USER = "GET_ALL_USER";
-export const AUTH = "AUTH";
-export const LOGOUT = "LOGOUT";
+import axios from 'axios'
+export const GET_ALL_CARS = "GET_ALL_CARS"
+export const GET_CAR_BY_ID = "GET_CAR_BY_ID"
+export const POST_CAR = "POST_CAR"
+export const POST_ACCESSORIES = "POST_ACCESSORIES"
+export const POST_USER = "POST_USER"
+export const SEARCH = "SEARCH"
+export const GET_ALL_ACCESSORIES = "GET_ALL_ACCESSORIES"
+export const GET_ALL_BILLING = "GET_ALL_BILLING"
+export const GET_ALL_CARREVIEW = "GET_ALL_CARREVIEW"
+export const GET_ALL_ACCREVIEW = "GET_ALL_ACCREVIEW"
+export const ACCESO = "ACCESO"
+export const POST_BILLING = "POST_BILLING"
+export const GET_ALL_USER = "GET_ALL_USER"
+export const GET_AP_FILTER = "GET_AP_FILTER"
 
 export const putCars = (payload) => async () => {
   const billCreated = await axios.put("http://localhost:3001/cars", payload);
@@ -174,18 +171,7 @@ export const postUser = (payload) => async (dispatch) => {
   } catch (e) {
     console.log(e);
   }
-};
-// export const postUserLogin = (payload) => async (dispatch) => {
-//   try {
-//     const loginUser = await axios.post(`http://localhost:3001/users/loading`, payload)
-//     return dispatch({
-//       type: "POST_USER_LOGIN",
-//       payload: loginUser
-//     })
-//   } catch (e) {
-//     console.log(e)
-//   }
-// }
+}
 
 export const setSearch = (payload) => {
   return {
@@ -204,16 +190,11 @@ export const signin = (formData, router) => async (dispatch) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-export const signup = (formData, router) => async (dispatch) => {
-  try {
-    const { data } = await api.signUp(formData);
-
-    dispatch({ type: AUTH, data });
-
-    router.push("/");
-  } catch (error) {
-    console.log(error);
+export const getApFilter = (payload) => {
+  return {
+    type: "GET_AP_FILTER",
+    payload: payload
   }
-};
+}
