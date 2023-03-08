@@ -55,9 +55,12 @@ const routerPostUser = async (req, res) => {
       lastName: user.lastName,
       telephone: user.telephone,
     });
+    const token = jwt.sign({ email: result.email, id: result._id }, secret, {
+      expiresIn: "1h"
+    })
 
     const saveUser = await newUser.save();
-    res.status(200).json(saveUser);
+    res.status(200).json(saveUser,token);
     eMail1(user.eMail);
   } catch (error) {
     res.status(500).send(`{messaje: ${error}}`);

@@ -67,6 +67,13 @@ function Users() {
         });
         setData(dataNew);
         openCloseModalDelete();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "The user has been deactivated successfully",
+          showConfirmButton: false,
+          timer: 3000,
+        });
       });
   };
 
@@ -83,6 +90,13 @@ function Users() {
         });
         setData(dataNew);
         openCloseModalEdit();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "The user has been successfully modified",
+          showConfirmButton: false,
+          timer: 3000,
+        });
       });
   };
 

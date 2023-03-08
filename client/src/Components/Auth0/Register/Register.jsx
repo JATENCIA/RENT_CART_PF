@@ -178,11 +178,6 @@ function Register() {
                 />
               )}
             </div>
-            {errors.password && (
-              <p className="text-red-700 font-bold text-center">
-                {errors.password}
-              </p>
-            )}
 
             <div>
               <button
@@ -192,7 +187,6 @@ function Register() {
                   !input.lastName ||
                   !input.dni ||
                   !input.eMail ||
-                  !input.password ||
                   Object.keys(errors).length > 0
                 }
                 className="bg-primary text-white uppercase  font-bold text-sm w-full py-3 px-4 rounded-lg hover:text-gray-100 transition-colors"
@@ -201,12 +195,9 @@ function Register() {
               </button>
             </div>
           </form>
-          <span className="flex items-center gap-2 justify-center">
+          <span className="flex items-center gap-2 text-primary">
             Already have an account?
-            <Link
-              to="/login"
-              className="text-primary hover:text-gray-100 transition-colors"
-            >
+            <Link to="/login" className="hover:text-primary transition-colors">
               Log in
             </Link>
           </span>

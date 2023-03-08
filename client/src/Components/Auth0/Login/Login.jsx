@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useNavegation } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import NavBar from "../../../Components/NavBar/NavBar";
 import Footer from "../../../Components/Footer/Footer";
 import { LoginButton } from "../LoginButton";
 import validate from "./validate";
-// import {loginUser} from "../../../redux/actions/actions"
-
+import axios from "axios";
 import {
   RiMailLine,
   RiLockLine,
@@ -16,13 +15,13 @@ import {
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const initialState = {
-    email: "",
+    eMail: "",
     password: "",
     loading: "valid",
   };
+  const navigate = useNavigate();
   const [login, setLogin] = useState(initialState);
   const [errors, setErrors] = useState({});
-  // const [navigate] = useLocation();
 
   function handleChange(e) {
     setLogin({ ...login, [e.target.name]: e.target.value });
@@ -33,11 +32,18 @@ function Login() {
     let objError = validate(login);
     setErrors(objError);
   }
-  function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // dispatch(loginUser())
-    // navigate("/home");
-  }
+    let res = await axios.post("http://localhost:3001/users/loading", login);
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Logged in successfully",
+      showConfirmButton: false,
+      timer: 3000,
+    });
+    navigate("/home");
+  };
   return (
     <React.Fragment>
       <NavBar />
@@ -53,16 +59,16 @@ function Login() {
               <input
                 className="py-3 pl-8 pr-4 bg-secondary-900 w-full outline-none rounded-lg focus:border focus:border-primary"
                 type="text"
-                name="email"
-                value={login.email}
+                name="eMail"
+                value={login.eMail}
                 placeholder="Email Address"
                 onChange={(e) => handleChange(e)}
                 onBlur={(e) => handleOnBlur(e)}
               />
             </div>
-            {errors.email && (
+            {errors.eMail && (
               <p className="text-red-700 font-bold text-center">
-                {errors.email}
+                {errors.eMail}
               </p>
             )}
             <div className="relative mb-8">
@@ -110,11 +116,11 @@ function Login() {
             >
               Did you forget your password?
             </Link>
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-2 text-primary">
               You do not have an account?
               <Link
                 to="/register"
-                className="text-primary hover:text-gray-100 transition-colors"
+                className="hover:text-primary transition-colors"
               >
                 Sign up
               </Link>
