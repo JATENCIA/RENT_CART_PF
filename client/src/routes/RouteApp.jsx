@@ -23,7 +23,6 @@ import Login from "../Components/Auth0/Login/Login";
 import Register from "../Components/Auth0/Register/Register";
 import ForgetPassword from "../Components/Auth0/ForgetPassword/ForgetPassword";
 
-
 // Dashboard Admin
 import LayoutAdmin from "../LayoutAdmin/LayoutAdmin";
 import HomeAdmin from "../LayoutAdmin/pages/HomeAdmin";
@@ -36,6 +35,9 @@ import AccessoriesAdmin from "../LayoutAdmin/pages/AccessoriesAdmin";
 import LayoutAuth from "../LayoutAdmin/Auth/LayoutAuth";
 import LoginAdmin from "../LayoutAdmin/Auth/LoginAdmin";
 import ForgetPasswordAdmin from "../LayoutAdmin/Auth/ForgetPasswordAdmin";
+import { getAllUser } from "../redux/actions/actions";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 function RouteApp() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -44,7 +46,7 @@ function RouteApp() {
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route exact path="about" element={<About />} />
-        <Route exact path="home" element={<Home />} />       
+        <Route exact path="home" element={<Home />} />
         <Route exact path="contact" element={<Contact />} />
         <Route exact path="faq" element={<FaqSection />} />
         <Route exact path="detail/:id" element={<Details />} />

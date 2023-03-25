@@ -19,7 +19,7 @@ import {
   Button,
 } from "@mui/material";
 
-const API_URL = `http://localhost:3001/accessories/`;
+const API_URL = `/accessories/`;
 
 function AccessoriesAdmin() {
   const dispatch = useDispatch();
