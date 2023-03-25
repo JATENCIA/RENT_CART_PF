@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   RiLogoutCircleRLine,
   RiArrowRightLine,
@@ -11,12 +11,30 @@ import { GiCarSeat } from "react-icons/gi";
 import { FaUsers, FaShoppingBag } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import { createGlobalStyle } from "styled-components";
+import axios from "axios";
 
 function Sidebar() {
   //overflow-y-scroll
-  const { logout } = useAuth0();
+  const { isAuthenticated, user, logout } = useAuth0();
   const [showSubMenu, setShowSubMenu] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+
+  const [userE, setUserE] = useState({});
+  useEffect(() => {
+    if (user) {
+      axios.get("/users").then((element) => {
+        const userDb = element.data.find(
+          (element) => element.eMail === user.email
+        );
+        if (userDb) {
+          setUserE(userDb);
+          return false;
+        }
+      });
+    }
+  }, [user]);
+  console.log(userE);
   return (
     <>
       <div
@@ -58,13 +76,15 @@ function Sidebar() {
               </Link>
             </li>
             <li>
-              <Link
-                to="users"
-                className="flex text-2xl items-center gap-4  py-2 px-4 rounded-lg hover:bg-secondary-900 w-full"
-              >
-                <FaUsers className="text-primary" />
-                Users
-              </Link>
+              {userE.roll === "superAdmin" ? (
+                <Link
+                  to="users"
+                  className="flex text-2xl items-center gap-4  py-2 px-4 rounded-lg hover:bg-secondary-900 w-full"
+                >
+                  <FaUsers className="text-primary" />
+                  Users
+                </Link>
+              ) : null}
             </li>
             {/* <li>
               <button

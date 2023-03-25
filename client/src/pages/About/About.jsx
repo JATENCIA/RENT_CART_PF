@@ -5,7 +5,15 @@ import styled from "styled-components";
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllUser } from "../../redux/actions/actions";
+import { useEffect } from "react";
+
 function About() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllUser);
+  }, []);
   return (
     <React.Fragment>
       <NavBar />
@@ -31,7 +39,14 @@ function About() {
           Seven and the Fiat Topolino, two of the descendants of Ettore Bugattis
           tiny Bébé Peugeot of 1911, was to have a profound effect.
         </p>
-        <CardGroup style={{ width: '50rem', height:'13rem', margin: '30px', border: '1px solid black' }}>
+        <CardGroup
+          style={{
+            width: "50rem",
+            height: "13rem",
+            margin: "30px",
+            border: "1px solid black",
+          }}
+        >
           <Card>
             <Card.Img
               variant="top"

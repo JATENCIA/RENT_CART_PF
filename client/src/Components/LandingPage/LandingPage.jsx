@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./LandingPage.css";
 import { useDispatch } from "react-redux";
-import { getAllCars } from "../../redux/actions/actions";
+import { getAllCars, getAllUser } from "../../redux/actions/actions";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 import Carousel from "react-bootstrap/Carousel";
@@ -10,10 +10,15 @@ import { BiChevronUpCircle } from "react-icons/bi";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function LandingPage() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllUser);
+  }, []);
+
   const [showButton, setShowButton] = React.useState(false);
   localStorage.setItem("nombre", "");
 
-  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllCars());
   }, [dispatch]);
