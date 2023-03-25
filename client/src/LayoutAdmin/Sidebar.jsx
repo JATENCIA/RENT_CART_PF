@@ -34,7 +34,6 @@ function Sidebar() {
       });
     }
   }, [user]);
-  console.log(userE);
   return (
     <>
       <div
