@@ -1,36 +1,33 @@
-import axios from 'axios'
-export const GET_ALL_CARS = "GET_ALL_CARS"
-export const GET_CAR_BY_ID = "GET_CAR_BY_ID"
-export const POST_CAR = "POST_CAR"
-export const POST_ACCESSORIES = "POST_ACCESSORIES"
-export const POST_USER = "POST_USER"
-export const SEARCH = "SEARCH"
-export const GET_ALL_ACCESSORIES = "GET_ALL_ACCESSORIES"
-export const GET_ALL_BILLING = "GET_ALL_BILLING"
-export const GET_ALL_CARREVIEW = "GET_ALL_CARREVIEW"
-export const GET_ALL_ACCREVIEW = "GET_ALL_ACCREVIEW"
-export const ACCESO = "ACCESO"
-export const POST_BILLING = "POST_BILLING"
-export const GET_ALL_USER = "GET_ALL_USER"
-export const GET_AP_FILTER = "GET_AP_FILTER"
+import axios from "axios";
+export const GET_ALL_CARS = "GET_ALL_CARS";
+export const GET_CAR_BY_ID = "GET_CAR_BY_ID";
+export const POST_CAR = "POST_CAR";
+export const POST_ACCESSORIES = "POST_ACCESSORIES";
+export const POST_USER = "POST_USER";
+export const SEARCH = "SEARCH";
+export const GET_ALL_ACCESSORIES = "GET_ALL_ACCESSORIES";
+export const GET_ALL_BILLING = "GET_ALL_BILLING";
+export const GET_ALL_CARREVIEW = "GET_ALL_CARREVIEW";
+export const GET_ALL_ACCREVIEW = "GET_ALL_ACCREVIEW";
+export const ACCESO = "ACCESO";
+export const POST_BILLING = "POST_BILLING";
+export const GET_ALL_USER = "GET_ALL_USER";
+export const GET_AP_FILTER = "GET_AP_FILTER";
 
 export const putCars = (payload) => async () => {
-  const billCreated = await axios.put("http://localhost:3001/cars", payload);
+  const billCreated = await axios.put("/cars", payload);
   console.log(billCreated);
 };
 
 export const postBilling = (payload) => async () => {
-  const billCreated = await axios.post(
-    "http://localhost:3001/billing",
-    payload
-  );
+  const billCreated = await axios.post("/billing", payload);
   console.log(billCreated);
 };
 
 export function getAllAccReview() {
   try {
     return function (dispatch) {
-      return fetch(`http://localhost:3001/reviewAccessories`)
+      return fetch(`/reviewAccessories`)
         .then((response) => response.json())
         .then((json) => {
           dispatch({ type: "GET_ALL_ACCREVIEW", payload: json });
@@ -44,7 +41,7 @@ export function getAllAccReview() {
 export function getAllBilling() {
   try {
     return function (dispatch) {
-      return fetch(`http://localhost:3001/billing`)
+      return fetch(`/billing`)
         .then((response) => response.json())
         .then((json) => {
           dispatch({ type: "GET_ALL_BILLING", payload: json });
@@ -58,7 +55,7 @@ export function getAllBilling() {
 export function getAllCarReview() {
   try {
     return function (dispatch) {
-      return fetch(`http://localhost:3001/review`)
+      return fetch(`/review`)
         .then((response) => response.json())
         .then((json) => {
           dispatch({ type: "GET_ALL_CARREVIEW", payload: json });
@@ -71,7 +68,7 @@ export function getAllCarReview() {
 
 export const acceso = (payload) => async (dispatch) => {
   try {
-    const RutaMP = await axios.post("http://localhost:3001/payment", payload);
+    const RutaMP = await axios.post("/payment", payload);
     return dispatch({
       type: "ACCESO",
       payload: RutaMP,
@@ -84,7 +81,7 @@ export const acceso = (payload) => async (dispatch) => {
 export function getAllAccsessories() {
   try {
     return function (dispatch) {
-      return fetch(`http://localhost:3001/accessories`)
+      return fetch(`/accessories`)
         .then((response) => response.json())
         .then((json) => {
           dispatch({ type: "GET_ALL_ACCESSORIES", payload: json });
@@ -97,7 +94,7 @@ export function getAllAccsessories() {
 
 export const getAllCars = () => async (dispatch) => {
   try {
-    const { data } = await axios.get("http://localhost:3001/cars");
+    const { data } = await axios.get("/cars");
     dispatch({
       type: "GET_ALL_CARS",
       payload: data,
@@ -108,10 +105,10 @@ export const getAllCars = () => async (dispatch) => {
 };
 export const getAllUser = () => async (dispatch) => {
   try {
-    const { data } = await axios.get("http://localhost:3001/users");
+    const allUsers = await axios.get("/users");
     dispatch({
       type: "GET_ALL_USER",
-      payload: data,
+      payload: allUsers,
     });
   } catch (e) {
     console.log(e);
@@ -119,9 +116,7 @@ export const getAllUser = () => async (dispatch) => {
 };
 export const getCarById = (licensePlate) => async (dispatch) => {
   try {
-    const { data } = await axios.get(
-      `http://localhost:3001/cars/${licensePlate}`
-    );
+    const { data } = await axios.get(`/cars/${licensePlate}`);
     dispatch({
       type: "GET_CAR_BY_ID",
       payload: data,
@@ -133,7 +128,7 @@ export const getCarById = (licensePlate) => async (dispatch) => {
 
 export const postCar = (payload) => async (dispatch) => {
   try {
-    const carCreated = await axios.post("http://localhost:3001/cars", payload);
+    const carCreated = await axios.post("/cars", payload);
     return dispatch({
       type: "POST_CAR",
       payload: carCreated,
@@ -145,10 +140,7 @@ export const postCar = (payload) => async (dispatch) => {
 
 export const postAccessories = (payload) => async (dispatch) => {
   try {
-    const accessoriesCreated = await axios.post(
-      "http://localhost:3001/accessories",
-      payload
-    );
+    const accessoriesCreated = await axios.post("/accessories", payload);
     return dispatch({
       type: "POST_ACCESSORIES",
       payload: accessoriesCreated,
@@ -160,10 +152,7 @@ export const postAccessories = (payload) => async (dispatch) => {
 
 export const postUser = (payload) => async (dispatch) => {
   try {
-    const userCreated = await axios.post(
-      `http://localhost:3001/users`,
-      payload
-    );
+    const userCreated = await axios.post(`/users`, payload);
     return dispatch({
       type: "POST_USER",
       payload: userCreated,
@@ -171,7 +160,7 @@ export const postUser = (payload) => async (dispatch) => {
   } catch (e) {
     console.log(e);
   }
-}
+};
 
 export const setSearch = (payload) => {
   return {
@@ -190,11 +179,11 @@ export const signin = (formData, router) => async (dispatch) => {
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 export const getApFilter = (payload) => {
   return {
     type: "GET_AP_FILTER",
-    payload: payload
-  }
-}
+    payload: payload,
+  };
+};

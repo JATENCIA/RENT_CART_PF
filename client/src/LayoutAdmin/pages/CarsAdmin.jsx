@@ -21,7 +21,7 @@ import {
   TablePagination,
 } from "@mui/material";
 
-const API_URL = "http://localhost:3001/cars/";
+const API_URL = "/cars/";
 
 function CarsAdmin() {
   const dispatch = useDispatch();

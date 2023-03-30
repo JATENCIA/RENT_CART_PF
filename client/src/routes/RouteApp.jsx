@@ -1,6 +1,5 @@
-import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import NotFound from "../pages/NotFound/NotFound";
 import About from "../pages/About/About";
 import Home from "../Components/Home/Home";
@@ -11,7 +10,6 @@ import Details from "../Components/Details/Details";
 import Shopping from "../Components/Shopping/shoping";
 import { MPButton } from "../Components/MercadoPago/MercadoPago";
 import CreateReview from "../Components/Review/Review";
-import ProtectedRoute from "../Components/Auth0/ProtectedRoute";
 //Dashboard perfil de usuario
 import LayoutProfile from "../LayoutProfile/LayoutProfile";
 import MyDates from "../LayoutProfile/pages/MyDates";
@@ -22,7 +20,6 @@ import Reviews from "../LayoutProfile/pages/Reviews";
 import Login from "../Components/Auth0/Login/Login";
 import Register from "../Components/Auth0/Register/Register";
 import ForgetPassword from "../Components/Auth0/ForgetPassword/ForgetPassword";
-
 
 // Dashboard Admin
 import LayoutAdmin from "../LayoutAdmin/LayoutAdmin";
@@ -36,15 +33,20 @@ import AccessoriesAdmin from "../LayoutAdmin/pages/AccessoriesAdmin";
 import LayoutAuth from "../LayoutAdmin/Auth/LayoutAuth";
 import LoginAdmin from "../LayoutAdmin/Auth/LoginAdmin";
 import ForgetPasswordAdmin from "../LayoutAdmin/Auth/ForgetPasswordAdmin";
+import { getAllUser } from "../redux/actions/actions";
+import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 function RouteApp() {
   const { user, isAuthenticated, isLoading } = useAuth0();
+
   return (
     <>
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route exact path="about" element={<About />} />
-        <Route exact path="home" element={<Home />} />       
+        <Route exact path="home" element={<Home />} />
         <Route exact path="contact" element={<Contact />} />
         <Route exact path="faq" element={<FaqSection />} />
         <Route exact path="detail/:id" element={<Details />} />
@@ -56,23 +58,21 @@ function RouteApp() {
         <Route exact path="register" element={<Register />} />
         <Route exact path="recover-password" element={<ForgetPassword />} />
         {/* Configuración de rutas del perfil de usuario*/}
-        <Route element={<ProtectedRoute isAllowed={!!isAuthenticated} />}>
-          <Route path="/profile" element={<LayoutProfile />} />
-        </Route>
 
-        <Route path="/profile" element={<LayoutProfile />}>
-          {/* <Route index element={<MyDates />} /> */}
+        <Route
+          path="/profile"
+          element={isAuthenticated ? <LayoutProfile /> : <Navigate to="/" />}
+        >
           <Route path="my-dates" element={<MyDates />} />
           <Route path="bookings" element={<Bookings />} />
           <Route path="favorites" element={<Favorites />} />
           <Route path="reviews" element={<Reviews />} />
         </Route>
-        {/* Configuración de rutas del Dashboard */}
-        {/* <Route path="/auth" element={<LayoutAuth />}>
-          <Route index element={<LoginAdmin />} />
-          <Route path="recover-password" element={<ForgetPasswordAdmin />} />
-        </Route> */}
-        <Route path="/dashboard" element={<LayoutAdmin />}>
+
+        <Route
+          path="/dashboard"
+          element={isAuthenticated ? <LayoutAdmin /> : <Navigate to="/" />}
+        >
           <Route index element={<HomeAdmin />} />
           <Route path="users" element={<UsersAdmin />} />
           <Route path="cars" element={<CarsAdmin />} />
@@ -81,6 +81,11 @@ function RouteApp() {
           <Route path="create-car" element={<FormCar />} />
           <Route path="create-accessory" element={<FormAccessory />} />
         </Route>
+
+        {/* <Route
+          path="/dashboard"
+          element={isAuthenticated ? <LayoutAdmin /> : <Navigate to="/" />}
+        /> */}
 
         {/* Configuración de ruta 404 error */}
         <Route exact path="*" element={<NotFound />} />

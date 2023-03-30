@@ -3,7 +3,14 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import NavBar from "../../Components/NavBar/NavBar";
 import Footer from "../../Components/Footer/Footer";
+import { getAllUser } from "../../redux/actions/actions";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 function NotFound() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllUser);
+  }, []);
   return (
     <React.Fragment>
       <NavBar />

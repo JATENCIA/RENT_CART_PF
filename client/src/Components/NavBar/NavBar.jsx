@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { NavLink, Outlet, Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
@@ -22,48 +22,64 @@ import {
   getAllBilling,
   getAllCarReview,
   getAllAccReview,
+  postUser,
+  getAllUser,
 } from "../../redux/actions/actions";
 import "./NavBar.css";
+import axios from "axios";
 
 function NavBar() {
   const { isAuthenticated, user, logout } = useAuth0();
-  // const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
-  const dispatch = useDispatch();
   const location = useLocation();
-  // const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [userE, setUserE] = useState({});
 
-  //-----------------------reviw
-  // const logout = () => {
-  //   dispatch({ type: actionType.LOGOUT });
-
-  //   navigate.push("/auth");
-
-  //   setUser(null);
-  // };
+  useEffect(() => {
+    if (user && isAuthenticated) {
+      axios.get("/users").then((element) => {
+        const userDb = element.data.find(
+          (element) => element.eMail === user.email
+        );
+        if (!userDb) {
+          const newUser = {
+            name: user.given_name || user.name,
+            lastName: user.family_name,
+            eMail: user.email,
+            image: user.picture,
+            roll: "user",
+          };
+          dispatch(postUser(newUser));
+        } else {
+          setUserE(userDb);
+          return false;
+        }
+      });
+    }
+  }, [user]);
 
   useEffect(() => {
     dispatch(getAllBilling());
     dispatch(getAllCarReview());
     dispatch(getAllAccReview());
-
-    // const token = user?.token;
-    // if (token) {
-    //   const decodedToken = decode(token);
-    //   if (decodedToken.exp * 1000 < new Date().getTime()) logout();
-    // }
-    // setUser(JSON.parse(localStorage.getItem("profile")));
   }, [dispatch, location]);
 
   const allBilling = useSelector((state) => state.allbilling);
-try {
-  allBilling.map((bill)=>{
-    bill.user.eMail===user.email? Exist = true:null
-  })
-  
-} catch (error) {
-}
+  try {
+    allBilling.map((bill) => {
+      bill.user.eMail === user.email ? (Exist = true) : null;
+    });
+  } catch (error) {
+    // console.log(error);
+  }
 
-  //----------------------------
+  let userState = [useSelector((state) => state.allUsers)];
+
+  if (userState.length !== 0 && isAuthenticated) {
+    var userStateC = userState[0]?.data?.filter((element) => {
+      return element.eMail === user.email;
+    });
+  }
+
   return (
     <>
       <ContainerStyled>
@@ -79,9 +95,9 @@ try {
           ""
         )}
 
-        {isAuthenticated ? (
+        {/* {isAuthenticated ? (
           <ListStyled to="/dashboard">DASHBOARD</ListStyled>
-        ) : null}
+        ) : null} */}
         {allBilling ? (
           <ListStyled to="/createReview" id="btnReview">
             REVIEW PENDING
@@ -129,12 +145,21 @@ try {
                 </MenuItem>
                 <hr className="my-4 border-gray-500" />
                 <MenuItem className="p-0 hover:bg-transparent">
-                  <Link
-                    to="/profile/my-dates"
-                    className="rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-4 py-2 px-6 flex-1"
-                  >
-                    <RiProfileLine /> My Profile
-                  </Link>
+                  {userE.roll === "superAdmin" || userE.roll === "admin" ? (
+                    <Link
+                      to="/dashboard"
+                      className="rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-4 py-2 px-6 flex-1"
+                    >
+                      <RiProfileLine /> Admin
+                    </Link>
+                  ) : (
+                    <Link
+                      to="/profile/my-dates"
+                      className="rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-4 py-2 px-6 flex-1"
+                    >
+                      <RiProfileLine /> My Profile
+                    </Link>
+                  )}
                 </MenuItem>
                 <MenuItem className="p-0 hover:bg-transparent">
                   <Link
@@ -157,45 +182,8 @@ try {
             </nav>
           </>
         ) : (
-          <Link to="/login">
-            <button >Login</button>
-          </Link>
+          <LoginButton />
         )}
-        {/* <AppBar className={classes.appBar} position="static" color="inherit">
-          <Toolbar className={classes.toolbar}> */}
-        {/* {user?.result ? (
-          <div className={classes.profile}>
-            <Avatar
-              className={classes.purple}
-              alt={user?.result.name}
-              src={user?.result.imageUrl}
-            >
-              {user?.result.name.charAt(0)}
-            </Avatar>
-            <Typography className={classes.userName} variant="h6">
-              {user?.result.name}
-            </Typography>
-            <Button
-              variant="contained"
-              className={classes.logout}
-              color="secondary"
-              onClick={logout}
-            >
-              Logout2
-            </Button>
-          </div>
-        ) : (
-          <Button
-            component={Link}
-            to="/auth"
-            variant="contained"
-            color="primary"
-          >
-            Sign In2
-          </Button>
-        )} */}
-        {/* </Toolbar> */}
-        {/* </AppBar> */}
       </ContainerStyled>
       <Outlet />
     </>
