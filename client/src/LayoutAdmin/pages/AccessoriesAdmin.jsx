@@ -19,7 +19,7 @@ import {
   Button,
 } from "@mui/material";
 
-const API_URL = `http://localhost:3001/accessories/`;
+const API_URL = `/accessories/`;
 
 function AccessoriesAdmin() {
   const dispatch = useDispatch();
@@ -73,6 +73,13 @@ function AccessoriesAdmin() {
         });
         setData(dataNew);
         openCloseModalDelete();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "The accessory has been deactivated successfully",
+          showConfirmButton: false,
+          timer: 3000,
+        });
       });
   };
 
@@ -92,6 +99,13 @@ function AccessoriesAdmin() {
         });
         setData(dataNew);
         openCloseModalEdit();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "The accessory has been successfully modified",
+          showConfirmButton: false,
+          timer: 3000,
+        });
       });
   };
   const dataInfo = async () => {

@@ -1,24 +1,32 @@
-import React, {useState} from 'react';
-import styled from 'styled-components';
-import Footer from '../../Components/Footer/Footer';
-import NavBar from '../../Components/NavBar/NavBar';
-import Faq from './Faq';
-import './FaqSection.css'
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import Footer from "../../Components/Footer/Footer";
+import NavBar from "../../Components/NavBar/NavBar";
+import Faq from "./Faq";
+import "./FaqSection.css";
+import { useDispatch } from "react-redux";
+import { getAllUser } from "../../redux/actions/actions";
 
 function FaqSection() {
+  const dispatch = useDispatch();
 
-		const [isOpen, setIsOpen] = useState(false);
-	  
-		const toggleAccordion = () => {
-		  setIsOpen(!isOpen);
-		};
+  useEffect(() => {
+    dispatch(getAllUser);
+  }, []);
+  const [isOpen, setIsOpen] = useState(false);
 
-	return (
-		<ContainerStyled>
-			<NavBar />
-	<h1 className='faq-title'>FREQUENTLY ASKED QUESTIONS ABOUT OUR CAR RENTALS</h1>	
-			
-			<br />
+  const toggleAccordion = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <ContainerStyled>
+      <NavBar />
+      <h1 className="faq-title">
+        FREQUENTLY ASKED QUESTIONS ABOUT OUR CAR RENTALS
+      </h1>
+
+      <br />
       <Faq
         pregunta="How old do you have to be to rent a car?"
         respuesta="Renting a car under 25 is possible, however, because drivers under 25
@@ -39,7 +47,7 @@ function FaqSection() {
 		comparison and car rental, offering more than 200 rental companies in
 		more than 160 countries."
       />
-	        <Faq
+      <Faq
         pregunta="Can I modify or cancel my reservation through Rentcars?"
         respuesta="Yes, and it’s quite simple. You can modify or cancel your reservation
 		through your account using your registered login and password. We
@@ -51,13 +59,13 @@ function FaqSection() {
 		changes. Always assess the pros and cons of changing your booking,
 		especially during high season."
       />
-	        <Faq
+      <Faq
         pregunta="Which documents will be required of me when picking up my vehicle?"
         respuesta="A valid driver’s license held for at least 2 years. A valid
 		passport. A valid credit card, issued under your name, with
 		sufficient funds for a credit hold (safety deposit)."
       />
-	        <Faq
+      <Faq
         pregunta="Can I rent a child booster seat or an infant car seat?"
         respuesta="The option of selecting this Extra during the booking process is made
 		available. If you place your reservation, make sure you request that
@@ -65,16 +73,14 @@ function FaqSection() {
 		during the booking process, you may always reach out to the office and
 		check if they have any available."
       />
-	        <Faq
+      <Faq
         pregunta="Can I rent a car with GPS?"
         respuesta="Yes, RentCar offer the option of including a GPS during the
 		booking process. If you place your reservation through
 		our Booking Center, make sure to request that this extra be included."
       />
-	  
 
-
-			{/* <h1>Frequently asked questions about our car rentals</h1>
+      {/* <h1>Frequently asked questions about our car rentals</h1>
       <br/>
 			
 			<h2>
@@ -104,20 +110,20 @@ function FaqSection() {
 				our Booking Center, make sure to request that this extra be included.
 			</h3> */}
 
-			<Footer />
-		</ContainerStyled>
-	);
+      <Footer />
+    </ContainerStyled>
+  );
 }
 
 export const ContainerStyled = styled.div`
-	display: flex;
-	flex-direction: column;
-	color: #023047;
-	margin-top: 150px;
-	justify-content: center;
-	align-items: center;
-	align-content: center;
-	margin-bottom: 200px;
+  display: flex;
+  flex-direction: column;
+  color: #023047;
+  margin-top: 150px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin-bottom: 200px;
 `;
 
 export default FaqSection;

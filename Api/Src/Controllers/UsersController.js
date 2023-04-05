@@ -45,15 +45,36 @@ const routerPostUser = async (req, res) => {
   try {
     validateCreate;
     validateUser(req, res);
+
+    const usersc = await Users.find({});
+    let iNumber = 0;
+    let iDni = 0;
+
+    if (usersc.length !== 0) {
+      iNumber = Number(usersc[usersc.length - 1].telephone);
+      iDni = usersc[usersc.length - 1].dni;
+    }
+
+    if (iNumber < 1) iNumber = "000000000";
+    else {
+      ++iNumber;
+    }
+    if (iDni < 1) iDni = 1111111;
+    else {
+      ++iDni;
+    }
+
     const user = userSchema(req.body);
-    let passwordHash = await bcryptjs.hash(user.password, 8);
+    //let passwordHash = await bcryptjs.hash(user.password, 8);
     const newUser = await new Users({
-      dni: user.dni,
+      dni: user.dni || iDni,
       name: user.name,
       eMail: user.eMail,
-      password: passwordHash,
-      lastName: user.lastName,
-      telephone: user.telephone,
+      lastName: user.lastName || "",
+      telephone: user.telephone || iNumber.toString(),
+      location: user.location || "",
+      image: user.image || "http://cdn.onlinewebfonts.com/svg/img_141364.png",
+      roll: user.roll,
     });
 
     const saveUser = await newUser.save();
@@ -265,6 +286,10 @@ const routerDeleteUser = async (req, res) => {
  */
 const routerPutRollUsers = async (req, res) => {
   const { id } = req.params;
+  console.log(
+    "🚀 ~ file: UsersController.js:289 ~ routerPutRollUsers ~ id:",
+    id
+  );
   const { roll } = req.body;
 
   userSchema

@@ -4,8 +4,15 @@ import "./Details.css";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import { getAllUser } from "../../redux/actions/actions";
 
 export default function Details() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllUser);
+  }, []);
+
   const { state } = useLocation();
 
   const [sw, setsw] = useState(0);
@@ -26,36 +33,31 @@ export default function Details() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const checkStartDate = new Date(startDate);
-    const checkEndDate = new Date(endDate)
+    const checkEndDate = new Date(endDate);
     const fechaActual = new Date();
     if (checkStartDate < fechaActual) {
       Swal.fire({
-        title: "The start date is before today",                
-        icon: 'warning',
-        confirmButtonColor: '#e38e15',
-        confirmButtonText: 'Exit',
-      })
+        title: "The start date is before today",
+        icon: "warning",
+        confirmButtonColor: "#e38e15",
+        confirmButtonText: "Exit",
+      });
       // alert("The start date is before today");
-    } 
-    else if (checkStartDate > checkEndDate) {
+    } else if (checkStartDate > checkEndDate) {
       Swal.fire({
-        title: "The end date is before to the start date",                
-        icon: 'warning',
-        confirmButtonColor: '#e38e15',
-        confirmButtonText: 'Exit',
-      })
-    } 
-    else {
-          const diffDays = moment(endDate).diff(moment(startDate), "days");
-    setTotalDays(diffDays);
+        title: "The end date is before to the start date",
+        icon: "warning",
+        confirmButtonColor: "#e38e15",
+        confirmButtonText: "Exit",
+      });
+    } else {
+      const diffDays = moment(endDate).diff(moment(startDate), "days");
+      setTotalDays(diffDays);
       // Aquí enviarías el formulario al servidor
       console.log(fechaActual);
       console.log(startDate);
       console.log("Formulario enviado");
-
-    
     }
- 
   };
 
   useEffect(() => {
@@ -72,22 +74,20 @@ export default function Details() {
     let arrayLeno = selection;
     let arrayAux = [];
 
-    if(!totalDays){
+    if (!totalDays) {
       Swal.fire({
-        title: 'Select a date for the reserve',                
-        icon: 'warning',
-        confirmButtonColor: '#e38e15',
-        confirmButtonText: 'Exit',
-      })
-    }
-
-    else if (arrayLeno.includes(obj)) {
+        title: "Select a date for the reserve",
+        icon: "warning",
+        confirmButtonColor: "#e38e15",
+        confirmButtonText: "Exit",
+      });
+    } else if (arrayLeno.includes(obj)) {
       Swal.fire({
-        title: 'The article was excluded!',                
-        icon: 'warning',
-        confirmButtonColor: '#e38e15',
-        confirmButtonText: 'Exit',
-      })
+        title: "The article was excluded!",
+        icon: "warning",
+        confirmButtonColor: "#e38e15",
+        confirmButtonText: "Exit",
+      });
 
       arrayAux = arrayLeno.filter((dato) => dato != obj);
       setselection([]);
@@ -100,14 +100,18 @@ export default function Details() {
     var data = "";
     selection.map((name) => {
       Accessories.map((accesor) => {
-        
         accesor.name === name
           ? (data +=
-              accesor.name + "|" +
-              accesor.price + "|" +
-              accesor._id + "|" +
-              "tru" + "|" +
-              accesor.discount + "|" +
+              accesor.name +
+              "|" +
+              accesor.price +
+              "|" +
+              accesor._id +
+              "|" +
+              "tru" +
+              "|" +
+              accesor.discount +
+              "|" +
               "¬")
           : null;
       });
@@ -118,7 +122,7 @@ export default function Details() {
       " - " +
       state.line +
       "|" +
-      (state.price * totalDays) +
+      state.price * totalDays +
       "|" +
       state._id +
       "|" +
@@ -136,27 +140,39 @@ export default function Details() {
       <NavBar />
       <div className="container1">
         <div className="container1a">
-        <div className="form-container" >
-        <form onSubmit={handleSubmit} className="form-date" >
-      <label htmlFor="start-date" className="form-label">Start date</label>
-      <input
-        type="date"
-        id="start-date"
-        name="start-date"
-        value={startDate}
-        onChange={handleStartDateChange}
-      />
-      <label htmlFor="end-date" className="form-label" >End date</label>
-      <input
-        type="date"
-        id="end-date"
-        name="end-date"
-        value={endDate}
-        onChange={handleEndDateChange}
-      />
-      {totalDays? <button type="submit" id="form-submit" >✅Checked</button>: <button type="submit" id="form-submit" >Check</button>}
-    </form>
-    </div>
+          <div className="form-container">
+            <form onSubmit={handleSubmit} className="form-date">
+              <label htmlFor="start-date" className="form-label">
+                Start date
+              </label>
+              <input
+                type="date"
+                id="start-date"
+                name="start-date"
+                value={startDate}
+                onChange={handleStartDateChange}
+              />
+              <label htmlFor="end-date" className="form-label">
+                End date
+              </label>
+              <input
+                type="date"
+                id="end-date"
+                name="end-date"
+                value={endDate}
+                onChange={handleEndDateChange}
+              />
+              {totalDays ? (
+                <button type="submit" id="form-submit">
+                  ✅Checked
+                </button>
+              ) : (
+                <button type="submit" id="form-submit">
+                  Check
+                </button>
+              )}
+            </form>
+          </div>
           <div className="row1">
             <img src={state.image} alt="car" height="300px" />
             <div className="row1colum2">
@@ -259,16 +275,25 @@ export default function Details() {
             <button> Go back </button>
           </Link>
           <div id="separa"></div>
-          {totalDays? <Link to={`/shopping`} className="link">
-            <button onClick={(e) => addClic(e)}> Booking </button>
-          </Link>:
-            <button onClick={() => Swal.fire({
-        title: 'Select dates!',                
-        icon: 'warning',
-        confirmButtonColor: '#e38e15',
-        confirmButtonText: 'Exit',
-      })}> Booking </button>
-          }
+          {totalDays ? (
+            <Link to={`/shopping`} className="link">
+              <button onClick={(e) => addClic(e)}> Booking </button>
+            </Link>
+          ) : (
+            <button
+              onClick={() =>
+                Swal.fire({
+                  title: "Select dates!",
+                  icon: "warning",
+                  confirmButtonColor: "#e38e15",
+                  confirmButtonText: "Exit",
+                })
+              }
+            >
+              {" "}
+              Booking{" "}
+            </button>
+          )}
         </div>
         <br />
       </div>

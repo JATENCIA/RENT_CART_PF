@@ -18,7 +18,7 @@ import {
   Button,
 } from "@mui/material";
 
-const API_URL = "http://localhost:3001/users/";
+const API_URL = "/users/";
 
 function Users() {
   const dispatch = useDispatch();
@@ -49,11 +49,6 @@ function Users() {
     caso === "Edit" ? openCloseModalEdit() : openCloseModalDelete();
   };
 
-  // const peticionDelete = async () => {
-  //   await axios.delete(API_URL + userSeleccionado._id).then((response) => {
-  //     setData(data.filter((u) => u._id !== userSeleccionado._id));
-  //   });
-  // };
   const PutUsers = async () => {
     await axios
       .put(API_URL + userSeleccionado._id, userSeleccionado)
@@ -67,6 +62,13 @@ function Users() {
         });
         setData(dataNew);
         openCloseModalDelete();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "The user has been deactivated successfully",
+          showConfirmButton: false,
+          timer: 3000,
+        });
       });
   };
 
@@ -83,6 +85,13 @@ function Users() {
         });
         setData(dataNew);
         openCloseModalEdit();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "The user has been successfully modified",
+          showConfirmButton: false,
+          timer: 3000,
+        });
       });
   };
 
@@ -138,6 +147,11 @@ function Users() {
               value={"user"}
               control={<Radio size="small" />}
               label="User"
+            />
+            <FormControlLabel
+              value={"admin"}
+              control={<Radio size="small" />}
+              label="Admin"
             />
             <FormControlLabel
               value={"superAdmin"}

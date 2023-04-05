@@ -1,7 +1,11 @@
-import React, { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { NavLink, Outlet, Link } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import decode from "jwt-decode";
+import * as actionType from "../../redux/actions/actions";
+
 import {
   RiArrowDownSLine,
   RiLogoutCircleRLine,
@@ -12,34 +16,70 @@ import { Menu, MenuItem, MenuButton } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/index.css";
 import "@szhsin/react-menu/dist/transitions/slide.css";
 import { useSelector, useDispatch } from "react-redux";
-import { LoginButton } from "../Auth/LoginButton";
-import { LogoutButton } from "../Auth/LogoutButton";
+import { LoginButton } from "../Auth0/LoginButton";
+import { LogoutButton } from "../Auth0/LogoutButton";
 import {
   getAllBilling,
   getAllCarReview,
   getAllAccReview,
+  postUser,
+  getAllUser,
 } from "../../redux/actions/actions";
 import "./NavBar.css";
+import axios from "axios";
 
 function NavBar() {
   const { isAuthenticated, user, logout } = useAuth0();
+  const location = useLocation();
   const dispatch = useDispatch();
+  const [userE, setUserE] = useState({});
 
-  //-----------------------reviw
+  useEffect(() => {
+    if (user && isAuthenticated) {
+      axios.get("/users").then((element) => {
+        const userDb = element.data.find(
+          (element) => element.eMail === user.email
+        );
+        if (!userDb) {
+          const newUser = {
+            name: user.given_name || user.name,
+            lastName: user.family_name,
+            eMail: user.email,
+            image: user.picture,
+            roll: "user",
+          };
+          dispatch(postUser(newUser));
+        } else {
+          setUserE(userDb);
+          return false;
+        }
+      });
+    }
+  }, [user]);
+
   useEffect(() => {
     dispatch(getAllBilling());
-  }, [dispatch]);
-  let Exist=false;
-  const allBilling = useSelector((state) => state.allbilling);
-try {
-  allBilling.map((bill)=>{
-    bill.user.eMail===user.email? Exist = true:null
-  })
-  
-} catch (error) {
-}
+    dispatch(getAllCarReview());
+    dispatch(getAllAccReview());
+  }, [dispatch, location]);
 
-  //----------------------------
+  const allBilling = useSelector((state) => state.allbilling);
+  try {
+    allBilling.map((bill) => {
+      bill.user.eMail === user.email ? (Exist = true) : null;
+    });
+  } catch (error) {
+    // console.log(error);
+  }
+
+  let userState = [useSelector((state) => state.allUsers)];
+
+  if (userState.length !== 0 && isAuthenticated) {
+    var userStateC = userState[0]?.data?.filter((element) => {
+      return element.eMail === user.email;
+    });
+  }
+
   return (
     <>
       <ContainerStyled>
@@ -48,17 +88,17 @@ try {
           <ListStyled to="/home">HOME</ListStyled>
           <ListStyled to="/about">ABOUT US</ListStyled>
           <ListStyled to="/contact">CONTACT</ListStyled>
-          {isAuthenticated ? (
-            <ListStyled to="/shopping">RESERVED</ListStyled>
-          ) : (
-            ""
-          )}
-
-          {isAuthenticated ? (
-            <ListStyled to="/dashboard">DASHBOARD</ListStyled>
-          ) : null}
         </NavStyled>
-        {allBilling && Exist? (
+        {isAuthenticated ? (
+          <ListStyled to="/shopping">RESERVED</ListStyled>
+        ) : (
+          ""
+        )}
+
+        {/* {isAuthenticated ? (
+          <ListStyled to="/dashboard">DASHBOARD</ListStyled>
+        ) : null} */}
+        {allBilling ? (
           <ListStyled to="/createReview" id="btnReview">
             REVIEW PENDING
           </ListStyled>
@@ -105,12 +145,21 @@ try {
                 </MenuItem>
                 <hr className="my-4 border-gray-500" />
                 <MenuItem className="p-0 hover:bg-transparent">
-                  <Link
-                    to="/profile/my-dates"
-                    className="rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-4 py-2 px-6 flex-1"
-                  >
-                    <RiProfileLine /> My Profile
-                  </Link>
+                  {userE.roll === "superAdmin" || userE.roll === "admin" ? (
+                    <Link
+                      to="/dashboard"
+                      className="rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-4 py-2 px-6 flex-1"
+                    >
+                      <RiProfileLine /> Admin
+                    </Link>
+                  ) : (
+                    <Link
+                      to="/profile/my-dates"
+                      className="rounded-lg transition-colors text-gray-300 hover:bg-secondary-900 flex items-center gap-x-4 py-2 px-6 flex-1"
+                    >
+                      <RiProfileLine /> My Profile
+                    </Link>
+                  )}
                 </MenuItem>
                 <MenuItem className="p-0 hover:bg-transparent">
                   <Link
@@ -131,7 +180,6 @@ try {
                 </MenuItem>
               </Menu>
             </nav>
-            {/* <LogoutButton /> */}
           </>
         ) : (
           <LoginButton />

@@ -54,7 +54,7 @@ const eMail1 = async (eMail) => {
         </div>
         <P style="margin-bottom: 10px;"><i>Atentamente:</i><br> Grupo RentCar </P>
         <a style="background-color: rgb(5, 23, 124); border: 2px solid rgb(8, 8, 8); color: rgb(194, 191, 5); padding: 16px 32px; text-align: center; text-decoration: none; font-weight: bold; display: inline-block; font-size: 16px; margin: 4px 2px;
-        transition-duration: 0.4s; cursor: pointer;" href="https://rent-cart-pf.vercel.app/">RentCar</a>
+        transition-duration: 0.4s; cursor: pointer;" href="http://localhost:5173/">RentCar</a>
         <div style="background-color: rgb(2, 27, 80); color: #9eaf08; padding: 5px 0px 0px 0px; width: 100%; text-align: center;">
           <a href="+549 11 4586709" ><img src="cid:Wp1" style="width: 30px; height: 30px;"/></a>
           <p style="font-size: 20px; padding: 0px 20px 0px 20px;">Soporte</p>
