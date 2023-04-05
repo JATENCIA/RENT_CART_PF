@@ -9,7 +9,6 @@ function LayoutProfile() {
   //overflow-y-scroll
   return (
     <React.Fragment>
-      {/* <NavBar /> */}
       <div className="bg-secondary-900">
         <div className="bg-secondary-900 static min-h-screen grid  grid-cols-1 xl:grid-cols-6">
           <Sidebar />
@@ -20,7 +19,6 @@ function LayoutProfile() {
             </div>
           </div>
         </div>
-        {/* <Footer /> */}
       </div>
     </React.Fragment>
   );

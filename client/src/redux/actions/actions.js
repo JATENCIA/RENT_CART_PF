@@ -13,6 +13,8 @@ export const ACCESO = "ACCESO";
 export const POST_BILLING = "POST_BILLING";
 export const GET_ALL_USER = "GET_ALL_USER";
 export const GET_AP_FILTER = "GET_AP_FILTER";
+export const POST_FAVORITE = "POST_FAVORITE"
+export const UPDATE_USER = "UPDATE_USER"
 
 export const putCars = (payload) => async () => {
   const billCreated = await axios.put("/cars", payload);
@@ -105,10 +107,11 @@ export const getAllCars = () => async (dispatch) => {
 };
 export const getAllUser = () => async (dispatch) => {
   try {
-    const allUsers = await axios.get("/users");
+    const usuarios = await axios.get("/users");
+    console.log(usuarios, "todos")
     dispatch({
       type: "GET_ALL_USER",
-      payload: allUsers,
+      payload: usuarios,
     });
   } catch (e) {
     console.log(e);
@@ -186,4 +189,28 @@ export const getApFilter = (payload) => {
     type: "GET_AP_FILTER",
     payload: payload,
   };
+};
+
+export const postFavorite = (payload) => async (dispatch) => {
+  try {
+    const addFavorite = await axios.post("/users/favorite", payload);
+    return dispatch({
+      type: "POST_FAVORITE",
+      payload: addFavorite,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const updateUser = (id, payload) => async (dispatch) => {
+  try {
+    const userUpdate = await axios.put(`/users/${id}`, payload);
+    return dispatch({
+      type: "UPDATE_USER",
+      payload: userUpdate,
+    });
+  } catch (e) {
+    console.log(e);
+  }
 };

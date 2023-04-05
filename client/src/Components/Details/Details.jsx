@@ -142,20 +142,25 @@ export default function Details() {
         <div className="container1a">
           <div className="form-container">
             <form onSubmit={handleSubmit} className="form-date">
-              <label htmlFor="start-date" className="form-label">
+              <label
+                htmlFor="start-date"
+                className="form-label text-[#fb8500] "
+              >
                 Start date
               </label>
               <input
+                className="text-white "
                 type="date"
                 id="start-date"
                 name="start-date"
                 value={startDate}
                 onChange={handleStartDateChange}
               />
-              <label htmlFor="end-date" className="form-label">
+              <label htmlFor="end-date" className="form-label text-[#fb8500] ">
                 End date
               </label>
               <input
+                className="text-white"
                 type="date"
                 id="end-date"
                 name="end-date"
@@ -174,7 +179,12 @@ export default function Details() {
             </form>
           </div>
           <div className="row1">
-            <img src={state.image} alt="car" height="300px" />
+            <img
+              className="rounded-xl"
+              src={state.image}
+              alt="car"
+              height="300px"
+            />
             <div className="row1colum2">
               <div>
                 <h1 className="brand">
