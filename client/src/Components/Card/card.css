@@ -1,13 +1,16 @@
 .cardd {
   border: 1px solid #858585cc;
-  border-top: 0px solid #858585cc;
+  border-radius: 10px;
+  /* border-top: 0px solid #858585cc;
   border-left: 0px solid #858585cc;
-  border-right: 0px solid #858585cc;
+  border-right: 0px solid #858585cc; */
   width: 550px;
   height: 210px;
   display: grid;
   grid-template-columns: 2% 36% 45% 15% 2%;
   margin-top: 70px;
+  margin-right: 15px;
+  padding: 5px;
 }
 .text1 {
   font-weight: bold;
@@ -57,21 +60,22 @@
 .cardPart3 {
   display: grid;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  margin-bottom: -50px;
 }
 .heart {
-  color: #354f52cc;
-  font-size: 150%;
-  text-align: right;
+  color: #ff3252;
+  font-size: 150%;  
   cursor: pointer;
+  margin-bottom: 40px;
 }
 .heart-fill {
   color: #ff3252;
 }
-.heart:hover {
+/* .heart:hover {
   opacity: 0.8;
   color: #ff3252;
   transform: scale(0.93, 0.93) translateY(2px);
-}
+} */
 .Desc {
   color: #fb8500;
 }
