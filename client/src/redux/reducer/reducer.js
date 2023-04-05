@@ -41,6 +41,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         allUsers: action.payload,
+        users:action.payload
       };
     case GET_ALL_CARS:
       return {
