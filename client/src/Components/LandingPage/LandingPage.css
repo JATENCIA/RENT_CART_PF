@@ -288,3 +288,9 @@
   z-index: 50;
   padding: 0.5rem;
 }
+
+.socialBox{
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}

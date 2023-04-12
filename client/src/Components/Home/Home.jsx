@@ -80,7 +80,7 @@ allCars.map((objCar) => {
     setPag(pageNumber);
   };
   useEffect(() => {
-    paginado(1);
+    // paginado(1);
   }, [filt0]);
 
  
