@@ -35,6 +35,64 @@ export default function LandingPage() {
   const handleScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+  const stats = [
+    { id: 1, name: 'Cars rented every month', value: '+700' },
+    { id: 2, name: 'Cars in our portfolio', value: '+50' },
+    { id: 3, name: 'New users last year', value: '9745' },
+  ]
+
+  const people = [
+    {
+      name: 'Will Sierra',
+      role: 'Full stack Developer',
+      linkedinProfile: "https://www.linkedin.com/in/will-sierra-dev/",
+      githubProfile: "https://github.com/willsierra24",
+      twitterProfile: "https://twitter.com/will_jusivi",
+      imageUrl:
+        'https://media.licdn.com/dms/image/C4E03AQHxiyHxrV_sDg/profile-displayphoto-shrink_200_200/0/1662939427397?e=1686787200&v=beta&t=5zZifW6ZjDa8abdyuzla_CZyUn__DBRaCf-XPRvzYSs',
+    },
+    {
+      name: 'Ramiro Espinosa',
+      role: 'Full stack Developer',
+      linkedinProfile: "https://www.linkedin.com/in/ramiro-espinosa-gallo/",
+      githubProfile: "https://github.com/RamiroE1",
+      twitterProfile: "",
+      imageUrl: 'https://media.licdn.com/dms/image/D4D03AQEfHYtbH2sZuQ/profile-displayphoto-shrink_200_200/0/1679937377567?e=1686787200&v=beta&t=Wk-yOMfs60IjbNf_YT2ZbGOKgMR4n9rotAUGXauRD90'
+    },
+    {
+      name: 'Leydi Pretell',
+      role: 'Full stack Developer',
+      linkedinProfile: "https://www.linkedin.com/in/leydi-pretell/",
+      githubProfile: "https://github.com/SaurusSaurusSaurus",
+      twitterProfile: "",
+      imageUrl: 'https://avatars.githubusercontent.com/u/108139526?v=4'},
+    {
+      name: 'Jose Atencia',
+      role: 'Full stack Developer',
+      linkedinProfile: "https://www.linkedin.com/in/jos%C3%A9-antonio-atencia-jaramillo-a4757b239/",
+      githubProfile: "https://github.com/JATENCIA",
+      twitterProfile: "",
+      imageUrl: 'https://media.licdn.com/dms/image/D4E03AQFgYIGrQ45eIg/profile-displayphoto-shrink_200_200/0/1677272647027?e=1686787200&v=beta&t=FkLBTw8u2fZLijLqyA7u4ep8SB1tTO-w92KK0Yz0mTA'
+    },
+    {
+      name: 'Isidoro Francisco',
+      role: 'Full stack Developer',
+      linkedinProfile: "https://www.linkedin.com/in/isidoro-francisco/",
+      githubProfile: "https://github.com/FranciscoHIDev",
+      twitterProfile: "",
+      imageUrl: 'https://avatars.githubusercontent.com/u/105096858?v=4'
+    },
+    {
+      name: 'Julián Rodriguez',
+      role: 'Full stack Developer',
+      linkedinProfile: "https://www.linkedin.com/in/julian-rguez-dev/",
+      githubProfile: "https://github.com/Julian-Rguez",
+      twitterProfile: "",
+      imageUrl: 'https://avatars.githubusercontent.com/u/92904392?v=4'
+    },
+    // More people...
+  ]
+
   return (
     <div className="main">
       <NavBar />
@@ -52,6 +110,20 @@ export default function LandingPage() {
           </Link>
         </div>
       </div>
+      <div className="bg-white py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <dl className="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
+          {stats.map((stat) => (
+            <div key={stat.id} className="mx-auto flex max-w-xs flex-col gap-y-4">
+              <dt className="text-base leading-7 text-gray-600">{stat.name}</dt>
+              <dd className="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                {stat.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
       <div className="marketing">
         <div className="phrase">
           <h2>Why we are better than others</h2>
@@ -61,7 +133,7 @@ export default function LandingPage() {
           <Carousel>
             <Carousel.Item>
               <img
-                className="d-block w-100"
+                className="d-block w-50rem"
                 src="https://images.unsplash.com/photo-1535137236496-b279252d173b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8YXV0b3MlMjBpc2xhbmRpYXxlbnwwfDB8MHx8&auto=format&fit=crop&w=700&q=60"
                 alt="First slide"
               />
@@ -72,7 +144,7 @@ export default function LandingPage() {
             </Carousel.Item>
             <Carousel.Item>
               <img
-                className="d-block w-100"
+                className="d-block w-50rem"
                 src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YXV0b3N8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60"
                 alt="Second slide"
               />
@@ -84,7 +156,7 @@ export default function LandingPage() {
             </Carousel.Item>
             <Carousel.Item>
               <img
-                className="d-block w-100"
+                className="d-block w-50rem"
                 src="https://images.unsplash.com/photo-1526726538690-5cbf956ae2fd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=700&q=60"
                 alt="Third slide"
               />
@@ -97,7 +169,10 @@ export default function LandingPage() {
           </Carousel>
         </div>
       </div>
-      <div className="process">
+
+
+
+      {/* <div className="process">
         <div className="process-card">
           <div className="col-card">
             <img
@@ -128,8 +203,59 @@ export default function LandingPage() {
           <h2>How is our way of working?</h2>
           <p>Understand our simple process to rent a fabulous car </p>
         </div>
+      </div> */}
+
+<div className="bg-white py-24 sm:py-32">
+      <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3">
+        <div className="max-w-2xl">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Meet our team</h2>
+          <p className="mt-6 text-lg leading-8 text-gray-600">
+          Meet the group of developers who have brought this successful project to life.
+          </p>
+        </div>
+        <ul role="list" className="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2">
+          {people.map((person) => (
+            <li key={person.name}>
+              <div className="flex items-center gap-x-6">
+                <img className="h-16 w-16 rounded-full" src={person.imageUrl} alt="" />
+                <div>
+                  <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">{person.name}</h3>
+                  <p className="text-sm font-semibold leading-6 text-indigo-600">{person.role}</p>
+
+                  <div className="socialBox">
+                  <a href={person.githubProfile} target="_blank">
+                <li className="card-social__item">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                  </svg>
+                </li>
+              </a>
+              <a href={person.twitterProfile? person.twitterProfile: null} target="_blank">
+                <li className="card-social__item">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.875 7.5v.563c0 3.28-1.18 6.257-3.54 8.93C14.978 19.663 11.845 21 7.938 21c-2.5 0-4.812-.687-6.937-2.063.5.063.86.094 1.078.094 2.094 0 3.969-.656 5.625-1.968a4.563 4.563 0 0 1-2.625-.915 4.294 4.294 0 0 1-1.594-2.226c.375.062.657.094.844.094.313 0 .719-.063 1.219-.188-1.031-.219-1.899-.742-2.602-1.57a4.32 4.32 0 0 1-1.054-2.883c.687.328 1.375.516 2.062.516C2.61 9.016 1.938 7.75 1.938 6.094c0-.782.203-1.531.609-2.25 2.406 2.969 5.515 4.547 9.328 4.734-.063-.219-.094-.562-.094-1.031 0-1.281.438-2.36 1.313-3.234C13.969 3.437 15.047 3 16.328 3s2.375.484 3.281 1.453c.938-.156 1.907-.531 2.907-1.125-.313 1.094-.985 1.938-2.016 2.531.969-.093 1.844-.328 2.625-.703-.563.875-1.312 1.656-2.25 2.344z"></path>
+                  </svg>
+                </li>
+              </a>
+              <a href={person.linkedinProfile} target="_blank">
+                <li className="card-social__item">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19.547 3c.406 0 .75.133 1.031.398.281.266.422.602.422 1.008v15.047c0 .406-.14.766-.422 1.078a1.335 1.335 0 0 1-1.031.469h-15c-.406 0-.766-.156-1.078-.469C3.156 20.22 3 19.86 3 19.453V4.406c0-.406.148-.742.445-1.008C3.742 3.133 4.11 3 4.547 3h15zM8.578 18V9.984H6V18h2.578zM7.36 8.766c.407 0 .743-.133 1.008-.399a1.31 1.31 0 0 0 .399-.96c0-.407-.125-.743-.375-1.009C8.14 6.133 7.813 6 7.406 6c-.406 0-.742.133-1.008.398C6.133 6.664 6 7 6 7.406c0 .375.125.696.375.961.25.266.578.399.984.399zM18 18v-4.688c0-1.156-.273-2.03-.82-2.624-.547-.594-1.258-.891-2.133-.891-.938 0-1.719.437-2.344 1.312V9.984h-2.578V18h2.578v-4.547c0-.312.031-.531.094-.656.25-.625.687-.938 1.312-.938.875 0 1.313.578 1.313 1.735V18H18z"></path>
+                  </svg>
+                </li>
+              </a>
+                  </div>
+
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
-      <div className="team-profile">
+    </div>
+
+
+       {/* <div className="team-profile">
         <div className="team-text">
           <h2>Meet our team</h2>
           <p>Our workers are cool!</p>
@@ -358,7 +484,9 @@ export default function LandingPage() {
             </ul>
           </div>
         </div>
-      </div>
+      </div>  */}
+
+
       {showButton && (
         <div className="scrollToTop">
           <button onClick={handleScrollToTop}>

@@ -82,7 +82,7 @@ function Footer() {
   );
 }
 export const ContainerStyled = styled.div`
-  background-color: #56859a;
+  background-color: #212529;
   color: #023047;
   font-size: 20px;
   width: 100%;
@@ -97,7 +97,7 @@ export const FooterStyled = styled.div`
   flex-direction: row;
   color: white;
   justify-content: space-around;
-  background-color: #56859a;
+  background-color: #212529;
 `;
 export const TitleStyled = styled.div`
   display: flex;
